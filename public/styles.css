@@ -1,0 +1,396 @@
+:root {
+  --mainBtnColor: #EBAC78;
+  --borderColor: #ddb271;
+  --backgroundcolor: #ffffff;
+  --acssentColor: #9B5EF5;
+  --mainBtnColor: #ebac78;
+  --borderColor: #ddb271;
+  --backgroundcolor: #ffffff;
+  --purple: #9720f5;
+  --inputBackground: #f4f3ff;
+  --greyFont: #9390b2;
+  --purpleFont: #a24e98;
+  --lightgrey: #d9d9d9;
+  --darkgrey: #656062;
+  --blackBackground: #1e1e1e;
+  --redButton: #eb628e;
+  --redFont: #f5b4c9;
+  --extraTab: #E5D2F3;
+}
+
+
+
+/* loadingscreen */
+
+
+@keyframes changeColors {
+  0% {
+      filter: invert(20%) sepia(20%) saturate(3) hue-rotate(260deg);
+  }
+
+  25% {
+      filter: invert(30%) sepia(40%) saturate(2.5) hue-rotate(255deg);
+  }
+
+  50% {
+      filter: invert(60%) sepia(80%) saturate(2) hue-rotate(270deg);
+  }
+
+  75% {
+      filter: invert(20%) sepia(20%) saturate(2.5) hue-rotate(260deg);
+  }
+
+  100% {
+      filter: invert(20%) sepia(30%) saturate(3) hue-rotate(260deg);
+  }
+}
+
+#loadingPage{
+  background-color: white;
+  z-index: 10;
+}
+
+.animated-image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  margin-top: -10%;
+
+}
+
+.animated-image {
+  animation: changeColors 3s linear infinite;
+  max-width: 70%;
+}
+
+.dots::after {
+  content: ' .';
+  animation: dots 2s infinite;
+}
+
+@keyframes dots {
+  25% {
+      content: ' .';
+  }
+
+  50% {
+      content: ' . .';
+  }
+
+  75% {
+      content: ' . . .';
+  }
+
+  100% {
+      content: ' . .';
+  }
+}
+
+h1 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  text-align: center;
+}
+
+h2 {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 25px;
+  line-height: 24px;
+  text-align: center;
+}
+
+p {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+}
+
+/* other elements */
+
+.menuInfoContainer {
+  position: relative;
+  margin: 20% 15%;
+  font-size: large;
+  line-height: 1.5;
+}
+
+.menuTitleContent {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 20%;
+}
+
+.imgMenuContent {
+  margin-top: 23%;
+  max-width: 80%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 1);
+  text-align: center;
+  padding: 10px;
+}
+
+body {
+  margin: 0;
+  position: relative;
+  margin: 0;
+  position: relative;
+}
+
+.globalBtn {
+  border: none;
+  border-radius: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: absolute;
+  font-weight: bold;
+  font-size: large;
+  height: 2.5em;
+  margin-top: 3em;
+  border: none;
+  border-radius: 10px;
+}
+
+.globalBtn:hover {
+  cursor: pointer;
+}
+
+#sceneCanvas {
+  position: fixed;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -5;
+}
+
+#imgCanvas{
+  display: none;
+  z-index: -10;
+}
+
+#checkBtn:hover {
+  background-color: rgb(47, 185, 70);
+  color: white;
+  background-color: rgb(47, 185, 70);
+  color: white;
+}
+
+#choiceMenu {
+  background-color: white;
+  height: 30vh;
+  background-color: white;
+  height: 30vh;
+}
+
+#checkBtn {
+  background-color: white;
+  position: fixed;
+  color: rgb(47, 185, 70);
+  right: 2em;
+  bottom: 20em;
+  width: 2.5em;
+ 
+}
+
+#menuOptions {
+  overflow-x: scroll;
+  white-space: nowrap; 
+}
+
+#colors {
+  background-color: white;
+  margin-bottom: 0em;
+  overflow: auto;
+  max-height: 30vh;
+  min-height: 30vh;
+}
+
+#allColors {
+  border: none;
+  border-radius: 10px;
+  height: 50px;
+}
+
+.container {
+  display: flex;
+}
+
+.tab {
+  position: relative;
+  background-color: var(--lightgrey);
+  scroll-snap-align: center;
+
+}
+.tab.active {
+  background-color:var(--acssentColor);
+}
+
+
+#bootstrapTab {
+  background-color: rgb(255, 255, 255);
+}
+ .hidden-tab{
+  display: none;
+  background-color: var(--extraTab);
+} 
+.hidden-tab.active {
+  background-color: var(--greyFont);
+}
+.imgIconTab {
+  height: 30px;
+}
+
+#bootstrapTab {
+  background-color: rgb(255, 255, 255);
+}
+
+.imgIconTab {
+  height: 30px;
+}
+.imgIconTab {
+  height: 30px;
+}
+
+#undo,
+#redo {
+  width: 15%;
+  background-color: var(--lightgrey);
+}
+
+#undo:hover, #redo:hover {
+  background-color: var(--purple); /* Set the background color to dark purple */
+}
+
+#inputEmail,
+#inputUsername,
+#inputPassword {
+  background-color: var(--inputBackground);
+  color: var(--purple);
+  height: 50px;
+  border-radius: 15px;
+}
+
+.form-control::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--purple);
+  opacity: 1;
+  /* Firefox */
+}
+
+.form-control:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: var(--purple);
+}
+
+.form-control::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: var(--purple);
+}
+
+.btn-primary {
+  background-color: var(--purple);
+  border-radius: 15px;
+}
+
+.inputFont {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+
+  color: var(--purple);
+}
+
+.p {
+  font-family: "Inter";
+  font-size: small;
+  color: var(--greyFont);
+}
+
+.p1 {
+  font-family: "Inter";
+  font-size: small;
+  color: var(--purpleFont);
+}
+
+.form-check-input {
+  height: 40px;
+  min-width: 90px;
+}
+
+#flexSwitchCheckDefault {
+  color: white;
+}
+
+/* DARK-MODE */
+.dark-mode html {
+  background-color: var(--blackBackground);
+}
+
+.dark-mode {
+  background-color: var(--blackBackground);
+
+}
+
+.dark-mode .btn-primary {
+  background-color: var(--redButton);
+  color: var(--blackBackground);
+}
+
+.dark-mode .inputFont {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 24px;
+  text-align: center;
+
+  color: var(--redFont);
+}
+
+.dark-mode #inputEmail,
+.dark-mode #inputUsername,
+.dark-mode #inputPassword {
+  background-color: var(--darkgrey);
+  color: var(--redFont);
+  height: 50px;
+  border-radius: 15px;
+}
+
+.dark-mode .form-control::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: var(--redFont);
+  opacity: 1;
+  /* Firefox */
+}
+
+.dark-mode .form-control:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: var(--redFont);
+}
+
+.dark-mode .form-control::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: var(--redFont);
+}
+
+.dark-mode .p1 {
+  color: var(--redFont);
+  ;
+}

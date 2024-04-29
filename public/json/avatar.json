@@ -1,0 +1,25 @@
+{
+    "skinColor": "aValue",
+    "hair": {
+        "hairColor": "aValue",
+        "hairType": "aValue",
+        "eyeColor": "aValue"
+    },
+    "body": {
+        "upper": {
+            "clothing": "aValue",
+            "color": "aValue"
+        },
+        "lower": {
+            "clothing": "aValue",
+            "color": "aValue",
+            "shoes": "aValue"
+        }
+    },
+    "acsessories": {
+        "hat": "avalue",
+        "piercing": "aValue",
+        "glasses": "aValue",
+        "jewelry": "aValue"
+    }
+}

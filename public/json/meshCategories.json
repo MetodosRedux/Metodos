@@ -1,0 +1,98 @@
+{
+  "shirt": {
+    "option1": "shirt_base",
+    "option2": "shirt_hoodie",
+    "option3": "shirt_longsleeve_loose",
+    "option4": "shirt_tight_cropped",
+    "option5": "shirt_loose_tshirt_cropped",
+    "option6": "shirt_loose_tshirt",
+    "option7": "shirt_dress_long_straight",
+    "option8": "shirt_dress_long_straight_tshirt",
+    "option9": "shirt_dress_mid_straight001",
+    "option10": "shirt_tshirt",
+    "option11": "shirt_longsleeve",
+    "option12": "shirt_sphagetti",
+    "option13": "shirt_sphagetti_stripes",
+    "option14": "shirt_longsleeve_turtleneck",
+    "option16": "shirt_tshirt_turtleneck",
+    "option17": "shirt_tshirt_loose",
+    "option18": "shirt_tshirt_fancy",
+    "option19": "shirt_dress_short_tshirt"
+  },
+  "hair": {
+    "option2": "hair_long_blowout",
+    "option3": "hair_long_curly",
+    "option4": "hair_long_plain",
+    "option5": "hair_long_ponytail",
+    "option6": "hair_long_wavy",
+    "option7": "hair_midlength",
+    "option8": "hair_midlength_blowout",
+    "option9": "hair_midlength_pigtails",
+    "option10": "hair_short_base",
+    "option11": "hair_short_broccoli",
+    "option12": "hair_short_curly",
+    "option13": "hair_short_mullet",
+    "option14": "hair_short_wavy",
+    "option15": "hair_long_stylised_blowout",
+    "option16": "hair_short_swoop_base",
+    "option17": "hair_short_swoop",
+    "option18": "hair_short_mullet_base",
+    "option19": "hair_long_stylised_wavy",
+    "option20": "hair_mid_stylised",
+    "option21": "hair_long_cap",
+    "option22": "hair_short_cap",
+    "option23": "empty"
+  },
+  "eyebrow": {
+    "option1": "eyebrow",
+    "option2": "eyebrows_downwards",
+    "option3": "eyebrow_worried",
+    "option4": "eyebrow_normal",
+    "option5": "eyebrow_hair",
+    "option6": "eyebrow_hairier"
+  },
+  "pants": {
+    "option1": "pants_jogging",
+    "option2": "pants_loose_long",
+    "option3": "pants_loose_shorts",
+    "option4": "pants_leggings",
+    "option5": "pants_leggings_loose",
+    "option6": "pants_skirt"
+  },
+  "necklace": {
+    "option1": "necklace_thick",
+    "option2": "necklace_thin",
+    "option3": "necklace_thin_short",
+    "option4": "necklace_thin_pendant",
+    "option5": "empty"
+  },
+  "accessories": {
+    "option1": "accessories_halo",
+    "option2": "accessories_gloves",
+    "option3": "empty"
+  },
+  "earring": {
+    "option1": "earring_gem",
+    "option2": "earring_plain",
+    "option3": "earring_pearl",
+    "option4": "earring_stud_pearl",
+    "option5": "earring_fat",
+    "option6": "empty"
+  },
+  "shoes": {
+    "option1": "shoes_sneakers"
+  },
+  "glasses": {
+    "option1": "glasses_square_sun",
+    "option2": "glasses_round_sun",
+    "option3": "glasses_oval_sun",
+    "option4": "empty"
+  },
+  "beard": {
+    "option1": "beard_long",
+    "option2": "beard_mid",
+    "option3": "beard_short",
+    "option4": "beard_stache",
+    "option5": "empty"
+  }
+}
