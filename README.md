@@ -11,4 +11,4 @@ change  dist/mjs/BufferGeometryUtils,
         dist/mjs/GLTFLoader,
         dist/mjs/OrbitControls 
         'three' imports to './three.module.js'
-        and change in GLTFLoader import toTrianglesDrawMode  to './BufferGeometryUtils.js';
+        and change second import in GLTFLoader to be: import toTrianglesDrawMode from './BufferGeometryUtils.js';

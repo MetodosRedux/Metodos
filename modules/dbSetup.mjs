@@ -13,48 +13,18 @@ export async function setupDatabase() {
     
     await client.connect();
 
-    // Users table
+    // User table
     await client.query(`
-      CREATE TABLE IF NOT EXISTS "Users" (
+      CREATE TABLE IF NOT EXISTS "user" (
         id SERIAL PRIMARY KEY,
-        name TEXT NOT NULL,
-        "pswHash" TEXT NOT NULL,
+        username TEXT NOT NULL,
+        password TEXT NOT NULL,
         email TEXT NOT NULL,
-        avatar_id INTEGER REFERENCES "Avatar"(id),
-        lightmode INTEGER DEFAULT 1,
-        role TEXT DEFAULT 'user',
-        "lastLogin" TIMESTAMP WITHOUT TIME ZONE DEFAULT NOW()
+        avatar TEXT NOT NULL,
+        profilepicture TEXT NOT NULL
       );
     `);
 
-    // Hair table
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS "Hair" (
-        id SERIAL PRIMARY KEY,
-        type INTEGER NOT NULL,
-        color TEXT NOT NULL
-      );
-    `);
-
-    // Eyes table
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS "Eyes" (
-        id SERIAL PRIMARY KEY,
-        type INTEGER NOT NULL,
-        color TEXT NOT NULL
-      );
-    `);
-
-    // Avatar table
-    await client.query(`
-      CREATE TABLE IF NOT EXISTS "Avatar" (
-        id SERIAL PRIMARY KEY,
-        "hairColor" VARCHAR NOT NULL,
-        "skinColor" VARCHAR NOT NULL,
-        "eyeColor" VARCHAR NOT NULL,
-        "eyebrowType" INTEGER NOT NULL
-      );
-    `);
 
     console.log('Database setup completed successfully.');
   } catch (error) {
