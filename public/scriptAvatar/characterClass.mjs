@@ -104,6 +104,10 @@ export class TCharacter extends THREE.Object3D {
                 return bodyParts;
             }
 
+            this.returnLastColor = function (aMeshCategory) {
+                return bodyParts[aMeshCategory].color;
+            }
+
             this.changeMesh = function (category, name) {
                 const childWithName = gltfModel.scene.children.find(child => child.name === bodyParts[category].name);
                 if (childWithName) {

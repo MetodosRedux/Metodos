@@ -7,14 +7,7 @@
         "option5": {"hex": "#EDBF95", "special": false},
         "option6": {"hex": "#F1C1A3", "special": false},
         "option7": {"hex": "#F7DCC9", "special": false},
-        "option8": {"hex": "#FCD4C5", "special": false},
-        "option9": {"hex": "#FDE8D7", "special": false},
-        "option10": {"hex": "#8A4621", "special": false},
-        "option11": {"hex": "#AC6537", "special": false},
-        "option12": {"hex": "#DEA474", "special": false},
-        "option13": {"hex": "#EDBF95", "special": false},
-        "option14": {"hex": "#F1C1A3", "special": false},
-        "option15": {"hex": "#F7DCC9", "special": false},
-        "option16": {"hex": "#FCD4C5", "special": false}
+        "option8": {"hex": "#FCD4C5", "special": false}
+        
     }
 }

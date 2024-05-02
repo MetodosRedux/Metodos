@@ -3,11 +3,16 @@ import { character } from "./scene.mjs";
 const tabMenuOption = document.getElementById("colorSelector");
 
 export async function showColors(aMenuObject, aColorType) {
-    try {
+    while (tabMenuOption.firstChild) {
+        tabMenuOption.removeChild(tabMenuOption.firstChild);
+    }
 
+    try {
         const response = await fetch(`./json/${aColorType}.json`);
         const data = await response.json();
         const options = data.options || {};
+        
+        let lastColor = character.returnLastColor(aMenuObject);
 
         for (const option in options) {
             const color = options[option].hex;
@@ -19,15 +24,36 @@ export async function showColors(aMenuObject, aColorType) {
             colorSelector.style.width = '20%';
 
             tabMenuOption.appendChild(colorSelector);
+            
             colorSelector.addEventListener("click", () => {
                 const prevSelected = document.querySelector('.color-selector.border');
                 if (prevSelected) {
                     prevSelected.classList.remove('border', 'border-5');
                 }
-                colorSelector.classList.add('border', 'border-5');
+                                colorSelector.classList.add('border', 'border-5');
                 character.setColor(aMenuObject, color);
+                lastColor = character.returnLastColor(aMenuObject);
+                colorPicker.value = lastColor;
             });
         }
+
+        const colorPicker = document.createElement('input');
+        colorPicker.type = 'color';
+        colorPicker.id = 'colorPicker';
+        colorPicker.name = 'colorPicker';
+        colorPicker.value = lastColor; 
+
+        const colorPickerWrapper = document.createElement('div');
+        colorPickerWrapper.className = 'color-picker-wrapper';
+
+        colorPickerWrapper.appendChild(colorPicker);
+        
+        tabMenuOption.appendChild(colorPickerWrapper);
+
+        colorPicker.addEventListener('input', function (event) {
+            const hexColor = event.target.value;
+            character.setColor(aMenuObject, hexColor);
+        });
 
     } catch (error) {
         console.error('Error initializing color selectors:', error);
