@@ -20,8 +20,8 @@ export async function setupDatabase() {
         username TEXT NOT NULL,
         password TEXT NOT NULL,
         email TEXT NOT NULL,
-        avatar TEXT NOT NULL,
-        profilepicture TEXT NOT NULL
+        avatar TEXT,
+        profilepicture TEXT 
       );
     `);
 

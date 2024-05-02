@@ -209,6 +209,7 @@ body {
 #menuOptions {
   overflow-x: scroll;
   white-space: nowrap; 
+ /*  scroll-snap-type: x mandatory; */
 }
 
 #colors {
