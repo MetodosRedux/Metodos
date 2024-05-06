@@ -22,6 +22,7 @@
   --darkTabColor: #65595c;
   --darkTabBorderColor: #302b2d;
   --darkNavButtonBackground: #514f4f;
+  --activeExtraTab:#b4a5bf;
 }
 
 
@@ -281,7 +282,7 @@ body {
 }
 
 .hidden-tab.active {
-  background-color: var(--greyFont);
+  background-color: var(--activeExtraTab);
 }
 
 .imgIconTab {
