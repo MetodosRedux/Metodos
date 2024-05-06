@@ -16,6 +16,7 @@
   --redButton: #eb628e;
   --redFont: #f5b4c9;
   --extraTab: #E5D2F3;
+  --activeExtraTab:#b4a5bf;
 }
 
 
@@ -270,7 +271,7 @@ body {
   background-color: var(--extraTab);
 } 
 .hidden-tab.active {
-  background-color: var(--greyFont);
+  background-color: var(--activeExtraTab);
 }
 .imgIconTab {
   height: 30px;
