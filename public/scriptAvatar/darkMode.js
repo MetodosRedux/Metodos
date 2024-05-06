@@ -5,15 +5,15 @@ function toggleDarkMode() {
     if (darkModeToggle.checked) {
         document.body.classList.add("dark-mode");
         localStorage.setItem("darkMode", "enabled");
-        switchImageMode("_dark");
+        //switchImageMode("_dark");
     } else {
         document.body.classList.remove("dark-mode");
         localStorage.setItem("darkMode", null);
-        switchImageMode("_light");
+        //switchImageMode("_light");
     }
 }
 
-function switchImageMode(mode) {
+/* function switchImageMode(mode) {
     let images = document.querySelectorAll("img");
 
     images.forEach(image => {
@@ -27,7 +27,7 @@ function switchImageMode(mode) {
 
         image.src = src.replace(filename, imageName + mode + extension);
     });
-}
+} */
 
 
 function applyDarkMode() {
@@ -36,11 +36,11 @@ function applyDarkMode() {
     if (darkMode === "enabled") {
         document.body.classList.add("dark-mode");
         darkModeToggle.checked = true;
-        switchImageMode("_dark");
+        //switchImageMode("_dark");
     } else {
         document.body.classList.remove("dark-mode");
         darkModeToggle.checked = false;
-        switchImageMode("_light");
+        //switchImageMode("_light");
     }
 }
 

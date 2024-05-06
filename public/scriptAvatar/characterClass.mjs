@@ -1,6 +1,6 @@
 "use strict"
 import { GLTFLoader } from "../dist/mjs/GLTFLoader.js";
-import * as THREE from '../dist/mjs/three.module.js'; 
+import * as THREE from '../dist/mjs/three.module.js';
 import { scenePositions } from "./scene.mjs";
 
 
@@ -19,15 +19,15 @@ export class TCharacter extends THREE.Object3D {
             pants: { name: 'pants_jogging', color: "#B09881" },
             shoes: { name: 'shoes_sneakers', color: "#B07947" },
             glasses: { name: null },
-            earring: { name: null, color: "#FFD700" },
-            necklace: { name: null, color: "#FFD700" },
-            accessories: { name: null, color: "#FFD700" },
+            earring: { name: null, color: "#CDAA35" },
+            necklace: { name: null, color: "#CDAA35" },
+            accessories: { name: null, color: "#CDAA35" },
             beard: { name: null, color: "#6B4F39" }
         }
-        
+
         const allMoves = [];
         let currentIndex = -1; //starts at this so it matches the index in the array
-        
+
         function saveSteps() {
             currentIndex++;
             allMoves.push(JSON.parse(JSON.stringify(bodyParts)));
@@ -41,8 +41,8 @@ export class TCharacter extends THREE.Object3D {
             gltfModel.scene.position.set(scenePositions.x, scenePositions.y, scenePositions.z);
             this.add(gltfModel.scene);
 
-            function locateMeshToPhong(aBodyPart) {
-                let mesh = gltfModel.scene.children.find(child => child.name === aBodyPart);
+            function locateMeshToPhong(aMeshName) {
+                let mesh = gltfModel.scene.children.find(child => child.name === aMeshName);
                 const childMesh = mesh.children[0];
 
                 if (childMesh) {
@@ -54,6 +54,10 @@ export class TCharacter extends THREE.Object3D {
                 phongMaterial.normalMap = mesh.material.normalMap;
                 phongMaterial.normalScale.copy(mesh.material.normalScale);
                 phongMaterial.receiveShadow = true;
+                if (mesh.name.startsWith('accessories')) {
+                    phongMaterial.specular.set(0xffffff);
+                    phongMaterial.shininess = 40;
+                }
                 mesh.material = phongMaterial;
                 return mesh;
             }
@@ -100,7 +104,7 @@ export class TCharacter extends THREE.Object3D {
                 }
             };
 
-            this.save = function (){
+            this.save = function () {
                 return bodyParts;
             }
 
