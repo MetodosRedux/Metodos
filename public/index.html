@@ -167,8 +167,9 @@
 
 
     <script type="module">
- 
-
+     import * as main from "./scriptAvatar/main.mjs"
+     import { character } from "./scriptAvatar/scene.mjs";
+        main.loadScene();
         const tabs = document.getElementById("tabsMenu");
         const loadingPage = document.getElementById('loadingPage');
 
@@ -206,10 +207,55 @@
         //display avatar
       }
 
+      const token = localStorage.getItem("token");
+
+
+/* ------------- SAVE AVATAR ------------- */
+console.log(checkBtn);
+if (checkBtn) {
+  checkBtn.addEventListener("click", async function (event) {
+    const avatarData = character.save();
+
+    const formData = new FormData();
+
+    const imgData = main.scene.saveImg("imgCanvas");
+
+    formData.append("imageDataUrl", imgData);
+    formData.append("avatarData", JSON.stringify(avatarData));
+    console.log(formData)
+
+    try {
+      let response = await fetch("/user/saveAvatar", {
+        method: "PUT",
+         headers: {
+          //Authorization: token,
+          "Content-type": "multipart/form-data "
+          
+        }, 
+        body: formData,
+      });
+
+      if (response.status == 200) {
+        let data = await response.json();
+        console.log(data);
+        alert("Saved your Avatar!");
+      } else if (response.status === 401) {
+        alert("Login expired, please log in again");
+        location.href = "login.html";
+      } else {
+        throw new Error("Server error: " + response.status);
+      }
+    } catch (error) {
+      console.error("The error is: " + error);
+    }
+  });
+}
+
+
     </script>
 
     </script>
-    <script type="module" src="./scriptAvatar/requests.mjs"> </script>
+
     <script src="./dist/mjs/bootstrap.bundle.min.js">
     </script>
 

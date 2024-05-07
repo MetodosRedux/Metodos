@@ -246,7 +246,7 @@ class DBManager {
       await client.connect();
 
       const avatarOutput = await client.query(
-        'UPDATE "public"."user" SET "avatar" = $1 WHERE id = $2 RETURNING "avatar"',
+        'UPDATE "public"."user" SET "avatar" = $1 WHERE id = $2 RETURNING *',
         [userAvatar,userId]
       );
 

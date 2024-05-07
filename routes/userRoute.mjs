@@ -5,6 +5,8 @@ import jwt from "jsonwebtoken";
 import { verifyToken, isAdmin } from "../modules/authentication.mjs";
 import DBManager from "../modules/storageManager.mjs";
 import Avatar from "../modules/avatar.mjs";
+import multer from "multer";
+
 
 const USER_API = express.Router();
 
@@ -155,9 +157,9 @@ USER_API.put("/admin/updateUserRole/:userId", verifyToken, isAdmin, async (req, 
   next();
 });
 /*   -----------SAVE AVATAR--------------- */
-USER_API.put("/saveAvatar",  verifyToken,  async (req, res, next) => {
+USER_API.put("/saveAvatar",  /* verifyToken, */  async (req, res, next) => {
   try {
-    const  userAvatar = req.body;
+    const  formData = req.body;
     const userId = req.user.userId;
     //  const avatar= req.user.avatar
    
@@ -171,7 +173,7 @@ USER_API.put("/saveAvatar",  verifyToken,  async (req, res, next) => {
     
   
 
-      await avatar.save(userAvatar,userId);
+      await avatar.save(formData,userId);
     res.status(HTTPCodes.SuccessfulResponse.Ok).json(avatarData);
   } catch (error) {
     console.error("Error saving Avatar:", error.message);

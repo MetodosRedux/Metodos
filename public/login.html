@@ -5,7 +5,7 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
     <link rel="stylesheet" href="styles.css">
-    <script type="module" src="./scriptAvatar/requests.mjs"> </script>
+
 </head>
 
 <body>
@@ -48,7 +48,70 @@
     <style>
 
     </style>
+<script>
+    const token = localStorage.getItem("token");
 
+/* ------------- LOGIN ------------- */
+
+if (loginForm) {
+  loginForm.addEventListener("submit", async function (event) {
+    event.preventDefault();
+    const email = document.getElementById("inputEmail").value;
+    const pswHash = document.getElementById("inputPassword").value;
+    /* let formData = new FormData(loginForm);
+            let email = formData.get("inputEmail");
+            let pswHash = formData.get("inputPassword"); */
+    console.log(email, pswHash);
+
+    let url = "/user/login";
+
+    try {
+      let response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, pswHash }),
+      });
+
+      if (response.status != 200) {
+        throw new Error("Server error: " + response.status);
+      }
+
+      let data = await response.json();
+      localStorage.setItem("token", data.token);
+
+      try {
+        let avatarResponse = await fetch("/user/getAvatar", {
+          headers: {
+            Authorization: data.token,
+          },
+        });
+
+        if (avatarResponse.status == 200) {
+          let avatarData = await avatarResponse.json();
+          localStorage.setItem("avatarData", avatarData);
+        }
+
+        alert("You are now logged in");
+        location.href = "index.html";
+        
+      } catch (error) {
+        if (
+          error instanceof TypeError &&
+          error.message.includes("avatarData.avatarInfo is undefined")
+        ) {
+          location.href = "index.html";
+        } else {
+          // handleFetchError()
+        }
+      }
+    } catch (error) {
+      //handleFetchError(error)
+      alert("Wrong password or e-mail");
+      console.error("The error is: " + error);
+    }
+  });
+}
+</script>
   
     <!-- <script src="AvatarStudio/scriptAvatar/darkMode.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
