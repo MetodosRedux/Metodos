@@ -13,8 +13,23 @@ checkBtn.addEventListener("click", () => {
   character.save();
   scene.saveImg("imgCanvas");
 }); */
+export const imageDataUrl = scene.saveImg("imgCanvas")
+
+const menuOptions = document.querySelectorAll("[menuOption]");
 
 
+document.addEventListener("DOMContentLoaded", function () {
+  if (menuOptions.length > 0) {
+    setupOptionsMenu(menuOptions[0]);
+  }
+  menuOptions.forEach((option) => {
+    option.addEventListener("click", function (event) {
+      event.stopPropagation(); // Stop the click event from bubbling up
+      setupOptionsMenu(this);
+    });
+  });
+
+});
 
 
 function setupOptionsMenu(menuOption) {

@@ -6,12 +6,9 @@ class User {
   constructor() {
     this.email;
     this.pswHash;
-    this.name;
+    this.username;
+    this.avatar;
     this.id;
-    this.avatar_id;
-    this.lightmode;
-    this.role;
-    this.lastLogin;
   }
 
   async save() {

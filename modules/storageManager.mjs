@@ -18,8 +18,8 @@ class DBManager {
       user.pswHash = generateHash(user.pswHash);
       await client.connect();
       const output = await client.query(
-        'INSERT INTO "public"."Users"("name", "email", "pswHash") VALUES($1::Text, $2::Text, $3::Text) RETURNING id;',
-        [user.name, user.email, user.pswHash]
+        'INSERT INTO "public"."user"("username", "email", "pswHash") VALUES($1::Text, $2::Text, $3::Text) RETURNING id;',
+        [user.username, user.email, user.pswHash]
       );
 
       if (output.rows.length == 1) {
@@ -115,7 +115,7 @@ class DBManager {
       await client.connect();
 
       const output = await client.query(
-        'SELECT * FROM "public"."Users" WHERE email = $1',
+        'SELECT * FROM "public"."user" WHERE email = $1',
         [email]
       );
 
@@ -135,19 +135,19 @@ class DBManager {
       await client.connect();
       pswHash = generateHash(pswHash);
       const output = await client.query(
-        'SELECT * FROM "public"."Users" WHERE email = $1 AND "pswHash" = $2',
+        'SELECT * FROM "public"."user" WHERE email = $1 AND "pswHash" = $2',
         [email, pswHash]
       );
 
-      if (output.rows.length > 0) {
-        const user = output.rows[0];
+     /* if (output.rows.length > 0) {
+          const user = output.rows[0];
 
-        const now = new Date();
+       const now = new Date();
         await client.query(
-          'UPDATE "public"."Users" SET "lastLogin" = $1 WHERE id = $2',
+          'UPDATE "public"."user" SET "lastLogin" = $1 WHERE id = $2',
           [now, user.id]
-        );
-      }
+        ); 
+      }*/
       return output.rows[0];
     } catch (error) {
       console.error("Error fetching user by email and password:", error);
@@ -164,7 +164,7 @@ class DBManager {
       await client.connect();
 
       const output = await client.query(
-        'SELECT * FROM "public"."Users" WHERE id = $1',
+        'SELECT * FROM "public"."user" WHERE id = $1',
         [userId]
       );
 
@@ -219,15 +219,15 @@ class DBManager {
     }
   }
 
-  async getAvatar(avatar_id) {
+  async getAvatar(avatar) {
     const client = new pg.Client(this.#credentials);
 
     try {
       await client.connect();
 
       const output = await client.query(
-        'SELECT * FROM "public"."Avatar" WHERE id = $1',
-        [avatar_id]
+        'SELECT * FROM "public"."user" WHERE id = $1',
+        [avatar]
       );
 
       return output.rows[0];
@@ -239,25 +239,25 @@ class DBManager {
     }
   }
 
-  async saveAvatar(eyeColor, skinColor, hairColor, eyebrowType, userId) {
+  async saveAvatar(userAvatar,userId) {
     const client = new pg.Client(this.#credentials);
 
     try {
       await client.connect();
 
       const avatarOutput = await client.query(
-        'INSERT INTO "public"."Avatar"( "eyeColor", "skinColor", "hairColor", "eyebrowType") VALUES($1, $2, $3, $4) RETURNING id',
-        [eyeColor, skinColor, hairColor, eyebrowType]
+        'UPDATE "public"."user" SET "avatar" = $1 WHERE id = $2 RETURNING "avatar"',
+        [userAvatar,userId]
       );
 
-      const avatarId = avatarOutput.rows[0].id;
+      const avatarData = avatarOutput.rows[0];
 
-      const userOutput = await client.query(
+      /* const userOutput = await client.query(
         'UPDATE "public"."Users" SET "avatar_id" = $1 WHERE id = $2 RETURNING *',
         [avatarId, userId]
-      );
-      const userUpdate = userOutput.rows[0];
-      return { avatarId, userUpdate };
+      ); 
+      const userUpdate = userOutput.rows[0];*/
+      return { avatarData};
     } catch (error) {
       console.error("Error saving Avatar:", error);
       throw error;

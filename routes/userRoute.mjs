@@ -14,7 +14,7 @@ USER_API.post("/", async (req, res, next) => {
   try {
     const { username, email, pswHash } = req.body;
 
-    if (!name || !email || !pswHash) {
+    if (!username || !email || !pswHash) {
       throw new Error("Missing input");
     }
 
@@ -157,24 +157,22 @@ USER_API.put("/admin/updateUserRole/:userId", verifyToken, isAdmin, async (req, 
 /*   -----------SAVE AVATAR--------------- */
 USER_API.put("/saveAvatar",  verifyToken,  async (req, res, next) => {
   try {
-    const { eyeColor, 
-      skinColor,
-      hairColor,
-      eyebrowType} = req.body;
-      const avatar_id= req.user.avatar_id
+    const  userAvatar = req.body;
+    const userId = req.user.userId;
+    //  const avatar= req.user.avatar
+   
 
-
-      let avatar = new Avatar();
+      /* let avatar = new Avatar();
       avatar.eyeColor = eyeColor;
      avatar.skinColor = skinColor;
       avatar.hairColor = hairColor;
       avatar.eyebrowType = eyebrowType;
-      avatar.id = avatar_id
+      avatar.id = avatar_id */
     
   
 
-      await avatar.save();
-    res.status(HTTPCodes.SuccessfulResponse.Ok).json(avatar);
+      await avatar.save(userAvatar,userId);
+    res.status(HTTPCodes.SuccessfulResponse.Ok).json(avatarData);
   } catch (error) {
     console.error("Error saving Avatar:", error.message);
     res
@@ -186,8 +184,8 @@ USER_API.put("/saveAvatar",  verifyToken,  async (req, res, next) => {
 USER_API.get("/getAvatar",  verifyToken,  async (req, res, next) => {
   try {
    
-    const avatar_id = req.user.avatar_id
-    const avatarInfo = await DBManager.getAvatar(avatar_id);
+    const avatar = req.user.avatar
+    const avatarInfo = await DBManager.getAvatar(avatar);
     res.json({ avatarInfo });
   } catch (error) {
     console.error("Error getting avatar from user:", error.message);

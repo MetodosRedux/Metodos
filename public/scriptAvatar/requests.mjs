@@ -1,12 +1,15 @@
+/*   import { imageDataUrl } from "./main.mjs";
+import { character } from "./scene.mjs";  */
+
 const token = localStorage.getItem("token")
 
 
 /* ------------- REGISTER ------------- */
-document
-    .getElementById("createUserForm")
-    .addEventListener("submit", async function (event) {
-      event.preventDefault();
 
+const createUserForm = document.getElementById("createUserForm")
+if(createUserForm){
+createUserForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
 
       const username = document.getElementById("inputUsername").value;
       const email = document.getElementById("inputEmail").value;
@@ -27,10 +30,10 @@ document
 
           if (response.status == 200) {
 
-            let data = await response.json;
+          
             localStorage.removeItem("token")
-           // window.location.href = "login.html"
-            console.log(data)
+            window.location.href = "login.html"
+          
 
           } else {
             throw new Error("Server error: " + response.status);
@@ -40,19 +43,20 @@ document
           console.error("The error is: " + error);
         }
       });
-
+    }
 /* ------------- LOGIN ------------- */
 
 
 const loginForm = document.getElementById("loginForm");
-
+if(loginForm){
         loginForm.addEventListener("submit", async function (event) {
             event.preventDefault();
-
-            let formData = new FormData(loginForm);
+            const email = document.getElementById("inputEmail").value;
+            const pswHash = document.getElementById("inputPassword").value;
+            /* let formData = new FormData(loginForm);
             let email = formData.get("inputEmail");
-            let pswHash = formData.get("inputPassword");
-
+            let pswHash = formData.get("inputPassword"); */
+            console.log(email,pswHash)
 
             let url = "/user/login";
 
@@ -80,7 +84,7 @@ const loginForm = document.getElementById("loginForm");
                         },
                     });
 
-                    if (avatarResponse.status == HTTPCode.Ok) {
+                    if (avatarResponse.status == 200) {
                         let avatarData = await avatarResponse.json();
                         localStorage.setItem("avatarData", avatarData);
                     
@@ -106,16 +110,18 @@ const loginForm = document.getElementById("loginForm");
         });
 
 
-
+      }
 /* ------------- SAVE AVATAR ------------- */
+const checkBtn = document.getElementById("checkBtn")
+if(checkBtn){
 checkBtn.addEventListener("click", async function (event) {
     const avatarData = character.save();
-    console.log(avatarData);
+
     
-    const imageDataUrl = scene.saveImg("imgCanvas");
     const formData = new FormData();
     formData.append("imageDataUrl", imageDataUrl);
     formData.append("avatarData", JSON.stringify(avatarData));
+ 
     
     try {
       let response = await fetch("/user/saveAvatar", {
@@ -128,7 +134,8 @@ checkBtn.addEventListener("click", async function (event) {
   
       if (response.status == 200) {
         let data = await response.json();
-        showNotification("Saved your Avatar!");
+        console.log(data)
+        alert("Saved your Avatar!");
       } else if (response.status === 401) {
         alert("Login expired, please log in again");
         location.href = "login.html";
@@ -139,3 +146,4 @@ checkBtn.addEventListener("click", async function (event) {
       console.error("The error is: " + error);
     }
   });
+}
