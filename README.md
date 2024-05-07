@@ -2,8 +2,7 @@
 
 
 > [!IMPORTANT]
-> The branches were merged apr 17. 2024. <br>
-> in the code here Bootstrap and three is imported using node
+> in the code here Bootstrap and three is imported using node and Gulp
 
 # In case you need to update three.js:
 
