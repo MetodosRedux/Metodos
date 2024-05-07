@@ -99,6 +99,7 @@ export function TinitialiseScene() {
         downloadLink.download = 'rendered_image.png';
         downloadLink.click();
         character.position.y = initialCharacterPos;
+        return imageDataUrl;
     };
     
     this.load = function () {

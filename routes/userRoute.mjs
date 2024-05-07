@@ -12,7 +12,7 @@ const USER_API = express.Router();
 /*   -----------NEW USER--------------- */
 USER_API.post("/", async (req, res, next) => {
   try {
-    const { name, email, pswHash } = req.body;
+    const { username, email, pswHash } = req.body;
 
     if (!name || !email || !pswHash) {
       throw new Error("Missing input");
@@ -25,7 +25,7 @@ USER_API.post("/", async (req, res, next) => {
     }
 
     let user = new User();
-    user.name = name;
+    user.username = username;
     user.email = email;
     user.pswHash = pswHash;
 
@@ -57,13 +57,10 @@ USER_API.post("/login", async (req, res, next) => {
     let tokenPayload = {
       userId: user.id,
       email: user.email,
-      lightmode: user.lightmode,
-      role: user.role
     };
 
     const userWithAvatar = await DBManager.getUserById(user.id);
     if (userWithAvatar) {
-  
       tokenPayload.avatar_id = userWithAvatar.avatar_id;
     }
 
@@ -77,7 +74,7 @@ USER_API.post("/login", async (req, res, next) => {
       .send(error.message);
   }next()
 });
-/*   -----------EDIT--------------- */
+/*   -----------EDIT--------------- NOT IN USE*/
 USER_API.put("/updateUser", verifyToken, async (req, res, next) => {
   try {
     const { email, pswHash, name } = req.body;
@@ -98,7 +95,7 @@ USER_API.put("/updateUser", verifyToken, async (req, res, next) => {
   }next()
 });
 
-/*   -----------DELETE--------------- */
+/*   -----------DELETE--------------- NOT IN USE*/
 USER_API.delete("/deleteUser", verifyToken, async (req, res, next) => {
   try {
     const userId = req.user.userId;
@@ -129,7 +126,7 @@ USER_API.get("/getUserById", verifyToken, async (req, res, next) => {
   }next()
 });
 
-////--------------ALL USERS-----------------
+////--------------ALL USERS-----------------NOT IN USE
 USER_API.get("/admin/allUsers",verifyToken, isAdmin, async (req, res, next) => {
   try {
     const allUsers = await DBManager.getAllUsers();
@@ -141,7 +138,7 @@ USER_API.get("/admin/allUsers",verifyToken, isAdmin, async (req, res, next) => {
       .send("Internal Server Error");
   }next()
 });
-//----------------------------------------------------
+//----------------------------------------------------NOT IN USE
 USER_API.put("/admin/updateUserRole/:userId", verifyToken, isAdmin, async (req, res, next) => {
   try {
     const { userId } = req.params;
