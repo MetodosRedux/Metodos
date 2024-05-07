@@ -24,7 +24,7 @@
 You have to use the DRACO-compression to save the files from your 3D software (from may.07.2024).  
 This is du to the fact that the files tend to get large when working with many 3D objects.  
 
-When loading a new file you only have to give the loader the new relative path to your assets inside the TCharacterClass.  
+When loading a new file you only have to give the loader the new relative path to your assets inside the **TCharacterClass**.  
 it will look something like this:  
 
-*** loader.load("./mediaAvatar/folder/yourFile.gltf", ()=> .....) ***
+` loader.load("./mediaAvatar/folder/yourFile.gltf", ()=> .....) `
