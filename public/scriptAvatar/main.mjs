@@ -2,7 +2,7 @@
 import { TinitialiseScene, character, camera } from "./scene.mjs";
 import { showColors, showMeshes } from "./tabOptions.mjs";
 
-const scene = new TinitialiseScene();
+export const scene = new TinitialiseScene();
 export function loadScene() {
   scene.load();
   const exportedAvatarData = character;
@@ -13,7 +13,6 @@ checkBtn.addEventListener("click", () => {
   character.save();
   scene.saveImg("imgCanvas");
 }); */
-export const imageDataUrl = scene.saveImg("imgCanvas")
 
 const menuOptions = document.querySelectorAll("[menuOption]");
 
@@ -102,13 +101,18 @@ childrenTabs.forEach((childrenTab) => {
     this.classList.add("active");
   });
 });
+ 
+document.addEventListener("DOMContentLoaded", ()=>{
+  const undo = document.getElementById("undo");
+  const redo = document.getElementById("redo");
+  
+  undo.addEventListener("click", () => {
+    character.undo();
+  });
+  redo.addEventListener("click", () => {
+    character.redo();
+  });
+})
 
-const undo = document.getElementById("undo");
-const redo = document.getElementById("redo");
 
-undo.addEventListener("click", () => {
-  character.undo();
-});
-redo.addEventListener("click", () => {
-  character.redo();
-});
+
