@@ -12,8 +12,9 @@
 2. Change the following files in the `dist/mjs/` directory:
     - `BufferGeometryUtils`
     - `GLTFLoader`
-    - `OrbitControls`
-    - Change the `'three'` imports to `'./three.module.js'`.
+    - `OrbitControls`  
+      
+    Change the `'three'` imports to `'./three.module.js'`.
 3. Update the import statements:
     - In `GLTFLoader`, change the second import to:
 
@@ -28,4 +29,4 @@ This is du to the fact that the files tend to get large when working with many 3
 When loading a new file you only have to give the loader the new relative path to your assets inside the TCharacterClass.  
 it will look something like this:  
 
-*** loader.load("./mediaAvatar/folder/yourFile.gltf", ()=> .....) ***
+` loader.load("./mediaAvatar/folder/yourFile.gltf", ()=> .....) `
