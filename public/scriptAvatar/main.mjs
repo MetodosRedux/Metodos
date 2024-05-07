@@ -11,6 +11,7 @@ export function loadScene() {
 const checkBtn = document.getElementById("checkBtn");
 checkBtn.addEventListener("click", () => {
   scene.saveImg('imgCanvas');
+  character.save();
 });
 
 const menuOptions = document.querySelectorAll("[menuOption]");

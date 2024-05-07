@@ -80,9 +80,9 @@ export function TinitialiseScene() {
     darkModeToggle.addEventListener("change", updateSceneBackground);
     // ------------------ move character -------------------------
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.minAzimuthAngle = degreesToRadians(-45) // 45 degrees left
-    controls.maxAzimuthAngle = degreesToRadians(45) // 45 degrees right
-    controls.minPolarAngle = degreesToRadians(90);//no upwards/downwards
+    controls.minAzimuthAngle = degreesToRadians(-45) 
+    controls.maxAzimuthAngle = degreesToRadians(45) 
+    controls.minPolarAngle = degreesToRadians(90);
     controls.maxPolarAngle = degreesToRadians(90);
 
     //-----------------character-------------------------
@@ -96,14 +96,19 @@ export function TinitialiseScene() {
 
     this.saveImg = function (cvsId) {
         const initialCharacterPos = character.position.y;
-        character.position.y = 0;
-        const canvas = document.getElementById(cvsId);
+        const previousBackground = scene.background;
 
+        character.position.y = 0;
+        scene.background = null;
+       
+        const canvas = document.getElementById(cvsId);
+        
         if (!canvas) {
             console.error(`Canvas with ID ${cvsId} not found.`);
             return;
         }
-        const imgRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
+        const imgRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha :true });
+        imgRenderer.setClearColor(0xffffff, 0);
         imgRenderer.shadowMap.enabled = true;
         imgRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
@@ -123,6 +128,7 @@ export function TinitialiseScene() {
         downloadLink.download = 'rendered_image.png';
         downloadLink.click();
         character.position.y = initialCharacterPos;
+        scene.background = previousBackground;
     };
 
     this.load = function () {

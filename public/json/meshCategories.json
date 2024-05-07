@@ -83,10 +83,12 @@
     "option1": "shoes_sneakers"
   },
   "glasses": {
+    "option0": "empty",
     "option1": "glasses_square_sun",
     "option2": "glasses_round_sun",
     "option3": "glasses_oval_sun",
-    "option4": "empty"
+    "option4" : "glasses_big",
+    "option5" : "glasses_smaller"
   },
   "beard": {
     "option1": "beard_long",

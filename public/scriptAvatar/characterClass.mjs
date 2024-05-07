@@ -1,5 +1,6 @@
 "use strict"
 import { GLTFLoader } from "../dist/mjs/GLTFLoader.js";
+import { DRACOLoader } from "../dist/mjs/DRACOLoader.js";
 import * as THREE from '../dist/mjs/three.module.js';
 import { scenePositions } from "./scene.mjs";
 
@@ -8,7 +9,10 @@ export class TCharacter extends THREE.Object3D {
     constructor() {
         super();
 
+        const dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath('../dist/mjs/draco/');
         const loader = new GLTFLoader();
+        loader.setDRACOLoader(dracoLoader);
 
         let bodyParts = {
             eye: { name: 'eyes', color: "#CEE2FF" },
@@ -48,15 +52,16 @@ export class TCharacter extends THREE.Object3D {
                 if (childMesh) {
                     mesh = childMesh
                 }
+
                 const phongMaterial = new THREE.MeshPhongMaterial();
                 phongMaterial.color.copy(mesh.material.color);
                 phongMaterial.map = mesh.material.map;
                 phongMaterial.normalMap = mesh.material.normalMap;
                 phongMaterial.normalScale.copy(mesh.material.normalScale);
                 phongMaterial.receiveShadow = true;
-                if (mesh.name.startsWith('accessories')) {
+                if (mesh.name.startsWith(bodyParts.accessories.name) || mesh.name.startsWith(bodyParts.necklace.name) || mesh.name.startsWith(bodyParts.earring.name)) {
                     phongMaterial.specular.set(0xffffff);
-                    phongMaterial.shininess = 40;
+                    phongMaterial.shininess = 20;
                 }
                 mesh.material = phongMaterial;
                 return mesh;
@@ -64,7 +69,7 @@ export class TCharacter extends THREE.Object3D {
 
             console.log(gltfModel.scene);
             console.log(gltfModel.scene.parent.children);
-
+            
             const lights = gltfModel.scene.children.filter(child => child.isLight);
 
             lights.forEach(light => {

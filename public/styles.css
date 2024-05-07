@@ -189,6 +189,7 @@ body {
 
 #imgCanvas {
   display: none;
+  background: none;
   z-index: -10;
 }
 
