@@ -23,7 +23,7 @@ dotenv.config()
 const server = express();
 
 // Selecting a port for the server to use.
-const port = (process.env.PORT || 8081);
+const port = (process.env.PORT || 8082);
 
 server.set('port', port);
 

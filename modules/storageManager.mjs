@@ -18,7 +18,7 @@ class DBManager {
       await client.connect();
       const output = await client.query(
         'INSERT INTO "public"."user"("username", "email", "password") VALUES($1::Text, $2::Text, $3::Text) RETURNING id;',
-        [user.username, user.email, user.pswHash]
+        [user.name, user.email, user.pswHash]
       );
 
       if (output.rows.length == 1) {
@@ -152,7 +152,7 @@ class DBManager {
     try {
       await client.connect();
       const output = await client.query(
-        'SELECT * FROM "public"."Users" WHERE email = $1 AND "pswHash" = $2',
+        'SELECT * FROM "public"."user" WHERE email = $1 AND "password" = $2',
         [email, pswHash]
       );
 
@@ -161,7 +161,7 @@ class DBManager {
 
         const now = new Date();
         await client.query(
-          'UPDATE "public"."Users" SET "lastLogin" = $1 WHERE id = $2',
+          'UPDATE "public"."user" SET "lastLogin" = $1 WHERE id = $2',
           [now, user.id]
         );
       }
