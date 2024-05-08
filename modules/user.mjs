@@ -8,9 +8,7 @@ class User {
     this.pswHash;
     this.name;
     this.id;
-    this.avatar_id;
-    this.lightmode;
-    this.role;
+    this.avatar;
     this.lastLogin;
   }
 

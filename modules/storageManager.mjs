@@ -17,8 +17,8 @@ class DBManager {
     try {
       await client.connect();
       const output = await client.query(
-        'INSERT INTO "public"."Users"("name", "email", "pswHash") VALUES($1::Text, $2::Text, $3::Text) RETURNING id;',
-        [user.name, user.email, user.pswHash]
+        'INSERT INTO "public"."user"("username", "email", "password") VALUES($1::Text, $2::Text, $3::Text) RETURNING id;',
+        [user.username, user.email, user.pswHash]
       );
 
       if (output.rows.length == 1) {
@@ -93,16 +93,22 @@ class DBManager {
     try {
       client.connect();
       const output = await client.query(
-        `UPDATE "public"."Users" SET "avatar" = $1, "profilePicture" = $2 ||'.png' WHERE "id" = $2`, [avatarData, userId]);
-
-      if (output.rows.length > 0) {
-        const updatedUser = output.rows[0];
-        return updatedUser;
-      } else {
-        throw new Error("User not found or Avatar could not be updated");
-      }
+        `UPDATE "public"."user" SET "avatar" = $1  WHERE "id" = $2`, [avatarData, userId]);
     }
     catch (error) {
+      console.error("could not save Avatar to Database. Error: " + error);
+      throw error;
+    }
+  }
+
+  async getAvatar(userId) {
+    const client = new pg.Client(this.#credentials);
+
+    try {
+      client.connect();
+      const output = await client.query(`SELECT "avatar" FROM "public"."user" WHERE "id" = $1;`, [userId]);
+      return output.rows[0];
+    }catch (error) {
       console.error("could not save Avatar to Database. Error: " + error);
       throw error;
     }
@@ -117,13 +123,13 @@ class DBManager {
 
       // Check if anIdetifyer is a valid integer
       if (/^\d+$/.test(anIdetifyer)) {
-        const outputId = await client.query(`SELECT * FROM public."Users" WHERE "id" = $1`, [anIdetifyer]);
+        const outputId = await client.query(`SELECT * FROM public."user" WHERE "id" = $1`, [anIdetifyer]);
 
         if (outputId.rows.length === 1) {
           user = outputId.rows[0];
         }
       } else {
-        const outputEmail = await client.query(`SELECT * FROM public."Users" WHERE "email" = $1`, [anIdetifyer]);
+        const outputEmail = await client.query(`SELECT * FROM public."user" WHERE "email" = $1`, [anIdetifyer]);
 
         if (outputEmail.rows.length >= 1) {
           user = outputEmail.rows[0];
@@ -138,6 +144,7 @@ class DBManager {
       await client.end();
     }
   }
+
 
   async getUserByEmailAndPassword(email, pswHash) {
     const client = new pg.Client(this.#credentials);

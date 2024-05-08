@@ -1,4 +1,4 @@
-function printResponse(aMsg, aColor) {
+export function printResponse(aMsg, aColor) {
 
     const messageDisplayContainerId = 'msgContainer'
     const messageDisplay = document.createElement("div");

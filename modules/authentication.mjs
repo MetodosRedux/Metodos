@@ -5,27 +5,48 @@ import DBManager from "./storageManager.mjs";
 
 export function verifyToken(req, res, next) {
   const token = req.headers.authorization;
-  console.log(token);
 
   if (!token) {
-    return res
-      .status(HTTPCodes.ClientSideErrorResponse.Unauthorized)
-      .send("Unauthorized: No token provided");
+    return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: No token provided"});
   }
 
   try {
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
-    req.user = {
+
+    req.tokenResponse = {
       userId: decoded.userId,
       email: decoded.email,
-      avatar_id: decoded.avatar_id,
-      lightmode: decoded.lightmode,
     };
     next();
   } catch (err) {
-    return res
-      .status(HTTPCodes.ClientSideErrorResponse.Unauthorized)
-      .send("Unauthorized: Invalid token");
+    return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: Invalid token, please log in again"});
+  }
+}
+
+export async function loginVerification (req, res, next) {
+  try{
+  const { email, password } = req.body;
+    const secretKey = process.env.SECRET_KEY;
+    const pswHash = generateHash(password);
+
+    const user = await DBManager.getUserByEmailAndPassword(email, pswHash);
+
+    if (!user) {
+      return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "invalid Email or password"});
+    }
+
+    const avatar = DBManager.getAvatar(user.id);
+
+    let tokenPayload = {
+      userId: user.id,
+      email: user.email,
+    };
+
+    const token = jwt.sign(tokenPayload, secretKey, { expiresIn: "1h" });
+    req.tokenData = {token, avatar}
+    next();
+  } catch (err) {
+    return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: Invalid token, please log in again"});
   }
 }
 
