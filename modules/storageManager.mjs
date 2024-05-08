@@ -15,11 +15,10 @@ class DBManager {
     const client = new pg.Client(this.#credentials);
 
     try {
-      user.pswHash = generateHash(user.pswHash);
       await client.connect();
       const output = await client.query(
-        'INSERT INTO "public"."Users"("name", "email", "pswHash") VALUES($1::Text, $2::Text, $3::Text) RETURNING id;',
-        [user.name, user.email, user.pswHash]
+        'INSERT INTO "public"."user"("username", "email", "password") VALUES($1::Text, $2::Text, $3::Text) RETURNING id;',
+        [user.username, user.email, user.pswHash]
       );
 
       if (output.rows.length == 1) {
@@ -51,10 +50,10 @@ class DBManager {
 
       const output = await client.query(
         'UPDATE "public"."Users" SET "name" = $1, "email" = $2' +
-          (pswHash !== undefined ? ', "pswHash" = $3' : "") +
-          " WHERE id = $" +
-          (pswHash !== undefined ? "4" : "3") +
-          "  RETURNING *",
+        (pswHash !== undefined ? ', "pswHash" = $3' : "") +
+        " WHERE id = $" +
+        (pswHash !== undefined ? "4" : "3") +
+        "  RETURNING *",
         queryParams
       );
 
@@ -88,52 +87,70 @@ class DBManager {
     }
   }
 
-  async updateLightMode(lightmode, userId) {
+  async saveAvatar(avatarData, userId) {
     const client = new pg.Client(this.#credentials);
 
     try {
-      await client.connect();
-
-      const lightmodeOutput = await client.query(
-        'UPDATE "public"."Users" SET "lightmode" = $1 WHERE id = $2 RETURNING *',
-        [lightmode, userId]
-      );
-      const lightmodeUpdate = lightmodeOutput.rows[0];
-      return { lightmode, lightmodeUpdate };
-    } catch (error) {
-      console.error("Error saving lightmode choice:", error);
-      throw error;
-    } finally {
-      client.end(); // Always disconnect from the database.
-    }
-  }
-
-  async getUserByEmail(email) {
-    const client = new pg.Client(this.#credentials);
-
-    try {
-      await client.connect();
-
+      client.connect();
       const output = await client.query(
-        'SELECT * FROM "public"."Users" WHERE email = $1',
-        [email]
-      );
-
-      return output.rows[0];
-    } catch (error) {
-      console.error("Error getting user by email:", error);
+        `UPDATE "public"."user" SET "avatar" = $1  WHERE "id" = $2`, [avatarData, userId]);
+    }
+    catch (error) {
+      console.error("could not save Avatar to Database. Error: " + error);
       throw error;
-    } finally {
-      client.end();
     }
   }
+
+  async getAvatar(userId) {
+    const client = new pg.Client(this.#credentials);
+
+    try {
+      client.connect();
+      const output = await client.query(`SELECT "avatar" FROM "public"."user" WHERE "id" = $1;`, [userId]);
+      return output.rows[0];
+    }catch (error) {
+      console.error("could not save Avatar to Database. Error: " + error);
+      throw error;
+    }
+  }
+
+  async getUserByIdentifier(anIdetifyer) {
+    const client = new pg.Client(this.#credentials);
+
+    try {
+      await client.connect();
+      let user = null;
+
+      // Check if anIdetifyer is a valid integer
+      if (/^\d+$/.test(anIdetifyer)) {
+        const outputId = await client.query(`SELECT * FROM public."user" WHERE "id" = $1`, [anIdetifyer]);
+
+        if (outputId.rows.length === 1) {
+          user = outputId.rows[0];
+        }
+      } else {
+        const outputEmail = await client.query(`SELECT * FROM public."user" WHERE "email" = $1`, [anIdetifyer]);
+
+        if (outputEmail.rows.length >= 1) {
+          user = outputEmail.rows[0];
+        }
+      }
+
+      return user;
+    } catch (error) {
+      console.error(`Error getting user by identifyer ${anIdetifyer}:`, error);
+      throw error;
+    } finally {
+      await client.end();
+    }
+  }
+
 
   async getUserByEmailAndPassword(email, pswHash) {
     const client = new pg.Client(this.#credentials);
 
     try {
       await client.connect();
-      pswHash = generateHash(pswHash);
       const output = await client.query(
         'SELECT * FROM "public"."Users" WHERE email = $1 AND "pswHash" = $2',
         [email, pswHash]
@@ -156,144 +173,6 @@ class DBManager {
       client.end();
     }
   }
-
-  async getUserById(userId) {
-    const client = new pg.Client(this.#credentials);
-
-    try {
-      await client.connect();
-
-      const output = await client.query(
-        'SELECT * FROM "public"."Users" WHERE id = $1',
-        [userId]
-      );
-
-      return output.rows[0];
-    } catch (error) {
-      console.error("Error getting user by ID:", error);
-      throw error;
-    } finally {
-      client.end();
-    }
-  }
-
-  async getAllUsers() {
-    const client = new pg.Client(this.#credentials);
-
-    try {
-      await client.connect();
-
-      const output = await client.query('SELECT * FROM public."Users"');
-
-      return output.rows;
-    } catch (error) {
-      console.error("cant get all users:", error);
-      throw error;
-    } finally {
-      client.end();
-    }
-  }
-
-  async updateUserRole(userId, role) {
-    const client = new pg.Client(this.#credentials);
-
-    try {
-      await client.connect();
-
-      const output = await client.query(
-        'UPDATE "public"."Users" SET "role" = $1 WHERE id = $2 RETURNING *',
-        [role, userId]
-      );
-
-      if (output.rows.length > 0) {
-        const updatedUser = output.rows[0];
-        return updatedUser;
-      } else {
-        throw new Error("User not found or not updated");
-      }
-    } catch (error) {
-      console.error("Error updating user role:", error);
-      throw error;
-    } finally {
-      client.end(); // Always disconnect from the database.
-    }
-  }
-
-  async getAvatar(avatar_id) {
-    const client = new pg.Client(this.#credentials);
-
-    try {
-      await client.connect();
-
-      const output = await client.query(
-        'SELECT * FROM "public"."Avatar" WHERE id = $1',
-        [avatar_id]
-      );
-
-      return output.rows[0];
-    } catch (error) {
-      console.error("Error getting avatar id:", error);
-      throw error;
-    } finally {
-      client.end();
-    }
-  }
-
-  async saveAvatar(eyeColor, skinColor, hairColor, eyebrowType, userId) {
-    const client = new pg.Client(this.#credentials);
-
-    try {
-      await client.connect();
-
-      const avatarOutput = await client.query(
-        'INSERT INTO "public"."Avatar"( "eyeColor", "skinColor", "hairColor", "eyebrowType") VALUES($1, $2, $3, $4) RETURNING id',
-        [eyeColor, skinColor, hairColor, eyebrowType]
-      );
-
-      const avatarId = avatarOutput.rows[0].id;
-
-      const userOutput = await client.query(
-        'UPDATE "public"."Users" SET "avatar_id" = $1 WHERE id = $2 RETURNING *',
-        [avatarId, userId]
-      );
-      const userUpdate = userOutput.rows[0];
-      return { avatarId, userUpdate };
-    } catch (error) {
-      console.error("Error saving Avatar:", error);
-      throw error;
-    } finally {
-      client.end(); // Always disconnect from the database.
-    }
-  }
-
-  async updateAvatar(avatarInfo) {
-    const client = new pg.Client(this.#credentials);
-    let eyeColor = avatarInfo.eyeColor
-    let skinColor = avatarInfo.skinColor
-    let hairColor = avatarInfo.hairColor
-    let eyebrowType = avatarInfo.eyebrowType
-    let avatarId = avatarInfo.id
-    try {
-      await client.connect();
-
-      const avatarUpdate = await client.query(
-        'UPDATE "public"."Avatar" SET "eyeColor" = $1, "skinColor" = $2, "hairColor" = $3, "eyebrowType" = $4 WHERE "id" = $5 RETURNING id',
-        [eyeColor, skinColor, hairColor, eyebrowType, avatarId]
-      );
-      
-
-      const avatarResponse = avatarUpdate.rows[0].id;
-
-
-      return  avatarResponse
-    } catch (error) {
-      console.error("Error updating Avatar:", error);
-      throw error;
-    } finally {
-      client.end(); // Always disconnect from the database.
-    }
-  }
-
 }
 
 let connectionString =

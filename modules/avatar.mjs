@@ -3,15 +3,11 @@ import jwt from "jsonwebtoken";
 
 class Avatar {
   constructor() {
-    this.hairColor;
-    this.eyeColor;
-    this.skinColor;
-    this.eyebrowType;
-    this.id;
+    this.avatarData
   }
 
   async save() {
-    if (this.id == null) {
+    if (this.avatarData !== null) {
       return await DBManager.saveAvatar(this);
     }else {
       return await DBManager.updateAvatar(this)
