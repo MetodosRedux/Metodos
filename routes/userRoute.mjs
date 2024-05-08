@@ -5,26 +5,27 @@ import jwt from "jsonwebtoken";
 import { verifyToken, isAdmin } from "../modules/authentication.mjs";
 import DBManager from "../modules/storageManager.mjs";
 import Avatar from "../modules/avatar.mjs";
+import { generateHash } from "../modules/crypto.mjs";
 
 const USER_API = express.Router();
-
 
 /*   -----------NEW USER--------------- */
 USER_API.post("/", async (req, res, next) => {
   try {
-    const { name, email, pswHash } = req.body;
+    const { name, email, password } = req.body;
+    const pswHash = generateHash(password);
 
-    if (!name || !email || !pswHash) {
-      throw new Error("Missing input");
+    if (!name || !email || !password) {
+      return res.status(HTTPCodes.ClientSideErrorResponse.BadRequest).json({ msg: "Missing input", });
     }
 
-    const exists = await DBManager.getUserByEmail(email);
+    const exists = await DBManager.getUserByIdentifier(email);
 
     if (exists) {
-      throw new Error("This email is already in use.");
+      return res.status(HTTPCodes.ClientSideErrorResponse.BadRequest).json({ msg: "This email is already in use.", });
     }
 
-    let user = new User();
+    const user = new User();
     user.name = name;
     user.email = email;
     user.pswHash = pswHash;
@@ -32,24 +33,57 @@ USER_API.post("/", async (req, res, next) => {
     // Save user to DB
     await user.save();
 
-    res.status(HTTPCodes.SuccessfulResponse.Ok).end();
+    return res.status(HTTPCodes.SuccessfulResponse.Ok).json({ msg: "User created", });
   } catch (error) {
     console.error("Error creating user:", error.message);
-    res
-      .status(HTTPCodes.ClientSideErrorResponse.BadRequest)
-      .send(error.message)
-      .end();
-  }next()
+   return res.status(HTTPCodes.ClientSideErrorResponse.BadRequest).json({msg: "Unable to create user resulting in error: " + error.message});
+  }
 });
 /*   -----------LOGIN--------------- */
 
-USER_API.post('/Avatar', async (req, res, next) => {
-const avatarData = req.body;
+USER_API.post("/login", async (req, res, next) => {
+  try {
+    const { email, password } = req.body;
+    const secretKey = process.env.SECRET_KEY;
+
+    const user = await DBManager.getUserByEmailAndPassword(email, password);
+
+    if (!user) {
+      throw new Error("Wrong password or e-mail address.");
+    }
+
+    let tokenPayload = {
+      userId: user.id,
+      email: user.email,
+    };
+
+    /* const userWithAvatar = await DBManager.getUserById(user.id);
+    if (userWithAvatar) {
+      tokenPayload.avatar_id = userWithAvatar.avatar_id;
+    } */
+
+    const token = jwt.sign(tokenPayload, secretKey, { expiresIn: "1h" });
+
+    res.json({ token });
+  } catch (error) {
+    console.error("Error during login:", error.message);
+    res
+      .status(HTTPCodes.ClientSideErrorResponse.Unauthorized)
+      .send(error.message);
+  } next()
+});
+
+/* -------------AVATAR----------------- */
+
+USER_API.post('/avatar', verifyToken, async (req, res, next) => {
+  const avatarData = req.body;
+  const userId = req.tokenResponse;
+
   try {
     console.log("AvatarTrue")
-    //DBManager.saveAvatar(avatarData);
-    res.status(HTTPCodes.SuccessfulResponse.Ok).json({ msg: "Avatar Saved",  });
-  } catch (error){
+    //DBManager.saveAvatar(avatarData, userId);
+    res.status(HTTPCodes.SuccessfulResponse.Ok).json({ msg: "Avatar Saved", });
+  } catch (error) {
     console.error("Error uploading avatar:", error);
     res.status(HTTPCodes.ServerErrorResponse.InternalError).json({ error: 'Something went wrong uploading avatar' });
   }
