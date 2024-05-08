@@ -48,20 +48,22 @@
     <style>
 
     </style>
-<script>
+<script type="module">
+    import * as functions from "./scriptAvatar/functions.mjs"
     const token = localStorage.getItem("token");
 
 /* ------------- LOGIN ------------- */
+
 
 if (loginForm) {
   loginForm.addEventListener("submit", async function (event) {
     event.preventDefault();
     const email = document.getElementById("inputEmail").value;
-    const pswHash = document.getElementById("inputPassword").value;
+    const password = document.getElementById("inputPassword").value;
     /* let formData = new FormData(loginForm);
             let email = formData.get("inputEmail");
             let pswHash = formData.get("inputPassword"); */
-    console.log(email, pswHash);
+    console.log(email, password);
 
     let url = "/user/login";
 
@@ -69,7 +71,7 @@ if (loginForm) {
       let response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, pswHash }),
+        body: JSON.stringify({ email, password }),
       });
 
       if (response.status != 200) {
@@ -105,9 +107,9 @@ if (loginForm) {
         }
       }
     } catch (error) {
-      //handleFetchError(error)
-      alert("Wrong password or e-mail");
+      
       console.error("The error is: " + error);
+      functions.displayErrorMsg();
     }
   });
 }

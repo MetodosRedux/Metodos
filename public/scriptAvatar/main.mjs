@@ -1,6 +1,7 @@
 "use strict";
 import { TinitialiseScene, character, camera } from "./scene.mjs";
 import { showColors, showMeshes } from "./tabOptions.mjs";
+import * as functions from "./functions.mjs";
 
 export const scene = new TinitialiseScene();
 export function loadScene() {
@@ -9,60 +10,20 @@ export function loadScene() {
 }
 
 
-export function printResponse(aMsg, aColor) {
-
-  const messageDisplayContainerId = 'msgContainer'
-  const messageDisplay = document.createElement("div");
-  messageDisplay.id = messageDisplayContainerId;
-  document.body.appendChild(messageDisplay);
-
-  //messageDisplay.style.color = aColor;
-  messageDisplay.textContent = aMsg;
-
-  setTimeout(() => {
-    document.body.removeChild(messageDisplay);
-  }, 5000);
-}
-
-function displayErrorMsg() {
-  printResponse('An error ocurred, trying to reach the server')
-}
-
-async function fetchWrapper(aMethod, anUrl, aBodyElement) {
-
-  try {
-    const response = await fetch(anUrl, {
-      method: aMethod,
-      headers: {
-        /* Authorization: checkStorage().token, */
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(aBodyElement),
-    });
-    const data = await response.json()
-    printResponse(data.msg);
-
-    return response;
-  } catch (error) {
-    console.error("An error during " + aMethod + " for url " + anUrl, error);
-    displayErrorMsg();
-  }
-}
-
 const checkBtn = document.getElementById("checkBtn");
 checkBtn.addEventListener("click", async () => {
   //const avatarImage = scene.saveImg('imgCanvas');
   const avatarData = character.save();
 
   try {
-    const response = await fetchWrapper('POST', "user/Avatar", avatarData);
-    /* if (response.ok) {
+    const response = await functions.fetchWrapper('POST', "user/avatar", avatarData);
+    if (response.ok) {
       //do the correct things
     } else {
       //write error messages form server
-    } */
+    }
   } catch (error) {
-    displayErrorMsg();
+    functions.displayErrorMsg();
   }
 });
 
