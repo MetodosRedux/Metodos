@@ -12,10 +12,16 @@
   --purpleFont: #a24e98;
   --lightgrey: #d9d9d9;
   --darkgrey: #656062;
-  --blackBackground: #1e1e1e;
+  --blackBackground: #363636;
   --redButton: #eb628e;
   --redFont: #f5b4c9;
   --extraTab: #E5D2F3;
+  --darkAcssentColor: #e72a3e;
+  --darkSecondColor: #e9c5c9;
+  --darkActiveSecondColor: #c4a5a8;
+  --darkTabColor: #65595c;
+  --darkTabBorderColor: #302b2d;
+  --darkNavButtonBackground: #514f4f;
   --activeExtraTab:#b4a5bf;
 }
 
@@ -24,29 +30,31 @@
 /* loadingscreen */
 
 
+
+
 @keyframes changeColors {
   0% {
-      filter: invert(20%) sepia(20%) saturate(3) hue-rotate(260deg);
+    filter: invert(20%) sepia(20%) saturate(3) hue-rotate(260deg);
   }
 
   25% {
-      filter: invert(30%) sepia(40%) saturate(2.5) hue-rotate(255deg);
+    filter: invert(30%) sepia(40%) saturate(2.5) hue-rotate(255deg);
   }
 
   50% {
-      filter: invert(60%) sepia(80%) saturate(2) hue-rotate(270deg);
+    filter: invert(60%) sepia(80%) saturate(2) hue-rotate(270deg);
   }
 
   75% {
-      filter: invert(20%) sepia(20%) saturate(2.5) hue-rotate(260deg);
+    filter: invert(20%) sepia(20%) saturate(2.5) hue-rotate(260deg);
   }
 
   100% {
-      filter: invert(20%) sepia(30%) saturate(3) hue-rotate(260deg);
+    filter: invert(20%) sepia(30%) saturate(3) hue-rotate(260deg);
   }
 }
 
-#loadingPage{
+#loadingPage {
   background-color: white;
   z-index: 10;
 }
@@ -73,19 +81,19 @@
 
 @keyframes dots {
   25% {
-      content: ' .';
+    content: ' .';
   }
 
   50% {
-      content: ' . .';
+    content: ' . .';
   }
 
   75% {
-      content: ' . . .';
+    content: ' . . .';
   }
 
   100% {
-      content: ' . .';
+    content: ' . .';
   }
 }
 
@@ -176,10 +184,12 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: -5;
+  background-color: white;
 }
 
-#imgCanvas{
+#imgCanvas {
   display: none;
+  background: none;
   z-index: -10;
 }
 
@@ -204,34 +214,34 @@ body {
   right: 2em;
   bottom: 20em;
   width: 2.5em;
- 
+
 }
 
 #colorPicker {
   width: 100%;
-  height: 100%; 
-  position: absolute; 
-  border: none; 
-  opacity: 0; 
+  height: 100%;
+  position: absolute;
+  border: none;
+  opacity: 0;
   cursor: pointer;
 }
 
 .color-picker-wrapper {
   width: auto;
-  height: 15vh; 
-  position: relative; 
+  height: 15vh;
+  position: relative;
   background-color: var(--lightgrey);
   border-radius: 15px;
-  background-image: url('./mediaAvatar/buttons/colorpicker_droplet_pruple.png'); 
-  background-size: contain; 
-  background-repeat: no-repeat; 
-  background-position: center; 
+  background-image: url('./mediaAvatar/buttons/colorpicker_droplet_pruple.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 #menuOptions {
   overflow-x: scroll;
-  white-space: nowrap; 
- /*  scroll-snap-type: x mandatory; */
+  white-space: nowrap;
+  /*  scroll-snap-type: x mandatory; */
 }
 
 #colors {
@@ -256,23 +266,26 @@ body {
   position: relative;
   background-color: var(--lightgrey);
   scroll-snap-align: center;
-
 }
+
 .tab.active {
-  background-color:var(--acssentColor);
+  background-color: var(--acssentColor);
 }
 
 
 #bootstrapTab {
   background-color: rgb(255, 255, 255);
 }
- .hidden-tab{
+
+.hidden-tab {
   display: none;
   background-color: var(--extraTab);
-} 
+}
+
 .hidden-tab.active {
   background-color: var(--activeExtraTab);
 }
+
 .imgIconTab {
   height: 30px;
 }
@@ -284,6 +297,7 @@ body {
 .imgIconTab {
   height: 30px;
 }
+
 .imgIconTab {
   height: 30px;
 }
@@ -294,8 +308,10 @@ body {
   background-color: var(--lightgrey);
 }
 
-#undo:hover, #redo:hover {
-  background-color: var(--purple); /* Set the background color to dark purple */
+#undo:hover,
+#redo:hover {
+  background-color: var(--purple);
+  /* Set the background color to dark purple */
 }
 
 #inputEmail,
@@ -360,15 +376,92 @@ body {
 #flexSwitchCheckDefault {
   color: white;
 }
+#msgContainer{
+  background-color: var(--backgroundcolor);
+  box-shadow: 0 4px 8px 0 var(--lightgrey), 0 6px 20px 0 var(--lightgrey);
+  text-align: center;
+  width: 75%;
+  margin: auto;
+  border: 20px rgb(47, 185, 70);
+  border-radius: 10px;
+  padding: 10%;
+}
 
 /* DARK-MODE */
 .dark-mode html {
   background-color: var(--blackBackground);
 }
 
+.dark-mode #sceneCanvas {
+  background-color: var(--blackBackground);
+}
+
+.dark-mode #colorSelector {
+  background-color: var(--blackBackground);
+}
+
+.dark-mode #tabsMenu {
+  background-color: var(--blackBackground);
+}
+
+.dark-mode #colors.p-3 {
+  background-color: var(--blackBackground);
+}
+
+.dark-mode .tab.active {
+  background-color: var(--darkAcssentColor);
+}
+
+.dark-mode .hidden-tab {
+  background-color: var(--darkSecondColor);
+}
+
+.dark-mode .hidden-tab.active {
+  background-color: var(--darkActiveSecondColor);
+}
+
 .dark-mode {
   background-color: var(--blackBackground);
 
+}
+
+.dark-mode #loadingPage {
+  background-color: var(--blackBackground);
+
+}
+
+.dark-mode #loadingPage h2 {
+  color: white;
+}
+
+.dark-mode .border {
+  border: var(--darkTabBorderColor) !important;
+}
+
+.dark-mode .tab {
+  background-color: var(--darkTabColor);
+}
+
+.dark-mode .navbar {
+  background-color: var(--blackBackground) !important;
+}
+
+.dark-mode .nav-link {
+  color: white;
+}
+
+.dark-mode .nav-link.active {
+  color: var(--darkAcssentColor) !important;
+}
+
+.dark-mode button.navbar-toggler {
+  background-color: var(--darkNavButtonBackground) !important;
+}
+
+.dark-mode #undo,
+.dark-mode #redo,
+.dark-mode #checkBtn {
+  background-color: var(--darkNavButtonBackground);
 }
 
 .dark-mode .btn-primary {
@@ -416,4 +509,35 @@ body {
 .dark-mode .p1 {
   color: var(--redFont);
   ;
+}
+
+@keyframes changeColorsDark {
+  0% {
+    filter: invert(20%) sepia(30%) saturate(3) hue-rotate(350deg);
+    /* Red */
+  }
+
+  25% {
+    filter: invert(20%) sepia(35%) saturate(2.5) hue-rotate(200deg);
+    /* Red */
+  }
+
+  50% {
+    filter: invert(20%) sepia(30%) saturate(2) hue-rotate(350deg);
+    /* Red */
+  }
+
+  75% {
+    filter: invert(20%) sepia(30%) saturate(2.5) hue-rotate(200deg);
+    /* Red */
+  }
+
+  100% {
+    filter: invert(20%) sepia(30%) saturate(3) hue-rotate(300deg);
+    /* Red */
+  }
+}
+
+.dark-mode .animated-image {
+  animation: changeColorsDark 3s linear infinite;
 }

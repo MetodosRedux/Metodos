@@ -1,6 +1,7 @@
 "use strict"
 import { GLTFLoader } from "../dist/mjs/GLTFLoader.js";
-import * as THREE from '../dist/mjs/three.module.js'; 
+import { DRACOLoader } from "../dist/mjs/DRACOLoader.js";
+import * as THREE from '../dist/mjs/three.module.js';
 import { scenePositions } from "./scene.mjs";
 
 
@@ -8,7 +9,10 @@ export class TCharacter extends THREE.Object3D {
     constructor() {
         super();
 
+        const dracoLoader = new DRACOLoader();
+        dracoLoader.setDecoderPath('../dist/mjs/draco/');
         const loader = new GLTFLoader();
+        loader.setDRACOLoader(dracoLoader);
 
         let bodyParts = {
             eye: { name: 'eyes', color: "#CEE2FF" },
@@ -19,15 +23,15 @@ export class TCharacter extends THREE.Object3D {
             pants: { name: 'pants_jogging', color: "#B09881" },
             shoes: { name: 'shoes_sneakers', color: "#B07947" },
             glasses: { name: null },
-            earring: { name: null, color: "#FFD700" },
-            necklace: { name: null, color: "#FFD700" },
-            accessories: { name: null, color: "#FFD700" },
+            earring: { name: null, color: "#CDAA35" },
+            necklace: { name: null, color: "#CDAA35" },
+            accessories: { name: null, color: "#CDAA35" },
             beard: { name: null, color: "#6B4F39" }
         }
-        
+
         const allMoves = [];
         let currentIndex = -1; //starts at this so it matches the index in the array
-        
+
         function saveSteps() {
             currentIndex++;
             allMoves.push(JSON.parse(JSON.stringify(bodyParts)));
@@ -41,26 +45,31 @@ export class TCharacter extends THREE.Object3D {
             gltfModel.scene.position.set(scenePositions.x, scenePositions.y, scenePositions.z);
             this.add(gltfModel.scene);
 
-            function locateMeshToPhong(aBodyPart) {
-                let mesh = gltfModel.scene.children.find(child => child.name === aBodyPart);
+            function locateMeshToPhong(aMeshName) {
+                let mesh = gltfModel.scene.children.find(child => child.name === aMeshName);
                 const childMesh = mesh.children[0];
 
                 if (childMesh) {
                     mesh = childMesh
                 }
+
                 const phongMaterial = new THREE.MeshPhongMaterial();
                 phongMaterial.color.copy(mesh.material.color);
                 phongMaterial.map = mesh.material.map;
                 phongMaterial.normalMap = mesh.material.normalMap;
                 phongMaterial.normalScale.copy(mesh.material.normalScale);
                 phongMaterial.receiveShadow = true;
+                if (mesh.name.startsWith(bodyParts.accessories.name) || mesh.name.startsWith(bodyParts.necklace.name) || mesh.name.startsWith(bodyParts.earring.name)) {
+                    phongMaterial.specular.set(0xffffff);
+                    phongMaterial.shininess = 20;
+                }
                 mesh.material = phongMaterial;
                 return mesh;
             }
 
             console.log(gltfModel.scene);
             console.log(gltfModel.scene.parent.children);
-
+            
             const lights = gltfModel.scene.children.filter(child => child.isLight);
 
             lights.forEach(light => {
@@ -100,7 +109,7 @@ export class TCharacter extends THREE.Object3D {
                 }
             };
 
-            this.save = function (){
+            this.save = function () {
                 return bodyParts;
             }
 
