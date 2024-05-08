@@ -9,6 +9,7 @@ class User {
     this.username;
     this.avatar;
     this.id;
+    this.lastLogin;
   }
 
   async save() {

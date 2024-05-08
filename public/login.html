@@ -1,10 +1,10 @@
 <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-    <link rel="stylesheet" href="styles.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+<link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+<link rel="stylesheet" href="styles.css">
 
 </head>
 
@@ -39,7 +39,7 @@
         </form>
 
     </div>
-  <!--   <div class="container d-flex justify-content-center text-center">
+    <!--   <div class="container d-flex justify-content-center text-center">
         <div class="form-check form-switch">
             <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault">
             <label class="form-check-label" for="flexSwitchCheckDefault"></label>
@@ -48,73 +48,52 @@
     <style>
 
     </style>
-<script type="module">
-    import * as functions from "./scriptAvatar/functions.mjs"
-    const token = localStorage.getItem("token");
+    <script type="module">
+        import * as functions from "./scriptAvatar/functions.mjs"
+        const token = localStorage.getItem("token");
 
-/* ------------- LOGIN ------------- */
+        /* ------------- LOGIN ------------- */
 
 
-if (loginForm) {
-  loginForm.addEventListener("submit", async function (event) {
-    event.preventDefault();
-    const email = document.getElementById("inputEmail").value;
-    const password = document.getElementById("inputPassword").value;
-    /* let formData = new FormData(loginForm);
-            let email = formData.get("inputEmail");
-            let pswHash = formData.get("inputPassword"); */
-    console.log(email, password);
+        if (loginForm) {
+            loginForm.addEventListener("submit", async function (event) {
+                event.preventDefault();
+                const email = document.getElementById("inputEmail").value;
+                const password = document.getElementById("inputPassword").value;
+                /* let formData = new FormData(loginForm);
+                        let email = formData.get("inputEmail");
+                        let pswHash = formData.get("inputPassword"); */
+                console.log(email, password);
 
-    let url = "/user/login";
+                let url = "/user/login";
 
-    try {
-      let response = await fetch(url, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
+                try {
+                    let response = await fetch(url, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ email, password }),
+                    });
 
-      if (response.status != 200) {
-        throw new Error("Server error: " + response.status);
-      }
+                    if (!response.ok) {
+                        throw new Error("Server error: " + response.status);
+                    }
 
-      let data = await response.json();
-      localStorage.setItem("token", data.token);
+                    let data = await response.json();
+                    functions.printResponse(data.msg);
 
-      try {
-        let avatarResponse = await fetch("/user/getAvatar", {
-          headers: {
-            Authorization: data.token,
-          },
-        });
+                    localStorage.setItem("token", data.token);
+                    localStorage.setItem("avatar", data.avatar);
+                    window.location.href="index.html"
 
-        if (avatarResponse.status == 200) {
-          let avatarData = await avatarResponse.json();
-          localStorage.setItem("avatarData", avatarData);
+                } catch (error) {
+
+                    console.error("The error is: " + error);
+                    functions.displayErrorMsg();
+                }
+            });
         }
+    </script>
 
-        alert("You are now logged in");
-        location.href = "index.html";
-        
-      } catch (error) {
-        if (
-          error instanceof TypeError &&
-          error.message.includes("avatarData.avatarInfo is undefined")
-        ) {
-          location.href = "index.html";
-        } else {
-          // handleFetchError()
-        }
-      }
-    } catch (error) {
-      
-      console.error("The error is: " + error);
-      functions.displayErrorMsg();
-    }
-  });
-}
-</script>
-  
     <!-- <script src="AvatarStudio/scriptAvatar/darkMode.js"></script> -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">

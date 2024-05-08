@@ -18,7 +18,7 @@ class DBManager {
       await client.connect();
       const output = await client.query(
         'INSERT INTO "public"."user"("username", "email", "password") VALUES($1::Text, $2::Text, $3::Text) RETURNING id;',
-        [user.username, user.email, user.pswHash]
+        [user.name, user.email, user.pswHash]
       );
 
       if (output.rows.length == 1) {
@@ -94,11 +94,21 @@ class DBManager {
       client.connect();
       const output = await client.query(
         `UPDATE "public"."user" SET "avatar" = $1  WHERE "id" = $2`, [avatarData, userId]);
-
-   
-      
     }
     catch (error) {
+      console.error("could not save Avatar to Database. Error: " + error);
+      throw error;
+    }
+  }
+
+  async getAvatar(userId) {
+    const client = new pg.Client(this.#credentials);
+
+    try {
+      client.connect();
+      const output = await client.query(`SELECT "avatar" FROM "public"."user" WHERE "id" = $1;`, [userId]);
+      return output.rows[0];
+    }catch (error) {
       console.error("could not save Avatar to Database. Error: " + error);
       throw error;
     }
@@ -135,13 +145,14 @@ class DBManager {
     }
   }
 
+
   async getUserByEmailAndPassword(email, pswHash) {
     const client = new pg.Client(this.#credentials);
 
     try {
       await client.connect();
       const output = await client.query(
-        'SELECT * FROM "public"."user" WHERE "email" = $1 AND "password" = $2',
+        'SELECT * FROM "public"."user" WHERE email = $1 AND "password" = $2',
         [email, pswHash]
       );
 
