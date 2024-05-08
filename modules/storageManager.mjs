@@ -139,7 +139,7 @@ class DBManager {
         [email, pswHash]
       );
 
-     /* if (output.rows.length > 0) {
+      if (output.rows.length > 0) {
           const user = output.rows[0];
 
        const now = new Date();
@@ -147,7 +147,7 @@ class DBManager {
           'UPDATE "public"."user" SET "lastLogin" = $1 WHERE id = $2',
           [now, user.id]
         ); 
-      }*/
+      }
       return output.rows[0];
     } catch (error) {
       console.error("Error fetching user by email and password:", error);
