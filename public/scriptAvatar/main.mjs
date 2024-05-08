@@ -8,10 +8,62 @@ export function loadScene() {
   const exportedAvatarData = character;
 }
 
+
+export function printResponse(aMsg, aColor) {
+
+  const messageDisplayContainerId = 'msgContainer'
+  const messageDisplay = document.createElement("div");
+  messageDisplay.id = messageDisplayContainerId;
+  document.body.appendChild(messageDisplay);
+
+  //messageDisplay.style.color = aColor;
+  messageDisplay.textContent = aMsg;
+
+  setTimeout(() => {
+    document.body.removeChild(messageDisplay);
+  }, 5000);
+}
+
+function displayErrorMsg() {
+  printResponse('An error ocurred, trying to reach the server')
+}
+
+async function fetchWrapper(aMethod, anUrl, aBodyElement) {
+
+  try {
+    const response = await fetch(anUrl, {
+      method: aMethod,
+      headers: {
+        /* Authorization: checkStorage().token, */
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(aBodyElement),
+    });
+
+    printResponse(response);
+
+    return response;
+  } catch (error) {
+    console.error("An error during " + aMethod + " for url " + anUrl, error);
+    displayErrorMsg();
+  }
+}
+
 const checkBtn = document.getElementById("checkBtn");
-checkBtn.addEventListener("click", () => {
-  scene.saveImg('imgCanvas');
-  character.save();
+checkBtn.addEventListener("click", async () => {
+  //const avatarImage = scene.saveImg('imgCanvas');
+  const avatarData = character.save();
+
+  try {
+    const response = await fetchWrapper('POST', "user/Avatar", avatarData);
+    /* if (response.ok) {
+      //do the correct things
+    } else {
+      //write error messages form server
+    } */
+  } catch (error) {
+    displayErrorMsg();
+  }
 });
 
 const menuOptions = document.querySelectorAll("[menuOption]");
@@ -26,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
       setupOptionsMenu(this);
     });
   });
-  
+
 });
 
 function setupOptionsMenu(menuOption) {
@@ -75,20 +127,20 @@ parentTabs.forEach((parentTab) => {
         break;
     }
     parentTabs.forEach((tab) => {
-        tab.classList.remove("active");
-      });
+      tab.classList.remove("active");
+    });
     this.classList.toggle("active");
 
     allHiddenTabs.forEach((tab) => {
-        if (!tab.classList.contains(`${parentId}-hidden-tab`)) {
-            tab.style.display = "none";
+      if (!tab.classList.contains(`${parentId}-hidden-tab`)) {
+        tab.style.display = "none";
       } else {
-        
-        tab.style.display = tab.style.display != "block" ? "block": "none" //tab.style.display is empty string on first click
+
+        tab.style.display = tab.style.display != "block" ? "block" : "none" //tab.style.display is empty string on first click
       }
     });
   });
-  
+
 });
 
 const childrenTabs = document.querySelectorAll(".hidden-tab");

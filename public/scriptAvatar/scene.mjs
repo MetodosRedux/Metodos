@@ -3,15 +3,6 @@ import * as THREE from '../dist/mjs/three.module.js';
 import { OrbitControls } from '../dist/mjs/OrbitControls.js';
 import { TCharacter } from "./characterClass.mjs";
 
-
-export const avatarFeatures = {
-    skinColor: null,
-    hairColor: null,
-    eyeColor: null,
-    browType: null,
-    loggedInUser: null,
-}
-
 export const scenePositions = {
     x: 0,
     y: 0,
@@ -34,15 +25,12 @@ export function TinitialiseScene() {
 
     let renderer;
     const scene = new THREE.Scene();
-
     const white = 0xffffff;
 
     //----------------scene objects----------------------
     camera.position.z = 5;
     //-----------------lights------------------
-
     addLights();
-
     //--------------- renderer --------------------------
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.shadowMap.enabled = true;

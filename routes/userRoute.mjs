@@ -44,11 +44,14 @@ USER_API.post("/", async (req, res, next) => {
 /*   -----------LOGIN--------------- */
 
 USER_API.post('/Avatar', async (req, res, next) => {
+const avatarData = req.body;
   try {
-    const { name, email, pswHash } = req.body;
+    console.log("AvatarTrue")
+    //DBManager.saveAvatar(avatarData);
+    res.status(HTTPCodes.SuccessfulResponse.Ok).json({ msg: "Avatar Saved",  });
   } catch (error){
     console.error("Error uploading avatar:", error);
-    res.status(HTTPCodes.ServerErrorResponse.InternalError).json({ error: 'Something went wrong finding avatar' });
+    res.status(HTTPCodes.ServerErrorResponse.InternalError).json({ error: 'Something went wrong uploading avatar' });
   }
 })
 
