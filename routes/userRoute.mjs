@@ -12,10 +12,10 @@ const USER_API = express.Router();
 /*   -----------NEW USER--------------- */
 USER_API.post("/", async (req, res, next) => {
   try {
-    const { name, email, password } = req.body;
+    const { name: username, email, password } = req.body;
     const pswHash = generateHash(password);
 
-    if (!name || !email || !password) {
+    if (!username || !email || !password) {
       return res.status(HTTPCodes.ClientSideErrorResponse.BadRequest).json({ msg: "Missing input", });
     }
 
@@ -26,7 +26,7 @@ USER_API.post("/", async (req, res, next) => {
     }
 
     const user = new User();
-    user.name = name;
+    user.name = username;
     user.email = email;
     user.pswHash = pswHash;
 
