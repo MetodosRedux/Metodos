@@ -49,9 +49,10 @@ applyDarkMode();
 
 darkModeToggle.addEventListener("change", toggleDarkMode);
 
-let loginBtn = document.getElementById("loginBtn");
+/* let loginBtn = document.getElementById("loginBtn");
 
 loginBtn.addEventListener('click', (event) => {
     event.preventDefault(); 
     location.href = "index.html"; 
 });
+ */
