@@ -6,11 +6,6 @@ import * as functions from "./functions.mjs";
 const scene = new TinitialiseScene();
 export async function loadScene() {
   scene.load();
- /*  const loadingPage = document.getElementById('loadingPage');
-  const tabs = document.getElementById("tabsMenu");
-  loadingPage.style.display = "none";
-  tabs.style.display = "block"; */
-  
 }
 
 

@@ -22,8 +22,6 @@ export function printResponse(aMsg, aColor) {
 
    const token =  localStorage.getItem("token")
 
-   const token = localStorage.getItem("token")
-
     try {
       const response = await fetch(anUrl, {
         method: aMethod,
