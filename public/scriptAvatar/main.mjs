@@ -4,9 +4,13 @@ import { showColors, showMeshes } from "./tabOptions.mjs";
 import * as functions from "./functions.mjs";
 
 const scene = new TinitialiseScene();
-export function loadScene() {
+export async function loadScene() {
   scene.load();
-  const exportedAvatarData = character;
+ /*  const loadingPage = document.getElementById('loadingPage');
+  const tabs = document.getElementById("tabsMenu");
+  loadingPage.style.display = "none";
+  tabs.style.display = "block"; */
+  
 }
 
 
@@ -49,8 +53,6 @@ function setupOptionsMenu(menuOption) {
   while (colorSelector.firstChild) {
     colorSelector.removeChild(colorSelector.firstChild);
   }
-
-  // Initialize color or meshes based on JSON file
   if (jsonFile != null && jsonFile != 'meshCategories') {
     showColors(menuOptionValue, jsonFile);
   } else if (jsonFile == 'meshCategories') {
@@ -59,8 +61,10 @@ function setupOptionsMenu(menuOption) {
     console.log("anError");
   }
 }
+
 const parentTabs = document.querySelectorAll(".tab");
 const allHiddenTabs = document.querySelectorAll(".hidden-tab");
+
 parentTabs.forEach((parentTab) => {
   parentTab.addEventListener("click", function () {
     const parentId = this.id;
@@ -102,6 +106,29 @@ parentTabs.forEach((parentTab) => {
     });
   });
 
+});
+
+const allTabs = document.querySelectorAll('.tab, .hidden-tab');
+//autoscroll for tabs when clicking
+allTabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const parentContainer = tab.parentNode;
+    const parentWidth = parentContainer.clientWidth;
+    const scrollLeft = parentContainer.scrollLeft;
+    const tabOffsetLeft = tab.offsetLeft;
+
+    let scrollTo = tabOffsetLeft - scrollLeft;
+
+    if (scrollTo + tab.offsetWidth > parentWidth) {
+
+      scrollTo = tabOffsetLeft + tab.offsetWidth - parentWidth;
+    }
+
+    parentContainer.scrollTo({
+      left: scrollLeft + scrollTo,
+      behavior: 'smooth'
+    });
+  });
 });
 
 const childrenTabs = document.querySelectorAll(".hidden-tab");

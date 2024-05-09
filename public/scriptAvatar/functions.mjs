@@ -19,13 +19,12 @@ export function printResponse(aMsg, aColor) {
   }
   
   export async function fetchWrapper(aMethod, anUrl, aBodyElement) {
-  
+   const token =  localStorage.getItem("token")
     try {
       const response = await fetch(anUrl, {
         method: aMethod,
         headers: {
-          Authorization: localStorage.getItem("token"),
-          'Content-Type': 'application/json'
+          Authorization: token,
         },
         body: JSON.stringify(aBodyElement),
       });

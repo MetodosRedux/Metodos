@@ -76,6 +76,7 @@ export function TinitialiseScene() {
     //-----------------character-------------------------
     character.rotateY(degreesToRadians(-90));
     scene.add(character);
+   
 
     //----------------localStorage--------------------------------------
 
@@ -119,10 +120,18 @@ export function TinitialiseScene() {
         scene.background = previousBackground;
     };
 
-    this.load = function () {
-        requestAnimationFrame(this.load.bind(this));
+    this.load =  function () {
+        
         controls.update();
         renderer.render(scene, camera);
+        requestAnimationFrame(this.load.bind(this));
+        
+        if (character.loaded) {
+            const loadingPage = document.getElementById('loadingPage');
+            const tabs = document.getElementById("tabsMenu");
+            loadingPage.style.display = "none";
+            tabs.style.display = "block";
+        }
     };
 
     function setConstantAspectRatio() {

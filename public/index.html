@@ -180,36 +180,14 @@
         main.loadScene();
 
         const tabs = document.getElementById("tabsMenu");
-        const loadingPage = document.getElementById('loadingPage');
 
-        setTimeout(() => {
+       /*  setTimeout(() => {
             tabs.style.display = "block";
             loadingPage.style.display = "none";
         }, 2000)
+ */
 
-
-        const allTabs = document.querySelectorAll('.tab, .hidden-tab');
-        //autoscroll for tabs when clicking
-        allTabs.forEach(tab => {
-            tab.addEventListener('click', () => {
-                const parentContainer = tab.parentNode;
-                const parentWidth = parentContainer.clientWidth;
-                const scrollLeft = parentContainer.scrollLeft;
-                const tabOffsetLeft = tab.offsetLeft;
-
-                let scrollTo = tabOffsetLeft - scrollLeft;
-
-                if (scrollTo + tab.offsetWidth > parentWidth) {
-
-                    scrollTo = tabOffsetLeft + tab.offsetWidth - parentWidth;
-                }
-
-                parentContainer.scrollTo({
-                    left: scrollLeft + scrollTo,
-                    behavior: 'smooth'
-                });
-            });
-        });
+    
     </script>
 
     </script>
