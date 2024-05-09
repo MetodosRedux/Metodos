@@ -12,7 +12,7 @@ const USER_API = express.Router();
 /*   -----------NEW USER--------------- */
 USER_API.post("/", async (req, res, next) => {
   try {
-    const { name: username, email, password } = req.body;
+    const { username, email, password } = req.body;
     const pswHash = generateHash(password);
 
     if (!username || !email || !password) {
@@ -58,7 +58,7 @@ USER_API.post("/login", loginVerification, async (req, res, next) => {
 
 USER_API.post('/avatar', verifyToken, async (req, res, next) => {
   const avatarData = req.body;
-  const userId = req.tokenResponse;
+  const userId = req.tokenResponse.userId;
 
   try {
     console.log("AvatarTrue")

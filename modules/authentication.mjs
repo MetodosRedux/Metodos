@@ -2,6 +2,7 @@
 import jwt from "jsonwebtoken";
 import HTTPCodes from "./httpConstants.mjs";
 import DBManager from "./storageManager.mjs";
+import { generateHash } from "./crypto.mjs";
 
 export function verifyToken(req, res, next) {
   const token = req.headers.authorization;
