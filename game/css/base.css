@@ -1,0 +1,358 @@
+:root {
+    --font-family: 'Roboto', sans-serif;
+    --bacground-color: #262626;
+    --button-background-color: #74B194;
+    --button-text-color: #FFFFFF;
+    --footerBackgroundColor: #365555;
+    --headerBackgroundColor: #F5F5F5;
+    --text-color: #FFFFFF;
+    --peek-text-color: #FFFFFF;
+    --headerFontColor: #020202;
+    --footerHeight: 5vh;
+    --sceenHeight: calc(100vh - var(--footerHeight));
+    --baseWidth: 375px;
+    --headerTextBoxMargin: 10px;
+    --headerTextBoxPadding: 10px;
+    --baseGrow: calc(var(--baseWidth)/10);
+}
+
+.left {
+    order: 1;
+    margin-left: 10px;
+}
+
+.right {
+    order: 0;
+    margin-right: 10px;
+}
+
+.center {
+    justify-content: center;
+}
+
+.hidden {
+    display: none!important;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999999;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.overlay>iframe {
+    width: var(--baseWidth);
+    height: var(--sceenHeight);
+}
+
+.dialogue {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.dialogueLeft {
+    justify-content: flex-end;
+}
+
+.dialogueContent {
+    background-color: #515151;
+    border-radius: 12px;
+    font-family: Lato;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: left;
+    color: #FFFFFF;
+    padding: 1em;
+}
+
+.dialogueContent>p, .dialogue>header>p {
+    margin-block: 0em;
+}
+
+.dialogue>header {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: right;
+    color: #929292;
+}
+
+.dialogue>header>.portrait {
+    width: 34px;
+    height: 34px;
+}
+
+.monolog {
+    display: block;
+    width: 100%;
+}
+
+.monolog>header {
+    position: relative;
+    text-align: center;
+}
+
+.monolog>header>.portrait {
+    width: 117px;
+    height: 117px;
+}
+
+.monolog>header>* {
+    margin-block-start: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    font-size: 16px;
+    background-color: var(--bacground-color);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.exp {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 1000;
+}
+
+.exp, .wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.scene {
+    background-image: url("../images/background.svg");
+    background-repeat: repeat;
+    color: var(--text-color);
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    width: var(--baseWidth);
+    height: var(--sceenHeight);
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.scene>header {
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-bottom: 10px;
+    width: 100%;
+    z-index: 100;
+}
+
+header>#headerContent {
+    background-color: var(--headerBackgroundColor);
+    color: black;
+    margin: var(--headerTextBoxMargin);
+    padding: var(--headerTextBoxPadding);
+}
+
+.headerWithBgImage {
+    height: 30vh;
+}
+
+.footer {
+    align-self: flex-end;
+    height: var(--footerHeight);
+    width: var(--baseWidth);
+    background-color: var(--footerBackgroundColor);
+    display: flex;
+    align-items: flex-start;
+}
+
+.peek {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: var(--footerHeight);
+    color: var(--peek-text-color);
+}
+
+.peekImage {
+    max-width: 95%;
+    max-height: 80%;
+}
+
+.clickable {
+    pointer-events: all!important;
+}
+
+.disabled {
+    pointer-events: none!important;
+}
+
+.modal {
+    position: relative;
+    z-index: 50;
+    top: 35vh;
+    left: 0px;
+    width: var(--baseWidth);
+    height: 65vh;
+    background-color: var(--footerBackgroundColor);
+    pointer-events: all;
+}
+
+.s1, .s2, .s3, .s4, .s5, .s6, .s7, .s8, .s9, .s10 {
+    flex-basis: var(--baseGrow);
+}
+
+.s1 {
+    flex-grow: 1;
+}
+
+.s2 {
+    flex-grow: 2;
+}
+
+.s3 {
+    flex-grow: 3;
+}
+
+.s4 {
+    flex-grow: 4;
+}
+
+.s5 {
+    flex-grow: 5;
+}
+
+.s6 {
+    flex-grow: 6;
+}
+
+.s7 {
+    flex-grow: 7;
+}
+
+.s8 {
+    flex-grow: 8;
+}
+
+.s9 {
+    flex-grow: 9;
+}
+
+.s10 {
+    flex-grow: 10;
+}
+
+@media screen and (max-width: 1000px) {
+    .scene, .footer, .sceneImage {
+        width: 100%;
+    }
+}
+
+.content {
+    align-self: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    z-index: 1;
+}
+
+.content>* {
+    margin-left: 10px;
+    margin-right: 10px;
+    overflow-x: hidden;
+}
+
+.content>p {
+    line-height: 19px;
+    font-weight: 400;
+}
+
+.content>h1 {
+    text-align: center;
+    width: 100%;
+}
+
+.sceneImage {
+    width: var(--baseWidth);
+    max-height: 30vh;
+    overflow: hidden;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-self: flex-end;
+    justify-self: flex-end;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 1rem;
+}
+
+button {
+    background-color: var(--button-background-color);
+    font-weight: 400;
+    color: var(--text-color);
+    border: none;
+    text-decoration: none;
+    padding: 0.3rem;
+    margin: 0.2rem;
+    width: 90%;
+    border-radius: 35px;
+    cursor: pointer;
+}
+
+button:hover {
+    filter: brightness(130%);
+}
+
+.videoLink {
+    background-color: royalblue;
+    font-weight: 400;
+    color: var(--text-color);
+    border: none;
+    text-decoration: none;
+    padding: 1.0rem;
+    margin: 0.2rem;
+    border-radius: 18px;
+    cursor: pointer;
+}
+
+.videoLink:hover {
+    filter: brightness(130%);
+}
+
+.break {
+    flex-basis: 100%;
+    height: 0;
+}
+
+.badge {
+    width: 33%;
+}

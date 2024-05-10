@@ -14,6 +14,8 @@ export class TCharacter extends THREE.Object3D {
         const loader = new GLTFLoader();
         loader.setDRACOLoader(dracoLoader);
 
+        let loaded = false;
+
         let bodyParts = {
             eye: { name: 'eyes', color: "#CEE2FF" },
             hair: { name: null, color: "#6B4F39" },
@@ -127,6 +129,12 @@ export class TCharacter extends THREE.Object3D {
                 this.setColor(category, bodyParts[category].color);
             };
 
+            this.loaded = function (){
+                if (loaded === true){
+                    return true;
+                }   
+            }
+
             function locateAllMeshes(scene) {
                 const meshCategories = {};
 
@@ -168,6 +176,7 @@ export class TCharacter extends THREE.Object3D {
                         }
                     }
                 }
+                loaded = true;
             }
 
             function saveMeshCategoriesToFile(meshCategories, fileName) {

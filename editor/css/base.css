@@ -1,0 +1,10 @@
+.thumbnail {
+    max-width: 64px;
+    padding: 4px;
+}
+
+*[contenteditable="true"] {
+    background-color: var(--dm-input-bg-color);
+    border-color: var(--dm-input-border-color);
+    box-shadow: var(--dm-input-box-shadow);
+}
