@@ -22,13 +22,14 @@ export function printResponse(aMsg, aColor) {
 
    const token =  localStorage.getItem("token")
 
+
     try {
       const response = await fetch(anUrl, {
         method: aMethod,
         headers: {
           Authorization: token,
         },
-        body: JSON.stringify(aBodyElement),
+        body: aBodyElement,
       });
       const data = await response.json();
       printResponse(data.msg);

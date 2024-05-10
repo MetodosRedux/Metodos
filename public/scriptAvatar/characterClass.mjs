@@ -4,7 +4,7 @@ import { DRACOLoader } from "../dist/mjs/DRACOLoader.js";
 import * as THREE from '../dist/mjs/three.module.js';
 import { scenePositions } from "./scene.mjs";
 
-
+//TODO: sette avatar som paramterer for å laste inn avatar fra bruker
 export class TCharacter extends THREE.Object3D {
     constructor() {
         super();

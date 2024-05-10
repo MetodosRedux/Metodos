@@ -112,12 +112,13 @@ export function TinitialiseScene() {
         imgRenderer.render(scene, tempCamera);
 
         const imageDataUrl = canvas.toDataURL('image/png'); //add this to the server 
-        const downloadLink = document.createElement('a');
+      /*   const downloadLink = document.createElement('a');
         downloadLink.href = imageDataUrl;
         downloadLink.download = 'rendered_image.png';
-        downloadLink.click();
+        downloadLink.click(); */
         character.position.y = initialCharacterPos;
         scene.background = previousBackground;
+        return imageDataUrl;
     };
 
     this.load =  function () {

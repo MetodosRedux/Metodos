@@ -7,10 +7,11 @@ import DBManager from "../modules/storageManager.mjs";
 import Avatar from "../modules/avatar.mjs";
 import { generateHash } from "../modules/crypto.mjs";
 import multer from "multer";
+import fs from "fs"
 
 
 const USER_API = express.Router();
-
+const upload = multer()
 /*   -----------NEW USER--------------- */
 USER_API.post("/", async (req, res, next) => {
   try {
@@ -58,9 +59,22 @@ USER_API.post("/login", loginVerification, async (req, res, next) => {
 
 /* -------------AVATAR----------------- */
 
-USER_API.post('/avatar', verifyToken, async (req, res, next) => {
-  const avatarData = req.body;
+USER_API.post('/avatar', verifyToken, upload.none(), async (req, res, next) => {
+  const avatarData = req.body.avatarData;
+  const imageData = req.body.imageDataUrl
   const userId = req.tokenResponse.userId;
+
+  const base64Data = imageData.split(',')[1];
+
+  // Convert base64-encoded data to a buffer
+  const binaryData = Buffer.from(base64Data, 'base64');
+  
+
+  const filename = `${userId}.png`;
+  const filePath = `./userProfilePictures/${filename}`;
+
+  // Write the image data to a PNG file
+  fs.writeFileSync(filePath, binaryData, 'binary');
 
   try {
     console.log("AvatarTrue")

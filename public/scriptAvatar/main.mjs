@@ -12,12 +12,21 @@ export function loadScene() {
 const checkBtn = document.getElementById("checkBtn");
 checkBtn.addEventListener("click", async () => {
   //const avatarImage = scene.saveImg('imgCanvas');
-  const avatarData = character.save();
+
+
+      const formData = new FormData();
+      const avatarData = JSON.stringify(character.save());
+      const imageData = scene.saveImg('imgCanvas')
+
+    formData.append("imageDataUrl", imageData);
+    formData.append("avatarData", avatarData);
+    console.log(formData) 
+  
 
   try {
-    const response = await functions.fetchWrapper('POST', "user/avatar", avatarData);
+    const response = await functions.fetchWrapper('POST', "user/avatar", formData);
     if (response.ok) {
-      //do the correct things
+      console.log(response)
     } else {
       //write error messages form server
     }

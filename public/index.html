@@ -174,8 +174,15 @@
 
     <script type="module">
      import * as main from "./scriptAvatar/main.mjs"
-     import { character } from "./scriptAvatar/scene.mjs";   
+     import { character } from "./scriptAvatar/scene.mjs";  
+     const avatar = localStorage.getItem("avatar") 
+
+     if(!avatar){
         main.loadScene();
+     }else{
+        main.loadScene(avatar)
+     }
+        
         const tabs = document.getElementById("tabsMenu");
 
        /*  setTimeout(() => {
