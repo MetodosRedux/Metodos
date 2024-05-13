@@ -60,10 +60,7 @@
                 event.preventDefault();
                 const email = document.getElementById("inputEmail").value;
                 const password = document.getElementById("inputPassword").value;
-                /* let formData = new FormData(loginForm);
-                        let email = formData.get("inputEmail");
-                        let pswHash = formData.get("inputPassword"); */
-                console.log(email, password);
+              
 
                 let url = "/user/login";
 
@@ -74,13 +71,9 @@
                         body: JSON.stringify({ email, password }),
                     });
 
-                    if (!response.ok) {
-                        throw new Error("Server error: " + response.status);
-                    }
-
                     let data = await response.json();
                     functions.printResponse(data.msg);
-
+                    console.log(data.avatar)
                     localStorage.setItem("token", data.token);
                     localStorage.setItem("avatar", data.avatar);
 
@@ -91,7 +84,7 @@
                 } catch (error) {
 
                     console.error("The error is: " + error);
-                    functions.displayErrorMsg();
+                    functions.displayErrorMsg(error);
                 }
             });
         }

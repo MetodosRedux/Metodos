@@ -1,13 +1,12 @@
 "use strict";
-import { TinitialiseScene, character, camera } from "./scene.mjs";
+import { TinitialiseScene, camera, character } from "./scene.mjs";
 import { showColors, showMeshes } from "./tabOptions.mjs";
 import * as functions from "./functions.mjs";
 
-const scene = new TinitialiseScene();
-export function loadScene() {
-  scene.load();
+export const scene = new TinitialiseScene();
+export function loadScene(avatarData) {
+  scene.load(avatarData);
 }
-
 
 const checkBtn = document.getElementById("checkBtn");
 checkBtn.addEventListener("click", async () => {
@@ -31,7 +30,7 @@ checkBtn.addEventListener("click", async () => {
       //write error messages form server
     }
   } catch (error) {
-    functions.displayErrorMsg();
+    functions.displayErrorMsg(error);
   }
 });
 

@@ -36,7 +36,7 @@ export async function loginVerification (req, res, next) {
       return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "invalid Email or password"});
     }
 
-    const avatar = DBManager.getAvatar(user.id);
+    const avatar = user.avatar;
 
     let tokenPayload = {
       userId: user.id,

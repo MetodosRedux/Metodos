@@ -14,8 +14,8 @@ export function printResponse(aMsg, aColor) {
     }, 5000);
   }
   
-  export function displayErrorMsg() {
-    printResponse('An error ocurred, trying to reach the server')
+  export function displayErrorMsg(anError) {
+    printResponse('An error ocurred, trying to reach the server. Resulted in error: ' + anError)
   }
   
   export async function fetchWrapper(aMethod, anUrl, aBodyElement) {
@@ -28,11 +28,12 @@ export function printResponse(aMsg, aColor) {
         method: aMethod,
         headers: {
           Authorization: token,
+         
         },
         body: aBodyElement,
       });
       const data = await response.json();
-      printResponse(data.msg);
+      printResponse(data.msg); 
       return response;
     } catch (error) {
       console.error("An error during " + aMethod + " for url " + anUrl, error);
