@@ -127,7 +127,7 @@ export function TinitialiseScene() {
         renderer.render(scene, camera);
         requestAnimationFrame(this.load.bind(this));
         
-        if (character.isLoaded) {
+        if (character.isLoaded() === true) {
             const loadingPage = document.getElementById('loadingPage');
             const tabs = document.getElementById("tabsMenu");
             loadingPage.style.display = "none";
