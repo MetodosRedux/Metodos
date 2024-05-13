@@ -11,7 +11,8 @@ export class TCharacter extends THREE.Object3D {
   #currentIndex;
   #loaded;
   #gltfModel;
-  constructor(localAvatarData) {
+  #localAvatarData
+  constructor() {
     super();
 
     this.#bodyParts = null;
@@ -19,6 +20,7 @@ export class TCharacter extends THREE.Object3D {
     this.#currentIndex = -1;
     this.#loaded = false;
     this.#gltfModel = null;
+    this.#localAvatarData = JSON.parse(localStorage.getItem("avatar"));
 
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath("../dist/mjs/draco/");
@@ -48,29 +50,26 @@ export class TCharacter extends THREE.Object3D {
       
     });
 
-    if (localAvatarData) {
-      this.#bodyParts = JSON.parse(localAvatarData);
+    if (this.#localAvatarData != null ) {
+      this.#bodyParts = this.#localAvatarData;
     } else {
-      this.#initializeDefaultBodyParts();
+      this.#bodyParts = {
+        eye: { name: "eyes", color: "#CEE2FF" },
+        hair: { name: null, color: "#6B4F39" },
+        eyebrow: { name: "eyebrow_hairier", color: "#6B4F39" },
+        skin: { name: "skin", color: "#FFE7C0" },
+        shirt: { name: "shirt_hoodie", color: "#99C1FC" },
+        pants: { name: "pants_jogging", color: "#B09881" },
+        shoes: { name: "shoes_sneakers", color: "#B07947" },
+        glasses: { name: null },
+        earring: { name: null, color: "#CDAA35" },
+        necklace: { name: null, color: "#CDAA35" },
+        accessories: { name: null, color: "#CDAA35" },
+        beard: { name: null, color: "#6B4F39" },
+      };
     }
   }
 
-  #initializeDefaultBodyParts() {
-    this.#bodyParts = {
-      eye: { name: "eyes", color: "#CEE2FF" },
-      hair: { name: null, color: "#6B4F39" },
-      eyebrow: { name: "eyebrow_hairier", color: "#6B4F39" },
-      skin: { name: "skin", color: "#FFE7C0" },
-      shirt: { name: "shirt_hoodie", color: "#99C1FC" },
-      pants: { name: "pants_jogging", color: "#B09881" },
-      shoes: { name: "shoes_sneakers", color: "#B07947" },
-      glasses: { name: null },
-      earring: { name: null, color: "#CDAA35" },
-      necklace: { name: null, color: "#CDAA35" },
-      accessories: { name: null, color: "#CDAA35" },
-      beard: { name: null, color: "#6B4F39" },
-    };
-  }
 
   #locateMeshToPhong(aMeshName) {
     let mesh = this.#gltfModel.scene.children.find(

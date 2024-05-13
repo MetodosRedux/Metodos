@@ -39,7 +39,8 @@
                         <a class="nav-link" href="./mainPages/howTo.html">Hvordan starte</a>
                     </li>
                     <li>
-                        <button type="button" class="btn btn-danger" style="margin-top: 2px;">Logg ut</button>
+                        <button id="logOutBtn" type="button" class="btn btn-danger" style="margin-top: 2px;">Logg
+                            ut</button>
                     </li>
                     <div class="container d-flex justify-content-center text-center">
                         <div class="form-check form-switch">
@@ -157,7 +158,7 @@
                 </div>
             </div>
         </div>
-       
+
         <button id="checkBtn" class="globalBtn shadow">&#10004;</button>
     </div>
 
@@ -173,33 +174,37 @@
 
 
     <script type="module">
-     import * as main from "./scriptAvatar/main.mjs"
-     
-     const avatar = localStorage.getItem("avatar") 
-     console.log("index avatar" + avatar)
-    //main.loadScene();
-     if(!avatar){
-        main.loadScene();
-     }else{
-        main.loadScene(avatar)
-     } 
-        
+        import * as main from "./scriptAvatar/main.mjs"
+
+        const avatar = localStorage.getItem("avatar")
+        console.log("index avatar" + avatar)
+        //main.loadScene();
+        if (!avatar) {
+            main.loadScene();
+        } else {
+            main.loadScene(avatar)
+        }
+
         const tabs = document.getElementById("tabsMenu");
 
-       /*  setTimeout(() => {
-            tabs.style.display = "block";
-            loadingPage.style.display = "none";
-        }, 2000)
- */
+        /*  setTimeout(() => {
+             tabs.style.display = "block";
+             loadingPage.style.display = "none";
+         }, 2000)
+  */
+  const logOutBtn = document.getElementById("logOutBtn");      
+  logOutBtn.addEventListener("click", () => {
+            localStorage.clear();
+            location.href = "login.html"
+        })
 
-    
     </script>
 
     </script>
 
     <script src="./dist/mjs/bootstrap.bundle.min.js">
     </script>
-   <!--  <script src="./scriptAvatar/darkMode.js"></script> -->
+    <!--  <script src="./scriptAvatar/darkMode.js"></script> -->
 
 
 </body>

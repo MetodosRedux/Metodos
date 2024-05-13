@@ -60,7 +60,7 @@
                 event.preventDefault();
                 const email = document.getElementById("inputEmail").value;
                 const password = document.getElementById("inputPassword").value;
-              
+
 
                 let url = "/user/login";
 
@@ -70,20 +70,22 @@
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ email, password }),
                     });
-
                     let data = await response.json();
-                    functions.printResponse(data.msg);
-                    console.log(data.avatar)
-                    localStorage.setItem("token", data.token);
-                    localStorage.setItem("avatar", data.avatar);
 
+                    if (!response.ok) {
+                        functions.printResponse(data.msg);
+                    } else {
+                        functions.printResponse(data.msg);
+                        console.log(data.avatar)
+                        localStorage.setItem("token", data.token);
+                        localStorage.setItem("avatar", data.avatar);
+                        location.href = "index.html"
+                    }
 
-                    window.location.href="index.html"
 
 
                 } catch (error) {
 
-                    console.error("The error is: " + error);
                     functions.displayErrorMsg(error);
                 }
             });

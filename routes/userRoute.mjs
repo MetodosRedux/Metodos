@@ -51,9 +51,7 @@ USER_API.post("/login", loginVerification, async (req, res, next) => {
     res.status(HTTPCodes.SuccessfulResponse.Ok).json({ msg : "successful login" , token, avatar});
   } catch (error) {
     console.error("Error during login:", error.message);
-    res
-      .status(HTTPCodes.ClientSideErrorResponse.Unauthorized)
-      .send(error.message);
+    res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).send(error.message);
   } next()
 });
 
