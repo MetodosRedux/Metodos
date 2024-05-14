@@ -113,8 +113,8 @@ SuperTokensWeb.init({
 server.use(logger.createAutoHTTPRequestLogger()); // Will log all http method requests 
 
 // Defining a folder that will contain static files.
-server.use(express.static('public'));
-
+server.use(express.static('public',));
+server.use('/userProfilePictures', express.static('userProfilePictures'));
 
 server.use(express.json());
 

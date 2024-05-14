@@ -26,6 +26,7 @@ checkBtn.addEventListener("click", async () => {
     const response = await functions.fetchWrapper('POST', "user/avatar", formData);
     if (response.ok) {
       console.log(response)
+      location.href = "game/index.html"
     } else {
       //write error messages form server
     }

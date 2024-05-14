@@ -32,11 +32,11 @@ export function printResponse(aMsg, aColor) {
         },
         body: aBodyElement,
       });
-      const data = await response.json();
-      printResponse(data.msg); 
+     /*  const data = await response.json();
+      printResponse(data.msg);  */
       return response;
     } catch (error) {
-      console.error("An error during " + aMethod + " for url " + anUrl, error);
+       console.error("An error during " + aMethod + " for url " + anUrl, error); 
       displayErrorMsg();
     }
   }

@@ -84,4 +84,15 @@ USER_API.post('/avatar', verifyToken, upload.none(), async (req, res, next) => {
   }
 })
 
+USER_API.get("/game/id", verifyToken, async (req, res, next) => {
+  try {
+    const userId = req.tokenResponse.userId
+
+    res.status(HTTPCodes.SuccessfulResponse.Ok).json({ userId});
+  } catch (error) {
+    console.error("Couldn't find profile picture: ", error.message);
+    res.status(HTTPCodes.ClientSideErrorResponse.NotFound).json({ error: "Couldn't find profile picture" });
+  } next()
+});
+
 export default USER_API;
