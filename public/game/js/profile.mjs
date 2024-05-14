@@ -4,26 +4,7 @@ import * as functions from '../../scriptAvatar/functions.mjs';
 
 const PROFILE_KEY = "player.profile.storage.key"
 
-/* 
-document.addEventListener("DOMContentLoaded", async () => {
-try {
-    const response = await functions.fetchWrapper('GET', "/user/game/id");
-    if (response.ok) {
-        const data = await response.json()
-        const userId = data.userId
-        let profileAvatar = document.getElementById("avatarImage");
-        console.log(profileAvatar)
-        profileAvatar.src = "../../userProfilePictures"+userId+".png"
-       functions.printResponse(data.msg)
 
-    } else {
-      //write error messages form server
-    }
-  } catch (error) {
-    functions.displayErrorMsg(error);
-  }
-
-}); */
 class Profile {
 
     constructor(profile) {
@@ -41,8 +22,9 @@ class Profile {
         container.appendChild(view);
 
         let avatar = document.getElementById("playerAvatar")
-        console.log(avatar)
-        //avatar.src = this.avatar;
+        const userId = localStorage.getItem("userId")
+        console.log(userId)
+        avatar.src = "../../../userProfilePictures/" + userId + ".png";
 
         let name = document.getElementById("playerName")
         name.innerText = this.name;
@@ -101,7 +83,7 @@ class ProfileBuilder {
                 const userId = data.userId;
                 let profileAvatar = document.getElementById("avatarImage");
                 profileAvatar.src = "../../../userProfilePictures/" + userId + ".png";
-                metodos/userProfilePictures
+                localStorage.setItem("userId", userId)
                 functions.printResponse(data.msg);
             } else {
                 // Write error messages from server
