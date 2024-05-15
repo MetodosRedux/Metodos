@@ -343,6 +343,11 @@ body {
 .btn-primary {
   background-color: var(--purple);
   border-radius: 15px;
+  min-width:20vh;
+ /*  outline: solid 3px var(--inputBackground);  */
+}
+.spanLink{
+  color: var(--purple);
 }
 
 .inputFont {

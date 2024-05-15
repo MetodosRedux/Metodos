@@ -112,8 +112,14 @@ SuperTokensWeb.init({
  const logger = new SuperLogger();
 server.use(logger.createAutoHTTPRequestLogger()); // Will log all http method requests 
 
+server.get('/', (req, res) => {
+    res.sendFile('login.html', { root: './public' });
+    console.log("hallooo")
+  });
+ 
 // Defining a folder that will contain static files.
 server.use(express.static('public',));
+
 server.use('/userProfilePictures', express.static('userProfilePictures'));
 
 server.use(express.json());
