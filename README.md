@@ -35,9 +35,9 @@ it will look something like this:
 ## POST /User 
 > Creates a user in the database.
    
-Expects: JSON {username, email, password} 
-Returns: JSON  {msg}
-Requires: none
+Expects: JSON {username, email, password} <br>
+Returns: JSON  {msg} <br>
+Requires: none <br>
 
 
     
