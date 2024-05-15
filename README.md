@@ -33,7 +33,7 @@ it will look something like this:
 # API
 
 ## POST /User 
-> Creates a user in the database    
+> Creates a user in the database   
 Expects: JSON {username, email, password} 
 Returns: JSON  {msg}
 Requires: none
