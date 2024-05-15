@@ -1,6 +1,6 @@
 import DBManager from "./storageManager.mjs";
 
-
+//update code so it fits our possibilities
 
 class User {
   constructor() {

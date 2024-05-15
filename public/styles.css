@@ -138,7 +138,7 @@ p {
 
 .imgMenuContent {
   margin-top: 23%;
-  max-width: 80%;
+  max-width: 80vh;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -305,6 +305,8 @@ body {
 #undo,
 #redo {
   width: 15%;
+ max-height: 7vh;
+ max-width: 7vh;
   background-color: var(--lightgrey);
 }
 

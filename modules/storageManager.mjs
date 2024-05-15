@@ -1,5 +1,8 @@
 import pg from "pg";
 import { generateHash } from "./crypto.mjs";
+import dotenv from 'dotenv'
+dotenv.config();
+
 
 class DBManager {
   #credentials = {};
@@ -13,6 +16,7 @@ class DBManager {
 
   async createUser(user) {
     const client = new pg.Client(this.#credentials);
+    console.log(client);
 
     try {
       await client.connect();
@@ -108,7 +112,7 @@ class DBManager {
       client.connect();
       const output = await client.query(`SELECT "avatar" FROM "public"."user" WHERE "id" = $1;`, [userId]);
       return output.rows[0];
-    }catch (error) {
+    } catch (error) {
       console.error("could not save Avatar to Database. Error: " + error);
       throw error;
     }
@@ -116,7 +120,7 @@ class DBManager {
 
   async getUserByIdentifier(anIdetifyer) {
     const client = new pg.Client(this.#credentials);
-
+    console.log(client);
     try {
       await client.connect();
       let user = null;
@@ -157,13 +161,13 @@ class DBManager {
       );
 
       if (output.rows.length > 0) {
-          const user = output.rows[0];
+        const user = output.rows[0];
 
-       const now = new Date();
+        const now = new Date();
         await client.query(
           'UPDATE "public"."user" SET "lastLogin" = $1 WHERE id = $2',
           [now, user.id]
-        ); 
+        );
       }
       return output.rows[0];
     } catch (error) {
@@ -175,9 +179,7 @@ class DBManager {
   }
 }
 
-let connectionString =
-  process.env.ENVIRONMENT == "local"
-    ? process.env.DB_CONNECTIONSTRING_LOCAL
-    : process.env.DB_CONNECTIONSTRING_PROD;
+let connectionString = process.env.DB_CONNECTIONSTRING_LOCAL
+
 
 export default new DBManager(connectionString);

@@ -29,3 +29,7 @@ When loading a new file you only have to give the loader the new relative path t
 it will look something like this:  
 
 ` loader.load("./mediaAvatar/folder/yourFile.gltf", ()=> .....) `
+
+# API
+
+

@@ -1,7 +1,7 @@
 import express from 'express' // Express is installed using npm
 import USER_API from './routes/userRoute.mjs'; // This is where we have defined the API for working with users.
 import SuperLogger from './modules/superLogger.mjs';
-import dotenv from 'dotenv'
+
 import printDeveloperStartupImportantInformationMSG from "./modules/developerHelpers.mjs";
 /* import cors from 'cors';
 
@@ -18,7 +18,6 @@ const websitePort = process.env.WEBSITE_PORT || 8081
 const websiteDomain = process.env.WEBSITE_URL || 'http://localhost:'+ websitePort; */
 
 printDeveloperStartupImportantInformationMSG();
-dotenv.config()
 // Creating an instance of the server
 const server = express();
 
@@ -120,8 +119,6 @@ server.use(express.json());
 
 // Telling the server to use the USER_API 
 server.use("/user",  USER_API);
-
-
 
 // Start the server 
 server.listen(server.get('port'), function () {
