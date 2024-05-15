@@ -1,5 +1,7 @@
 import pg from "pg";
 import { generateHash } from "./crypto.mjs";
+import dotenv from 'dotenv'
+dotenv.config() 
 
 class DBManager {
   #credentials = {};
@@ -161,7 +163,7 @@ class DBManager {
 
        const now = new Date();
         await client.query(
-          'UPDATE "public"."user" SET "lastLogin" = $1 WHERE id = $2',
+          'UPDATE "public"."user" SET "lastlogin" = $1 WHERE id = $2',
           [now, user.id]
         ); 
       }
@@ -175,9 +177,8 @@ class DBManager {
   }
 }
 
-let connectionString =
-  process.env.ENVIRONMENT == "local"
-    ? process.env.DB_CONNECTIONSTRING_LOCAL
-    : process.env.DB_CONNECTIONSTRING_PROD;
+let connectionString =process.env.DB_CONNECTIONSTRING_LOCAL
+
+
 
 export default new DBManager(connectionString);
