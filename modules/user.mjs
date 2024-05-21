@@ -1,14 +1,14 @@
 import DBManager from "./storageManager.mjs";
 
-
+//update code so it fits our possibilities
 
 class User {
   constructor() {
     this.email;
     this.pswHash;
-    this.name;
-    this.id;
+    this.username;
     this.avatar;
+    this.id;
     this.lastLogin;
   }
 

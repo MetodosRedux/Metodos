@@ -29,3 +29,34 @@ When loading a new file you only have to give the loader the new relative path t
 it will look something like this:  
 
 ` loader.load("./mediaAvatar/folder/yourFile.gltf", ()=> .....) `
+
+# API
+
+## POST /user 
+> Creates a user in the database.
+   
+Expects: JSON {email, password} <br>
+Returns: JSON  {msg, token, avatar} <br>
+Requires: none <br>
+
+## POST /user/login
+> Verifies user and logs in.
+   
+Expects: JSON {username, email, password} <br>
+Returns: JSON  {msg} <br>
+Requires: none <br>
+
+## POST /user/avatar
+> Saves the avatar to database and a picture to disc.
+   
+Expects: Formdata {avatarData, imgDataUrl} <br>
+Returns: JSON  {msg} <br>
+Requires: token <br>
+
+## GET /user/game/id
+> retrieved the users Id.
+   
+Returns: JSON  {userId} <br>
+Requires: token <br>
+
+    

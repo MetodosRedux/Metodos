@@ -138,7 +138,7 @@ p {
 
 .imgMenuContent {
   margin-top: 23%;
-  max-width: 80%;
+  max-width: 80vh;
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -305,6 +305,8 @@ body {
 #undo,
 #redo {
   width: 15%;
+ max-height: 7vh;
+ max-width: 7vh;
   background-color: var(--lightgrey);
 }
 
@@ -343,6 +345,11 @@ body {
 .btn-primary {
   background-color: var(--purple);
   border-radius: 15px;
+  min-width:20vh;
+ /*  outline: solid 3px var(--inputBackground);  */
+}
+.spanLink{
+  color: var(--purple);
 }
 
 .inputFont {
@@ -375,6 +382,16 @@ body {
 
 #flexSwitchCheckDefault {
   color: white;
+}
+#msgContainer{
+  background-color: var(--backgroundcolor);
+  box-shadow: 0 4px 8px 0 var(--lightgrey), 0 6px 20px 0 var(--lightgrey);
+  text-align: center;
+  width: 75%;
+  margin: auto;
+  border: 20px rgb(47, 185, 70);
+  border-radius: 10px;
+  padding: 10%;
 }
 
 /* DARK-MODE */
