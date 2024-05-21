@@ -1,32 +1,42 @@
 "use strict";
-import { TinitialiseScene, character, camera } from "./scene.mjs";
+import { TinitialiseScene, camera, character } from "./scene.mjs";
 import { showColors, showMeshes } from "./tabOptions.mjs";
 import * as functions from "./functions.mjs";
 
-const scene = new TinitialiseScene();
-export async function loadScene() {
-  scene.load();
+export const scene = new TinitialiseScene();
+export function loadScene(avatarData) {
+  scene.load(avatarData);
 }
-
 
 const checkBtn = document.getElementById("checkBtn");
 checkBtn.addEventListener("click", async () => {
   //const avatarImage = scene.saveImg('imgCanvas');
-  const avatarData = character.save();
+
+
+      const formData = new FormData();
+      const avatarData = JSON.stringify(character.save());
+      const imageData = scene.saveImg('imgCanvas')
+
+    formData.append("imageDataUrl", imageData);
+    formData.append("avatarData", avatarData);
+    console.log(formData) 
+  
 
   try {
-    const response = await functions.fetchWrapper('POST', "user/avatar", avatarData);
+    const response = await functions.fetchWrapper('POST', "user/avatar", formData);
     if (response.ok) {
-      //do the correct things
+      console.log(response)
+      location.href = "game/index.html"
     } else {
       //write error messages form server
     }
   } catch (error) {
-    functions.displayErrorMsg();
+    functions.displayErrorMsg(error);
   }
 });
 
 const menuOptions = document.querySelectorAll("[menuOption]");
+
 
 document.addEventListener("DOMContentLoaded", function () {
   if (menuOptions.length > 0) {
@@ -41,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 
+
 function setupOptionsMenu(menuOption) {
   const menuOptionValue = menuOption.getAttribute("menuOption");
   const jsonFile = menuOption.getAttribute("jsonFile");
@@ -50,7 +61,7 @@ function setupOptionsMenu(menuOption) {
   }
   if (jsonFile != null && jsonFile != 'meshCategories') {
     showColors(menuOptionValue, jsonFile);
-  } else if (jsonFile == 'meshCategories') {
+  } else if (jsonFile == "meshCategories") {
     showMeshes(jsonFile, menuOptionValue);
   } else {
     console.log("anError");
@@ -65,23 +76,23 @@ parentTabs.forEach((parentTab) => {
     const parentId = this.id;
 
     switch (parentId) {
-      case 'clothesParent':
+      case "clothesParent":
         character.position.y = 2.2;
         camera.position.z = 8;
         break;
-      case 'hairParent':
+      case "hairParent":
         character.position.y = 0;
         camera.position.z = 6;
         break;
-      case 'eyeParent':
+      case "eyeParent":
         character.position.y = 0;
         camera.position.z = 5;
         break;
-      case 'skinParent':
+      case "skinParent":
         character.position.y = 2.2;
         camera.position.z = 8;
         break;
-      case 'accessoriesParent':
+      case "accessoriesParent":
         character.position.y = 0;
         camera.position.z = 8;
         break;
@@ -95,8 +106,7 @@ parentTabs.forEach((parentTab) => {
       if (!tab.classList.contains(`${parentId}-hidden-tab`)) {
         tab.style.display = "none";
       } else {
-
-        tab.style.display = tab.style.display != "block" ? "block" : "none" //tab.style.display is empty string on first click
+        tab.style.display = tab.style.display != "block" ? "block" : "none"; //tab.style.display is empty string on first click
       }
     });
   });
@@ -136,13 +146,18 @@ childrenTabs.forEach((childrenTab) => {
     this.classList.add("active");
   });
 });
+ 
+document.addEventListener("DOMContentLoaded", ()=>{
+  const undo = document.getElementById("undo");
+  const redo = document.getElementById("redo");
+  
+  undo.addEventListener("click", () => {
+    character.undo();
+  });
+  redo.addEventListener("click", () => {
+    character.redo();
+  });
+})
 
-const undo = document.getElementById("undo");
-const redo = document.getElementById("redo");
 
-undo.addEventListener("click", () => {
-  character.undo();
-});
-redo.addEventListener("click", () => {
-  character.redo();
-});
+

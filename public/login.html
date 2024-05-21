@@ -10,7 +10,7 @@
 
 <body>
     <div class="mb-5 mt-5 container d-flex justify-content-center">
-        <img src="AvatarStudio/mediaAvatar/aLogo_light.png" id="logo" alt="this is a logo" class="w-50">
+        <img src="/mediaAvatar/aLogo_light.png" id="logo" alt="this is a logo" class="w-50">
     </div>
 
     <div class="container d-flex justify-content-center text-center">
@@ -30,11 +30,12 @@
             <div class="p">
                 <p>Glemt passord</p>
             </div>
-            <button type="submit" class="btn btn-primary btn-lg border-0 mt-5 mb-4 shadow" id="loginBtn">Logg
+            <button type="submit" class="btn btn-primary btn-lg border-0 mt-5 mb-5 shadow" id="loginBtn">Logg
                 Inn</button>
-            <div class="p1 mb-5">
-                <a href="register.html">Registrer ny bruker</a>
-            </div>
+                  
+                <div class="p1 mb-5">
+                    Eller registrer<a href="register.html"><span class="spanLink"> ny bruker</span></a>
+                </div>
 
         </form>
 
@@ -60,10 +61,7 @@
                 event.preventDefault();
                 const email = document.getElementById("inputEmail").value;
                 const password = document.getElementById("inputPassword").value;
-                /* let formData = new FormData(loginForm);
-                        let email = formData.get("inputEmail");
-                        let pswHash = formData.get("inputPassword"); */
-                console.log(email, password);
+
 
                 let url = "/user/login";
 
@@ -73,25 +71,23 @@
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ email, password }),
                     });
+                    let data = await response.json();
 
                     if (!response.ok) {
-                        throw new Error("Server error: " + response.status);
+                        functions.printResponse(data.msg);
+                    } else {
+                        functions.printResponse(data.msg);
+                        console.log(data.avatar)
+                        localStorage.setItem("token", data.token);
+                        localStorage.setItem("avatar", data.avatar);
+                        location.href = "index.html"
                     }
 
-                    let data = await response.json();
-                    functions.printResponse(data.msg);
-
-                    localStorage.setItem("token", data.token);
-                    localStorage.setItem("avatar", data.avatar);
-
-
-                    window.location.href="index.html"
 
 
                 } catch (error) {
 
-                    console.error("The error is: " + error);
-                    functions.displayErrorMsg();
+                    functions.displayErrorMsg(error);
                 }
             });
         }

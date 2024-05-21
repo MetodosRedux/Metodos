@@ -15,6 +15,7 @@ class DBManager {
 
   async createUser(user) {
     const client = new pg.Client(this.#credentials);
+    console.log(client);
 
     try {
       await client.connect();
@@ -56,7 +57,7 @@ class DBManager {
       client.connect();
       const output = await client.query(`SELECT "avatar" FROM "public"."user" WHERE "id" = $1;`, [userId]);
       return output.rows[0];
-    }catch (error) {
+    } catch (error) {
       console.error("could not save Avatar to Database. Error: " + error);
       throw error;
     }
@@ -64,7 +65,7 @@ class DBManager {
 
   async getUserByIdentifier(anIdetifyer) {
     const client = new pg.Client(this.#credentials);
-
+    console.log(client);
     try {
       await client.connect();
       let user = null;
@@ -108,7 +109,7 @@ class DBManager {
 
         const now = new Date();
         await client.query(
-          'UPDATE "public"."user" SET "lastLogin" = $1 WHERE id = $2',
+          'UPDATE "public"."user" SET "lastlogin" = $1 WHERE id = $2',
           [now, user.id]
         );
       }

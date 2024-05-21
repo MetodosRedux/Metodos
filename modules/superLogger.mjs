@@ -115,7 +115,7 @@ class SuperLogger {
         msg += "\n";
         console.log(msg);
         const currentDate = new Date().toLocaleDateString('en-GB').replace(/\//g, '');
-        const fileName = `./log_${currentDate}.txt`;
+        const fileName = `./logs/log_${currentDate}.txt`;
 
 
         fs.appendFile(fileName,msg, { encoding: "utf8" }, (err) => {

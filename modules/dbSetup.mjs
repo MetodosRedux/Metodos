@@ -21,7 +21,7 @@ export async function setupDatabase() {
         password TEXT NOT NULL,
         email TEXT NOT NULL,
         avatar TEXT,
-        profilepicture TEXT 
+        lastlogin TEXT
       );
     `);
 
