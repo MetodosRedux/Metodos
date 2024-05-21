@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="styles.css">
     <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="./mediaAvatar/aLogo_light.png">
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
 </head>
 
 <body>
@@ -39,115 +38,116 @@
                     <li class="nav-item">
                         <a class="nav-link" href="./mainPages/howTo.html">Hvordan starte</a>
                     </li>
-                    <li>
-                        <button id="logOutBtn" type="button" class="btn btn-danger" style="margin-top: 2px;">Logg
-                            ut</button>
-                    </li>
                     <div class="container d-flex justify-content-center text-center">
                         <div class="form-check form-switch">
                             <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault">
                             <label class="form-check-label" for="flexSwitchCheckDefault"></label>
                         </div>
                     </div>
+                    <li>
+                        <button id="logOutBtn" type="button" class="btn btn-danger" style="margin-top: 2px;">Logg
+                            ut</button>
+                    </li>
                 </ul>
             </div>
         </div>
     </nav>
 
+    <!-- for json attribute add data infrnt to be  in line with syntax-->
     <div id="tabsMenu" style="display: none;">
         <div class="container-fluid fixed-bottom">
             <div id="menuOptions" class=" row g-0 d-flex flex-nowrap">
-                <div id="hairParent" class="col-3 tab active" menuOption="hair" jsonFile="meshCategories" parent="true">
+                <div id="hairParent" class="col-3 tab active" data-menuOption="hair" data-jsonFile="meshCategories" parent="true">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_hair.png" alt="icon of hair" class="w-50">
                     </div>
                 </div>
 
-                <div class="col-3 hidden-tab hairParent-hidden-tab" menuOption="hair" jsonFile="hair"
-                    style="display: block;">
+                <div class="col-3 hidden-tab hairParent-hidden-tab" data-menuOption="hair" data-menuCategory="hair"
+                    data-jsonFile="color" style="display: block;">
                     <div class="border rectangle rounded-top d-flex justify-content-center ">
                         <img src="mediaAvatar/buttons/icons_hair_recolor.png" alt="icon of hair" class="w-50">
                     </div>
                 </div>
 
-                <div id="eyeParent" class="col-3 tab" menuOption="eye" jsonFile="iris" parent="true">
+                <div id="eyeParent" class="col-3 tab" data-menuOption="eye" data-menuCategory="eye" data-jsonFile="color"
+                    parent="true">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_eye_recolor.png" alt="icon of hair" class="w-50">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab eyeParent-hidden-tab" menuOption="eyebrow" jsonFile="meshCategories">
+                <div class="col-3 hidden-tab eyeParent-hidden-tab" data-menuOption="eyebrow" data-menuCategory="hair"
+                    data-jsonFile="meshCategories">
                     <div class="border rectangle rounded-top d-flex justify-content-center align-items-center">
                         <img src="mediaAvatar/buttons/icons_eyebrow.png" alt="icon of eyebrow" class="w-50">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab eyeParent-hidden-tab" menuOption="eyebrow" jsonFile="hair">
+                <div class="col-3 hidden-tab eyeParent-hidden-tab" data-menuOption="eyebrow" data-menuCategory="hair"
+                    data-jsonFile="color">
                     <div class="border rectangle rounded-top d-flex justify-content-center align-items-center">
                         <img src="mediaAvatar/buttons/icons_eyebrow_recolor.png" alt="icon of eyebrow" class="w-50">
                     </div>
                 </div>
 
-                <div class="col-3 tab" id="skinParent parent" menuOption="skin" jsonFile="skin">
+                <div class="col-3 tab" id="skinParent" data-menuOption="skin" data-menuCategory="skin" data-jsonFile="color">
                     <div class="border rectangle rounded-top d-flex justify-content-center ">
                         <img src="mediaAvatar/buttons/icons_skin_recolor.png" alt="icon of hair" class="w-50">
                     </div>
                 </div>
-
-                <div id="clothesParent" class="col-3 tab" menuOption="shirt" jsonFile="meshCategories" parent="true">
+                <div id="clothesParent" class="col-3 tab" data-menuOption="shirt" data-jsonFile="meshCategories" parent="true">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_top.png" alt="icon of hair" class="w-50">
                     </div>
                 </div>
-                <!--     <div class="col-3 hidden-tab clothesParent-hidden-tab" menuOption="shirt" jsonFile="meshCategories">
-                <div class="border rectangle rounded-top d-flex justify-content-center">
-                    <img src="/mediaAvatar/buttons/icons_top.png" alt="icon of sweater" class="w-50">
-                </div>
-            </div> -->
-                <div class="col-3 hidden-tab clothesParent-hidden-tab" menuOption="shirt" jsonFile="clothing">
+                <div class="col-3 hidden-tab clothesParent-hidden-tab" data-menuOption="shirt" data-menuCategory="clothes"
+                    data-jsonFile="color">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_shirtRecolor.png" alt="icon of sweater recolor"
                             class="w-50">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab clothesParent-hidden-tab" menuOption="pants" jsonFile="meshCategories">
+                <div class="col-3 hidden-tab clothesParent-hidden-tab" data-menuOption="pants" data-jsonFile="meshCategories">
                     <div class="border rectangle rounded-top d-flex justify-content-center ">
                         <img src="mediaAvatar/buttons/icons_pants.png" alt="icon of pants" class="w-50">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab clothesParent-hidden-tab" menuOption="pants" jsonFile="clothing">
+                <div class="col-3 hidden-tab clothesParent-hidden-tab" data-menuOption="pants" data-menuCategory="clothes"
+                    data-jsonFile="color">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_pantsRecolor.png" alt="icon of pants recolor" class="w-50">
                     </div>
                 </div>
-                <div id="accessoriesParent" class="col-3 tab" menuOption="accessories" jsonFile="meshCategories"
+                <div id="accessoriesParent" class="col-3 tab" data-menuOption="accessories" data-jsonFile="meshCategories"
                     parent="true">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_pluss.png" alt="icon of accessories" class="w-50">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" menuOption="glasses"
-                    jsonFile="meshCategories">
+                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" data-menuOption="glasses"
+                    data-jsonFile="meshCategories">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_glasses.png" alt="icon of sunglasses" class="w-50">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" menuOption="necklace"
-                    jsonFile="meshCategories">
+                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" data-menuOption="necklace"
+                    data-jsonFile="meshCategories">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_necklace.png" alt="icon of necklace" class="w-50">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" menuOption="earring"
-                    jsonFile="meshCategories">
+                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" data-menuOption="earring"
+                    data-jsonFile="meshCategories">
                     <div class="border rectangle rounded-top d-flex justify-content-center ">
                         <img src="mediaAvatar/buttons/icons_earring.png" alt="icon of earrings" class="w-50">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" menuOption="beard" jsonFile="meshCategories">
+                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" data-menuOption="beard" data-jsonFile="meshCategories">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_beard.png" alt="icon of a beard" class="w-50">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" menuOption="beard" jsonFile="hair">
+                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" data-menuOption="beard" data-menuCategory="hair"
+                    data-jsonFile="color">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_beard_color.png" alt="icon of a beard" class="w-50">
                     </div>
@@ -163,49 +163,26 @@
         <button id="checkBtn" class="globalBtn shadow">&#10004;</button>
     </div>
 
-
-
     <div id="loadingPage" class="animated-image-container">
         <img src="./mediaAvatar/buttons/icons_skin.png" alt="Animated Image" class="animated-image">
         <h2>laster inn <br><span class="dots"></span></h2>
     </div>
 
-
-    </script>
-
-
     <script type="module">
         import * as main from "./scriptAvatar/main.mjs"
+        import * as functions from "./scriptAvatar/functions.mjs"
+        main.loadScene();
 
-        const avatar = localStorage.getItem("avatar")
-        console.log("index avatar" + avatar)
-        //main.loadScene();
-        if (!avatar) {
-            main.loadScene();
-        } else {
-            main.loadScene(avatar)
-        }
-
-        const tabs = document.getElementById("tabsMenu");
-
-        /*  setTimeout(() => {
-             tabs.style.display = "block";
-             loadingPage.style.display = "none";
-         }, 2000)
-  */
-  const logOutBtn = document.getElementById("logOutBtn");      
-  logOutBtn.addEventListener("click", () => {
+        const logOutBtn = document.getElementById("logOutBtn");
+        logOutBtn.addEventListener("click", () => {
             localStorage.clear();
             location.href = "login.html"
         })
 
     </script>
 
-    </script>
-
-    <script src="./dist/mjs/bootstrap.bundle.min.js">
-    </script>
-      <script src="./scriptAvatar/darkMode.js"></script> 
+    <script src="./dist/mjs/bootstrap.bundle.min.js"></script>
+    <script src="./scriptAvatar/darkMode.js"></script>
 
 
 </body>

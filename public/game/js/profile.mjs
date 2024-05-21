@@ -21,21 +21,20 @@ class Profile {
         const view = HTMLUtilityTools.createInstanceOfTemplate("playerProfile");
         container.appendChild(view);
 
-        let avatar = document.getElementById("playerAvatar")
-        const userId = localStorage.getItem("userId")
-        console.log(userId)
+        let avatar = document.getElementById("playerAvatar");
+        const userId = localStorage.getItem("userId");
         avatar.src = "../../../userProfilePictures/" + userId + ".png";
 
-        let name = document.getElementById("playerName")
+        let name = document.getElementById("playerName");
         name.innerText = this.name;
 
-        let badges = document.getElementById("badgesListing")
+        let badges = document.getElementById("badgesListing");
 
         this.badges.forEach(badge => {
             const img = document.createElement("img");
             img.src = badge.img;
             img.alt = badge.name;
-            img.classList.add("badge")
+            img.classList.add("badge");
             badges.appendChild(img);
         });
     
@@ -62,8 +61,6 @@ class Profile {
 
 }
 
-
-
 class ProfileBuilder {
 
     constructor(container) {
@@ -78,22 +75,20 @@ class ProfileBuilder {
     async loadProfile() {
         try {
             const response = await functions.fetchWrapper('GET', "/user/game/id");
+            const data = await response.json();
+            
             if (response.ok) {
-                const data = await response.json();
                 const userId = data.userId;
                 let profileAvatar = document.getElementById("avatarImage");
                 profileAvatar.src = "../../../userProfilePictures/" + userId + ".png";
                 localStorage.setItem("userId", userId)
-                functions.printResponse(data.msg);
-            } else {
-                // Write error messages from server
-            }
+            } 
+
+            functions.printResponse(data.msg);
         } catch (error) {
             functions.displayErrorMsg(error);
         }
     }
-
-    
 
     async queryProfile() {
         return new Promise((res, reject) => {

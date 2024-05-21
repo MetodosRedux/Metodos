@@ -15,8 +15,8 @@
         <div class="container-fluid">
             <div class="container-fluid w-75 ms-0">
                 <a href="../index.html">
-                    <img src="../mediaAvatar/buttons/back.png" class="shadow-sm rounded-circle me-2"
-                        alt="Back" id="undo">
+                    <img src="../mediaAvatar/buttons/back.png" class="shadow-sm rounded-circle me-2" alt="Back"
+                        id="undo">
                 </a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -34,6 +34,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Hvordan starte</a>
                     </li>
+                    <div class="container d-flex justify-content-center text-center">
+                        <div class="form-check form-switch">
+                            <input class="form-check-input " type="checkbox" id="flexSwitchCheckDefault">
+                            <label class="form-check-label" for="flexSwitchCheckDefault"></label>
+                        </div>
+                    </div>
                     <li>
                         <button type="button" class="btn btn-danger" style="margin-top: 2px;">Logg ut</button>
                     </li>
@@ -44,27 +50,32 @@
 
     <div id="menuInfo" class="menuInfoContainer">
         <h1 id="menuTitle" class="menuTitleContent">Hvordan starte</h1>
-        <p id="menuContent" class="menuContentData"> <b>Avatarstudioet</b> lorem ipsum is simply dummy text of the printing and
-            typesetting industry.
-            It has survived not only five centuries, but also the leap into electronic typesetting, remaining
-            essentially
-            unchanged.
-            <b> It was popularised in the 1960s </b>with the release of Letraset sheets containing Lorem Ipsum
-            passages.
+        <p id="menuContent" class="menuContentData"> Avatarstudioet består av en <b>interaktiv scene</b> hvor du kan
+            skape din personlige karaker.
+            Ved å trykke på de ulike menyene kan man finne flere stiler og farger. Navigeringen foregår ved å scrolle
+            vertikalt for kles- og farge-valg og
+            horisontalt for å velge kategori. <br> Om man ønsker kan man også <b>zoome</b> inn og ut på karakteren
+            samtidig som den kan roterer fra side til side.
         </p>
         <img id="menuImg" class="imgMenuContent" src="../mediaAvatar/accountCreation_light.png" alt="howToimg">
     </div>
-
+    <script> const logOutBtn = document.getElementById("logOutBtn");
+        logOutBtn.addEventListener("click", () => {
+            localStorage.clear();
+            location.href = "login.html"
+        })
+    </script>
     <footer class="hiding">
         <div class="text-center p-3" style="background-color: rgba(240, 231, 231, 0.05);">
             © 2024 Copyright:
-            <a class="text-body" href="#">Metods.no</a>
+            <a class="text-footer" href="#">Metodos</a>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
         </script>
+    <script src="../scriptAvatar/darkMode.js"></script>
 </body>
 
 </html>

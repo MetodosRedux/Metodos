@@ -5,7 +5,7 @@ import fs from "fs/promises"
 
 
 
-let COLORS = {}; // Creating a lookup tbl to avoid having to use if/else if or switch. 
+let COLORS = {}; 
 COLORS[HTTPMethods.POST] = Chalk.yellow;
 COLORS[HTTPMethods.PATCH] = Chalk.yellow;
 COLORS[HTTPMethods.PUT] = Chalk.yellow;
@@ -21,31 +21,25 @@ const colorize = (method) => {
     return COLORS.Default(method);
 };
 
-
-
-
 class SuperLogger {
 
 
     static LOGGING_LEVELS = {
-        ALL: 0,         // We output everything, no limits
-        VERBOSE: 5,     // We output a lott, but not 
-        NORMAL: 10,     // We output a moderate amount of messages
-        IMPORTANT: 100, // We output just significant messages
-        CRITICAL: 999    // We output only errors. 
+        ALL: 0,         
+        VERBOSE: 5,     
+        NORMAL: 10,     
+        IMPORTANT: 100, 
+        CRITICAL: 999     
     };
-
 
     #globalThreshold = SuperLogger.LOGGING_LEVELS.ALL;
 
-
     #loggers;
 
- 
     static instance = null;
 
     constructor() {
-        // This constructor will always return a reference to the first instance created. 
+         
         if (SuperLogger.instance == null) {
             SuperLogger.instance = this;
             this.#loggers = [];
@@ -53,7 +47,6 @@ class SuperLogger {
         }
         return SuperLogger.instance;
     }
-    //#endregion
 
     static log(msg, logLevl = SuperLogger.LOGGING_LEVELS.NORMAL) {
 
@@ -65,9 +58,6 @@ class SuperLogger {
         logger.#writeToLog(msg);
     }
 
-
-    // This is our automatic logger, it outputs at a "normal" level
-    // It is just a convenient wrapper around the more generic createLimitedRequestLogger function
     createAutoHTTPRequestLogger() {
         return this.createLimitedHTTPRequestLogger({ threshold: SuperLogger.LOGGING_LEVELS.NORMAL });
     }
@@ -75,23 +65,15 @@ class SuperLogger {
     createLimitedHTTPRequestLogger(options) {
 
         const threshold = options.threshold || SuperLogger.LOGGING_LEVELS.NORMAL;
-
-        // Returning an anonymous function that binds local scope.
+        
         return (req, res, next) => {
-
-            // If the threshold provided is less then the global threshold, we do not log
+ 
             if (this.#globalThreshold > threshold ) {
                 return;
             }
-            
-            // Finally we parse our request on to the method that is going to write the log msg.
-            this.#LogHTTPRequest(req, res, next);
-            
+            this.#LogHTTPRequest(req, res, next);   
         }
-
     }
-
-
 
     #LogHTTPRequest(req, res, next) {
      
@@ -105,11 +87,9 @@ class SuperLogger {
             this.#writeToLog([when, type, path].join(" "));
         }
 
-        // On to the next handler function
         next();
     }
     
-
     #writeToLog(msg) {
 
         msg += "\n";
@@ -125,6 +105,5 @@ class SuperLogger {
         });
 }
 }
-
 
 export default SuperLogger

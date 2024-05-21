@@ -8,7 +8,6 @@ printDeveloperStartupImportantInformationMSG();
 // Creating an instance of the server
 const server = express();
 
-// Selecting a port for the server to use.
 const port = (process.env.PORT || 8082);
 
 server.set('port', port);
@@ -29,7 +28,6 @@ server.use('/userProfilePictures', express.static('userProfilePictures'));
 
 server.use(express.json());
 
-// Telling the server to use the USER_API 
 server.use("/user",  USER_API);
 
 // Start the server 

@@ -1,9 +1,0 @@
-{
-    "name": "Moduludom",
-    "short_name": "Editor",
-    "lang": "no",
-    "start_url": "/login.html",
-    "display": "standalone",
-    "background_color": "white",
-    "theme_color": "white"
-}

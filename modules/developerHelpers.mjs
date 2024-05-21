@@ -9,8 +9,6 @@ export default async function printDeveloperStartupImportantInformationMSG() {
 
     SuperLogger.log(`Server environment ${process.env.ENVIRONMENT}`, SuperLogger.LOGGING_LEVELS.CRITICAL);
 
-
-
     if (process.argv.length > 2) {
         if (process.argv[2] == "--setup") {
             SuperLogger.log(chalk.red("Running setup for database"), SuperLogger.LOGGING_LEVELS.CRITICAL);
@@ -19,7 +17,6 @@ export default async function printDeveloperStartupImportantInformationMSG() {
     }
 
     drawLine("#", 20);
-
 }
 
 function drawLine(symbols, length) {

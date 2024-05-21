@@ -1,4 +1,3 @@
-// Middleware
 import jwt from "jsonwebtoken";
 import HTTPCodes from "./httpConstants.mjs";
 import DBManager from "./storageManager.mjs";
@@ -8,7 +7,7 @@ export function verifyToken(req, res, next) {
   const token = req.headers.authorization;
 
   if (!token) {
-    return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: No token provided"});
+    return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: No data received"});
   }
 
   try {
@@ -20,7 +19,7 @@ export function verifyToken(req, res, next) {
     };
     next();
   } catch (err) {
-    return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: Invalid token, please log in again"});
+    return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: please log in again"});
   }
 }
 
@@ -47,28 +46,6 @@ export async function loginVerification (req, res, next) {
     req.tokenData = {token, avatar}
     next();
   } catch (err) {
-    return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: Invalid token, please log in again"});
-  }
-}
-
-// delete  this? 
-export async function isAdmin(req, res, next) {
-  const userId = req.user.userId;
-
-  try {
-    const user = await DBManager.getUserById(userId);
-
-    if (user && user.role === "admin") {
-      return next();
-    } else {
-      return res
-        .status(HTTPCodes.ClientSideErrorResponse.Unauthorized)
-        .json({ message: "Forbidden" });
-    }
-  } catch (error) {
-    console.error("Error checking admin role:", error);
-    return res
-      .status(HTTPCodes.ServerErrorResponse.InternalError)
-      .json({ message: "Internal Server Error" });
+    return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: please log in again"});
   }
 }

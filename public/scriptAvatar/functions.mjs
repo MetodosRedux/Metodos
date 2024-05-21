@@ -1,4 +1,4 @@
-export function printResponse(aMsg, aColor) {
+export function printResponse(aMsg, aColor = null) {
 
     const messageDisplayContainerId = 'msgContainer'
     const messageDisplay = document.createElement("div");
@@ -7,7 +7,7 @@ export function printResponse(aMsg, aColor) {
 
     document.body.appendChild(messageDisplay);
   
-    //messageDisplay.style.color = aColor;
+    messageDisplay.style.color = aColor;
   
     setTimeout(() => {
       document.body.removeChild(messageDisplay);
@@ -32,8 +32,6 @@ export function printResponse(aMsg, aColor) {
         },
         body: aBodyElement,
       });
-     /*  const data = await response.json();
-      printResponse(data.msg);  */
       return response;
     } catch (error) {
        console.error("An error during " + aMethod + " for url " + anUrl, error); 

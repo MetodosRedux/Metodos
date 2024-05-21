@@ -2,7 +2,7 @@ import { character } from "./scene.mjs";
 
 const tabMenuOption = document.getElementById("colorSelector");
 
-export async function showColors(aMenuObject, aColorType) {
+export async function showColors(aMenuObject, aMenuCategory, aColorType) {
     while (tabMenuOption.firstChild) {
         tabMenuOption.removeChild(tabMenuOption.firstChild);
     }
@@ -10,7 +10,7 @@ export async function showColors(aMenuObject, aColorType) {
     try {
         const response = await fetch(`./json/${aColorType}.json`);
         const data = await response.json();
-        const options = data.options || {};
+        const options = data[aMenuCategory] || {};
         
         let lastColor = character.returnLastColor(aMenuObject);
 
@@ -60,9 +60,9 @@ export async function showColors(aMenuObject, aColorType) {
     }
 }
 
-export async function showMeshes(jsonfile, category) {
+export async function showMeshes(jsonFile, category) {
     try {
-        const response = await fetch(`./json/${jsonfile}.json`);
+        const response = await fetch(`./json/${jsonFile}.json`);
         const data = await response.json();
         const options = data[category];
 

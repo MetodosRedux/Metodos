@@ -4,7 +4,7 @@ import { DRACOLoader } from "../dist/mjs/DRACOLoader.js";
 import * as THREE from "../dist/mjs/three.module.js";
 import { scenePositions } from "./scene.mjs";
 
-//TODO: sette avatar som paramterer for å laste inn avatar fra bruker
+
 export class TCharacter extends THREE.Object3D {
   #bodyParts;
   #allMoves;
@@ -26,9 +26,6 @@ export class TCharacter extends THREE.Object3D {
     dracoLoader.setDecoderPath("../dist/mjs/draco/");
     const loader = new GLTFLoader();
     loader.setDRACOLoader(dracoLoader);
-
-    /* console.log(gltfModel.scene);
-    console.log(gltfModel.scene.parent.children); */
 
     loader.load("./mediaAvatar/character/avatar.gltf", (gltfModel) => {
       this.#gltfModel = gltfModel;
@@ -69,7 +66,6 @@ export class TCharacter extends THREE.Object3D {
       };
     }
   }
-
 
   #locateMeshToPhong(aMeshName) {
     let mesh = this.#gltfModel.scene.children.find(
@@ -221,6 +217,7 @@ export class TCharacter extends THREE.Object3D {
     this.#loaded = true;
   }
 
+  //uncomment the instance if anything changes in the GLTF file so the meshCategories.json is updated
   #saveMeshCategoriesToFile(meshCategories, fileName) {
     const jsonData = JSON.stringify(meshCategories, null, 2);
     const blob = new Blob([jsonData], { type: "application/json" });
