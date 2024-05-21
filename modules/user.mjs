@@ -1,35 +1,22 @@
 import DBManager from "./storageManager.mjs";
 
-
-
 class User {
   constructor() {
-    this.email;
-    this.pswHash;
-    this.name;
-    this.id;
-    this.avatar;
-    this.lastLogin;
+    this.email = null;
+    this.pswHash = null;
+    this.name = null;
+    this.id = null;
+    this.avatar = null;
+    this.lastLogin = null;
   }
 
   async save() {
     try {
-      if (this.id == null) {
-        return await DBManager.createUser(this);
-      } else {
-        return await DBManager.updateUser(this);
-      }
+      return await DBManager.createUser(this);
+      
     } catch (error) {
-      console.error("Error saving/updating user:", error);
+      console.error("Error saving user:", error);
       throw error;
-    }
-  }
-
-  delete() {
-    try {
-      DBManager.deleteUser(this);
-    } catch (error) {
-      console.error("Error deleting user:", error);
     }
   }
 }

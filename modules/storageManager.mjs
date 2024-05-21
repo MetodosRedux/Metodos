@@ -1,5 +1,7 @@
 import pg from "pg";
-import { generateHash } from "./crypto.mjs";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 class DBManager {
   #credentials = {};
@@ -27,64 +29,10 @@ class DBManager {
     } catch (error) {
       console.error(error);
     } finally {
-      client.end(); // Always disconnect from the database.
+      client.end(); 
     }
 
     return user;
-  }
-
-  async updateUser(name, email, pswHash, userId) {
-    const client = new pg.Client(this.#credentials);
-
-    try {
-      await client.connect();
-      const queryParams = [name, email];
-
-      // Check if a new password is provided
-      if (pswHash !== undefined) {
-        pswHash = generateHash(pswHash);
-        queryParams.push(pswHash);
-      }
-
-      queryParams.push(userId);
-
-      const output = await client.query(
-        'UPDATE "public"."Users" SET "name" = $1, "email" = $2' +
-        (pswHash !== undefined ? ', "pswHash" = $3' : "") +
-        " WHERE id = $" +
-        (pswHash !== undefined ? "4" : "3") +
-        "  RETURNING *",
-        queryParams
-      );
-
-      if (output.rows.length > 0) {
-        const updatedUser = output.rows[0];
-        return updatedUser;
-      } else {
-        throw new Error("User not found or not updated");
-      }
-    } catch (error) {
-      console.error("Error updating user:", error);
-      throw error;
-    } finally {
-      client.end(); // Always disconnect from the database.
-    }
-  }
-
-  async deleteUser(userId) {
-    const client = new pg.Client(this.#credentials);
-
-    try {
-      await client.connect();
-      await client.query('Delete from "public"."Users"  where id = $1;', [
-        userId,
-      ]);
-    } catch (error) {
-      console.error("Error deleting user:", error);
-      throw error;
-    } finally {
-      client.end();
-    }
   }
 
   async saveAvatar(avatarData, userId) {
@@ -121,7 +69,7 @@ class DBManager {
       await client.connect();
       let user = null;
 
-      // Check if anIdetifyer is a valid integer
+      // Check if anIdetifyer is a valid integer (id)
       if (/^\d+$/.test(anIdetifyer)) {
         const outputId = await client.query(`SELECT * FROM public."user" WHERE "id" = $1`, [anIdetifyer]);
 
@@ -144,7 +92,6 @@ class DBManager {
       await client.end();
     }
   }
-
 
   async getUserByEmailAndPassword(email, pswHash) {
     const client = new pg.Client(this.#credentials);

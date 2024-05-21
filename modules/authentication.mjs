@@ -50,24 +50,3 @@ export async function loginVerification (req, res, next) {
     return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: Invalid token, please log in again"});
   }
 }
-
-export async function isAdmin(req, res, next) {
-  const userId = req.user.userId;
-
-  try {
-    const user = await DBManager.getUserById(userId);
-
-    if (user && user.role === "admin") {
-      return next();
-    } else {
-      return res
-        .status(HTTPCodes.ClientSideErrorResponse.Unauthorized)
-        .json({ message: "Forbidden" });
-    }
-  } catch (error) {
-    console.error("Error checking admin role:", error);
-    return res
-      .status(HTTPCodes.ServerErrorResponse.InternalError)
-      .json({ message: "Internal Server Error" });
-  }
-}

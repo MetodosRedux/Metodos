@@ -1,5 +1,6 @@
 import { HTMLUtilityTools } from './uiExt.js'
 import { Storage } from './util.mjs'
+import * as functions from '../../scriptAvatar/functions.mjs';
 
 const PROFILE_KEY = "player.profile.storage.key"
 
@@ -21,7 +22,9 @@ class Profile {
         container.appendChild(view);
 
         let avatar = document.getElementById("playerAvatar")
-        avatar.src = this.avatar;
+        const userId = localStorage.getItem("userId")
+        console.log(userId)
+        avatar.src = "../../../userProfilePictures/" + userId + ".png";
 
         let name = document.getElementById("playerName")
         name.innerText = this.name;
@@ -35,7 +38,7 @@ class Profile {
             img.classList.add("badge")
             badges.appendChild(img);
         });
-
+    
         return new Promise((res, reject) => {
             const bt = document.getElementById("continueBt");
             bt.addEventListener("click", () => {
@@ -69,30 +72,28 @@ class ProfileBuilder {
         container.appendChild(this.view);
 
 
-        let selectedAvatar = document.getElementById("avatarImage")
-        selectedAvatar.onclick = (e) => {
-            let profile = document.getElementById("holder");
-            profile.classList.add("hidden")
-
-            let selectAvatar = HTMLUtilityTools.createInstanceOfTemplate("avatarSelectionTemplate");
-
-            container.appendChild(selectAvatar);
-
-            let images = document.querySelectorAll(".badge")
-            images.forEach(img => {
-                img.onclick = (e) => {
-                    selectedAvatar.src = e.target.src;
-                    let avatars = document.getElementById("avatarSelector");
-                    let storage = document.getElementById("profileAvatar");
-                    storage.value = e.target.dataset.img;
-                    avatars.parentElement.removeChild(avatars);
-                    profile.classList.remove("hidden");
-                }
-            })
-
-        }
-
+        this.loadProfile();
     }
+
+    async loadProfile() {
+        try {
+            const response = await functions.fetchWrapper('GET', "/user/game/id");
+            if (response.ok) {
+                const data = await response.json();
+                const userId = data.userId;
+                let profileAvatar = document.getElementById("avatarImage");
+                profileAvatar.src = "../../../userProfilePictures/" + userId + ".png";
+                localStorage.setItem("userId", userId)
+                functions.printResponse(data.msg);
+            } else {
+                // Write error messages from server
+            }
+        } catch (error) {
+            functions.displayErrorMsg(error);
+        }
+    }
+
+    
 
     async queryProfile() {
         return new Promise((res, reject) => {
@@ -113,6 +114,7 @@ class ProfileBuilder {
         });
     }
 }
+
 
 
 export { ProfileBuilder, Profile }
