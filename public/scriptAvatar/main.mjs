@@ -4,14 +4,12 @@ import { showColors, showMeshes } from "./tabOptions.mjs";
 import * as functions from "./functions.mjs";
 
 export const scene = new TinitialiseScene();
-export function loadScene(avatarData) {
-  scene.load(avatarData);
+export function loadScene() {
+  scene.load();
 }
 
 const checkBtn = document.getElementById("checkBtn");
 checkBtn.addEventListener("click", async () => {
-  //const avatarImage = scene.saveImg('imgCanvas');
-
 
       const formData = new FormData();
       const avatarData = JSON.stringify(character.save());
@@ -55,12 +53,13 @@ document.addEventListener("DOMContentLoaded", function () {
 function setupOptionsMenu(menuOption) {
   const menuOptionValue = menuOption.getAttribute("menuOption");
   const jsonFile = menuOption.getAttribute("jsonFile");
+  const menuCategory = menuOption.getAttribute("menuCategory");
 
   while (colorSelector.firstChild) {
     colorSelector.removeChild(colorSelector.firstChild);
   }
   if (jsonFile != null && jsonFile != 'meshCategories') {
-    showColors(menuOptionValue, jsonFile);
+    showColors(menuOptionValue, menuCategory, jsonFile);
   } else if (jsonFile == "meshCategories") {
     showMeshes(jsonFile, menuOptionValue);
   } else {

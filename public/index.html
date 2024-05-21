@@ -54,6 +54,7 @@
         </div>
     </nav>
 
+    <!-- for json attribute add data infrnt to be  in line with syntax-->
     <div id="tabsMenu" style="display: none;">
         <div class="container-fluid fixed-bottom">
             <div id="menuOptions" class=" row g-0 d-flex flex-nowrap">
@@ -63,46 +64,44 @@
                     </div>
                 </div>
 
-                <div class="col-3 hidden-tab hairParent-hidden-tab" menuOption="hair" jsonFile="hair"
-                    style="display: block;">
+                <div class="col-3 hidden-tab hairParent-hidden-tab" menuOption="hair" menuCategory="hair"
+                    jsonFile="color" style="display: block;">
                     <div class="border rectangle rounded-top d-flex justify-content-center ">
                         <img src="mediaAvatar/buttons/icons_hair_recolor.png" alt="icon of hair" class="w-50">
                     </div>
                 </div>
 
-                <div id="eyeParent" class="col-3 tab" menuOption="eye" jsonFile="iris" parent="true">
+                <div id="eyeParent" class="col-3 tab" menuOption="eye" menuCategory="eye" jsonFile="color"
+                    parent="true">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_eye_recolor.png" alt="icon of hair" class="w-50">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab eyeParent-hidden-tab" menuOption="eyebrow" jsonFile="meshCategories">
+                <div class="col-3 hidden-tab eyeParent-hidden-tab" menuOption="eyebrow" menuCategory="hair"
+                    jsonFile="meshCategories">
                     <div class="border rectangle rounded-top d-flex justify-content-center align-items-center">
                         <img src="mediaAvatar/buttons/icons_eyebrow.png" alt="icon of eyebrow" class="w-50">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab eyeParent-hidden-tab" menuOption="eyebrow" jsonFile="hair">
+                <div class="col-3 hidden-tab eyeParent-hidden-tab" menuOption="eyebrow" menuCategory="hair"
+                    jsonFile="color">
                     <div class="border rectangle rounded-top d-flex justify-content-center align-items-center">
                         <img src="mediaAvatar/buttons/icons_eyebrow_recolor.png" alt="icon of eyebrow" class="w-50">
                     </div>
                 </div>
 
-                <div class="col-3 tab" id="skinParent parent" menuOption="skin" jsonFile="skin">
+                <div class="col-3 tab" id="skinParent parent" menuOption="skin" menuCategory="skin" jsonFile="color">
                     <div class="border rectangle rounded-top d-flex justify-content-center ">
                         <img src="mediaAvatar/buttons/icons_skin_recolor.png" alt="icon of hair" class="w-50">
                     </div>
                 </div>
-
                 <div id="clothesParent" class="col-3 tab" menuOption="shirt" jsonFile="meshCategories" parent="true">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_top.png" alt="icon of hair" class="w-50">
                     </div>
                 </div>
-                <!--     <div class="col-3 hidden-tab clothesParent-hidden-tab" menuOption="shirt" jsonFile="meshCategories">
-                <div class="border rectangle rounded-top d-flex justify-content-center">
-                    <img src="/mediaAvatar/buttons/icons_top.png" alt="icon of sweater" class="w-50">
-                </div>
-            </div> -->
-                <div class="col-3 hidden-tab clothesParent-hidden-tab" menuOption="shirt" jsonFile="clothing">
+                <div class="col-3 hidden-tab clothesParent-hidden-tab" menuOption="shirt" menuCategory="clothes"
+                    jsonFile="color">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_shirtRecolor.png" alt="icon of sweater recolor"
                             class="w-50">
@@ -113,7 +112,8 @@
                         <img src="mediaAvatar/buttons/icons_pants.png" alt="icon of pants" class="w-50">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab clothesParent-hidden-tab" menuOption="pants" jsonFile="clothing">
+                <div class="col-3 hidden-tab clothesParent-hidden-tab" menuOption="pants" menuCategory="clothes"
+                    jsonFile="color">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_pantsRecolor.png" alt="icon of pants recolor" class="w-50">
                     </div>
@@ -147,7 +147,8 @@
                         <img src="mediaAvatar/buttons/icons_beard.png" alt="icon of a beard" class="w-50">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" menuOption="beard" jsonFile="hair">
+                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" menuOption="beard" menuCategory="hair"
+                    jsonFile="color">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_beard_color.png" alt="icon of a beard" class="w-50">
                     </div>
@@ -163,49 +164,27 @@
         <button id="checkBtn" class="globalBtn shadow">&#10004;</button>
     </div>
 
-
-
     <div id="loadingPage" class="animated-image-container">
         <img src="./mediaAvatar/buttons/icons_skin.png" alt="Animated Image" class="animated-image">
         <h2>laster inn <br><span class="dots"></span></h2>
     </div>
 
-
-    </script>
-
-
     <script type="module">
         import * as main from "./scriptAvatar/main.mjs"
-
-        const avatar = localStorage.getItem("avatar")
-        console.log("index avatar" + avatar)
-        //main.loadScene();
-        if (!avatar) {
-            main.loadScene();
-        } else {
-            main.loadScene(avatar)
-        }
+        main.loadScene();
 
         const tabs = document.getElementById("tabsMenu");
 
-        /*  setTimeout(() => {
-             tabs.style.display = "block";
-             loadingPage.style.display = "none";
-         }, 2000)
-  */
-  const logOutBtn = document.getElementById("logOutBtn");      
-  logOutBtn.addEventListener("click", () => {
+        const logOutBtn = document.getElementById("logOutBtn");
+        logOutBtn.addEventListener("click", () => {
             localStorage.clear();
             location.href = "login.html"
         })
 
     </script>
 
-    </script>
-
-    <script src="./dist/mjs/bootstrap.bundle.min.js">
-    </script>
-      <script src="./scriptAvatar/darkMode.js"></script> 
+    <script src="./dist/mjs/bootstrap.bundle.min.js"></script>
+    <script src="./scriptAvatar/darkMode.js"></script>
 
 
 </body>

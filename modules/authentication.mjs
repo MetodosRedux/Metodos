@@ -1,4 +1,3 @@
-// Middleware
 import jwt from "jsonwebtoken";
 import HTTPCodes from "./httpConstants.mjs";
 import DBManager from "./storageManager.mjs";
