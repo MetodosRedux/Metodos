@@ -21,21 +21,20 @@ class Profile {
         const view = HTMLUtilityTools.createInstanceOfTemplate("playerProfile");
         container.appendChild(view);
 
-        let avatar = document.getElementById("playerAvatar")
-        const userId = localStorage.getItem("userId")
-        console.log(userId)
+        let avatar = document.getElementById("playerAvatar");
+        const userId = localStorage.getItem("userId");
         avatar.src = "../../../userProfilePictures/" + userId + ".png";
 
-        let name = document.getElementById("playerName")
+        let name = document.getElementById("playerName");
         name.innerText = this.name;
 
-        let badges = document.getElementById("badgesListing")
+        let badges = document.getElementById("badgesListing");
 
         this.badges.forEach(badge => {
             const img = document.createElement("img");
             img.src = badge.img;
             img.alt = badge.name;
-            img.classList.add("badge")
+            img.classList.add("badge");
             badges.appendChild(img);
         });
     

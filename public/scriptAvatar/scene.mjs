@@ -12,74 +12,74 @@ export const scenePositions = {
 }
 
 export const character = new TCharacter();
-export const camera = new THREE.PerspectiveCamera(80, 1, 0.1, 100);
 
 
-function degreesToRadians(degrees) {
-    const mathToMultiply = Math.PI / 180;
-    const radians = degrees * mathToMultiply;
-    return radians;
-}
 
 export function TinitialiseScene() {
 
     let renderer;
     const scene = new THREE.Scene();
     const white = 0xffffff;
+    const camera = new THREE.PerspectiveCamera(80, 1, 0.1, 100);
+
+    const scenePositionsTab = {
+        "clothesParent": { characterY: 2.2, cameraZ: 8 },
+        "hairParent": { characterY: 0, cameraZ: 6 },
+        "eyeParent": { characterY: 0, cameraZ: 5 },
+        "skinParent": { characterY: 2.2, cameraZ: 8 },
+        "accessoriesParent": { characterY: 0, cameraZ: 7 }
+    };
 
     //----------------scene objects----------------------
     camera.position.z = 5;
     //-----------------lights------------------
     addLights();
     //--------------- renderer --------------------------
+
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    //renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.domElement.id = 'sceneCanvas';
     renderer.domElement.setAttribute('alt', 'sceneCanvas');
     document.body.appendChild(renderer.domElement);
     setConstantAspectRatio();
+
     //---------------gradient Background & color -----------------------
     const canvas = renderer.domElement;
-
-    // Retrieve the dark mode toggle button
     const darkModeToggle = document.getElementById("flexSwitchCheckDefault");
-    
-    // Function to update the scene background based on the canvas background color
+
     function updateSceneBackground() {
-        // Get the updated computed style of the canvas
         const canvasStyle = window.getComputedStyle(canvas);
-        
-        // Retrieve the background color of the canvas
         const canvasBackgroundColor = canvasStyle.backgroundColor;
-        
-        // Convert the background color of the canvas to a THREE.Color instance
         const newSceneBackgroundColor = new THREE.Color(canvasBackgroundColor);
-        
-        // Set the scene background to the new color
         scene.background = newSceneBackgroundColor;
     }
-    
-    // Initial scene background setup
+
     updateSceneBackground();
-    
-    // Add a change event listener to the dark mode toggle button
     darkModeToggle.addEventListener("change", updateSceneBackground);
+
     // ------------------ move character -------------------------
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.minAzimuthAngle = degreesToRadians(-45) 
-    controls.maxAzimuthAngle = degreesToRadians(45) 
+    controls.minAzimuthAngle = degreesToRadians(-45)
+    controls.maxAzimuthAngle = degreesToRadians(45)
     controls.minPolarAngle = degreesToRadians(90);
     controls.maxPolarAngle = degreesToRadians(90);
 
     //-----------------character-------------------------
     character.rotateY(degreesToRadians(-90));
     scene.add(character);
-   
 
     //----------------localStorage--------------------------------------
 
+    this.updatePositions = function (parentId) {
+        const config = scenePositionsTab[parentId];
+        if (config) {
+            character.position.y = config.characterY;
+            camera.position.z = config.cameraZ;
+        } else {
+            console.error("Unknown parentId:", parentId);
+        }
+    }
 
     //-------------functions-------------------------------
 
@@ -89,14 +89,14 @@ export function TinitialiseScene() {
 
         character.position.y = 0;
         scene.background = null;
-       
+
         const canvas = document.getElementById(cvsId);
-        
+
         if (!canvas) {
             console.error(`Canvas with ID ${cvsId} not found.`);
             return;
         }
-        const imgRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha :true });
+        const imgRenderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
         imgRenderer.setClearColor(0xffffff, 0);
         imgRenderer.shadowMap.enabled = true;
         imgRenderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -111,22 +111,18 @@ export function TinitialiseScene() {
         tempCamera.position.y = -0.5;
         imgRenderer.render(scene, tempCamera);
 
-        const imageDataUrl = canvas.toDataURL('image/png'); //add this to the server 
-      /*   const downloadLink = document.createElement('a');
-        downloadLink.href = imageDataUrl;
-        downloadLink.download = 'rendered_image.png';
-        downloadLink.click(); */
+        const imageDataUrl = canvas.toDataURL('image/png');
         character.position.y = initialCharacterPos;
         scene.background = previousBackground;
         return imageDataUrl;
     };
 
-    this.load =  function () {
-        
+    this.load = function () {
+
         controls.update();
         renderer.render(scene, camera);
         requestAnimationFrame(this.load.bind(this));
-        
+
         if (character.isLoaded() === true) {
             const loadingPage = document.getElementById('loadingPage');
             const tabs = document.getElementById("tabsMenu");
@@ -143,17 +139,23 @@ export function TinitialiseScene() {
         camera.aspect = canvasWidth / canvasHeight;
         camera.updateProjectionMatrix();
     }
+
     function addLights() {
         const directionalLight = new THREE.DirectionalLight(white, 1);
         directionalLight.position.set(10, 10, 10);
-        directionalLight.castShadow = true; // Enable shadow casting
+        directionalLight.castShadow = true;
         scene.add(directionalLight);
 
-        // Configure shadow properties
         directionalLight.shadow.mapSize.width = 1024;
         directionalLight.shadow.mapSize.height = 1024;
         directionalLight.shadow.camera.near = 0.5;
         directionalLight.shadow.camera.far = 50;
+    }
+
+    function degreesToRadians(degrees) {
+        const mathToMultiply = Math.PI / 180;
+        const radians = degrees * mathToMultiply;
+        return radians;
     }
 
 }

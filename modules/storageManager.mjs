@@ -30,7 +30,7 @@ class DBManager {
     } catch (error) {
       console.error(error);
     } finally {
-      client.end(); 
+      client.end();
     }
 
     return user;
@@ -65,7 +65,7 @@ class DBManager {
 
   async getUserByIdentifier(anIdetifyer) {
     const client = new pg.Client(this.#credentials);
-    console.log(client);
+    
     try {
       await client.connect();
       let user = null;

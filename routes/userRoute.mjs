@@ -10,6 +10,7 @@ import fs from "fs"
 
 const USER_API = express.Router();
 const upload = multer()
+
 /*   -----------NEW USER--------------- */
 USER_API.post("/", async (req, res, next) => {
   try {
@@ -60,21 +61,16 @@ USER_API.post('/avatar', verifyToken, upload.none(), async (req, res, next) => {
   const userId = req.tokenResponse.userId;
 
   const base64Data = imageData.split(',')[1];
-
-  // Convert base64-encoded data to a buffer
   const binaryData = Buffer.from(base64Data, 'base64');
-  
-
   const filename = `${userId}.png`;
   const filePath = `./userProfilePictures/${filename}`;
 
-  // Write the image data to a PNG file
   fs.writeFileSync(filePath, binaryData, 'binary');
 
   try {
-    console.log("AvatarTrue")
-    DBManager.saveAvatar(avatarData, userId);
-    res.status(HTTPCodes.SuccessfulResponse.Ok).json({ msg: "Avatar Saved", });
+    await DBManager.saveAvatar(avatarData, userId);
+    res.status(HTTPCodes.SuccessfulResponse.Ok).json({ msg: "Avatar Saved", avatarData });
+
   } catch (error) {
     console.error("Error uploading avatar:", error);
     res.status(HTTPCodes.ServerErrorResponse.InternalError).json({ error: 'Something went wrong uploading avatar' });
@@ -84,10 +80,10 @@ USER_API.post('/avatar', verifyToken, upload.none(), async (req, res, next) => {
 USER_API.get("/game/id", verifyToken, async (req, res, next) => {
   try {
     const userId = req.tokenResponse.userId;
-    if(userId !== null){
-      res.status(HTTPCodes.SuccessfulResponse.Ok).json({msg: "user found",userId : userId});
-    }else {
-      res.status(HTTPCodes.ClientSideErrorResponse.NotFound).json({msg: "could not find a user with this id"});
+    if (userId !== null) {
+      res.status(HTTPCodes.SuccessfulResponse.Ok).json({ msg: "user found", userId: userId });
+    } else {
+      res.status(HTTPCodes.ClientSideErrorResponse.NotFound).json({ msg: "could not find a user with this id" });
     }
 
   } catch (error) {

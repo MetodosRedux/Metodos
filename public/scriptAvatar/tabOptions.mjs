@@ -60,9 +60,9 @@ export async function showColors(aMenuObject, aMenuCategory, aColorType) {
     }
 }
 
-export async function showMeshes(jsonfile, category) {
+export async function showMeshes(jsonFile, category) {
     try {
-        const response = await fetch(`./json/${jsonfile}.json`);
+        const response = await fetch(`./json/${jsonFile}.json`);
         const data = await response.json();
         const options = data[category];
 

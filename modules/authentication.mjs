@@ -7,7 +7,7 @@ export function verifyToken(req, res, next) {
   const token = req.headers.authorization;
 
   if (!token) {
-    return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: No token provided"});
+    return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: No data received"});
   }
 
   try {
@@ -19,7 +19,7 @@ export function verifyToken(req, res, next) {
     };
     next();
   } catch (err) {
-    return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: Invalid token, please log in again"});
+    return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: please log in again"});
   }
 }
 
@@ -46,6 +46,6 @@ export async function loginVerification (req, res, next) {
     req.tokenData = {token, avatar}
     next();
   } catch (err) {
-    return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: Invalid token, please log in again"});
+    return res.status(HTTPCodes.ClientSideErrorResponse.Unauthorized).json({msg : "Unauthorized: please log in again"});
   }
 }
