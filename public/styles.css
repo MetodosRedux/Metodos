@@ -54,6 +54,11 @@
   }
 }
 
+.animated-image {
+  animation: changeColors 3s linear infinite;
+  max-width: 70%;
+}
+
 #loadingPage {
   background-color: white;
   z-index: 10;
@@ -66,12 +71,6 @@
   flex-direction: column;
   height: 100vh;
   margin-top: -10%;
-
-}
-
-.animated-image {
-  animation: changeColors 3s linear infinite;
-  max-width: 70%;
 }
 
 .dots::after {
@@ -216,8 +215,8 @@ body {
   background-color: white;
   position: fixed;
   color: rgb(47, 185, 70);
-  right: 2em;
-  bottom: 20em;
+  right: 2vh;
+  bottom: 45vh;
   width: 2.5em;
 
 }
