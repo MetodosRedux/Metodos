@@ -13,8 +13,6 @@ export const scenePositions = {
 
 export const character = new TCharacter();
 
-
-
 export function TinitialiseScene() {
 
     let renderer;
