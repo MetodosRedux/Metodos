@@ -247,6 +247,40 @@ body {
   white-space: nowrap;
   /*  scroll-snap-type: x mandatory; */
 }
+.tab-thumb{
+  height: 45px;
+  width: 45px;
+}
+
+.nav-link{
+  width: 125px;
+  text-align: center;
+}
+/* Styles for desktop screens */
+@media (min-width: 768px) {
+  #menuOptions {
+    height: 50px; 
+  }
+  .tab-thumb{
+    height: 50px;
+    width: 50px;
+  }
+  #logOutBtn{
+    width: 125px;
+    height: 50px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+   .color-selector{
+    max-width: 150px !important;
+    max-height: 150px !important;
+  }
+  .mesh-selector{
+    max-width: 150px !important;
+  } 
+
+}
 
 #colors {
   background-color: white;
@@ -298,13 +332,6 @@ body {
   background-color: rgb(255, 255, 255);
 }
 
-.imgIconTab {
-  height: 30px;
-}
-
-.imgIconTab {
-  height: 30px;
-}
 
 #undo,
 #redo {

@@ -45,8 +45,9 @@
                         </div>
                     </div>
                     <li>
-                        <button id="logOutBtn" type="button" class="btn btn-danger" style="margin-top: 2px;">Logg
-                            ut</button>
+                        <li class="nav-item">
+                        <button id="logOutBtn" type="button" class="btn btn-danger" >Logg
+                            ut</button></li>
                     </li>
                 </ul>
             </div>
@@ -57,103 +58,103 @@
     <div id="tabsMenu" style="display: none;">
         <div class="container-fluid fixed-bottom">
             <div id="menuOptions" class=" row g-0 d-flex flex-nowrap">
-                <div id="hairParent" class="col-3 tab active" data-menuOption="hair" data-jsonFile="meshCategories" parent="true">
+                <div id="hairParent" class="col-3 col-md-2 col-lg-2 tab active" data-menuOption="hair" data-jsonFile="meshCategories" parent="true">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
-                        <img src="mediaAvatar/buttons/icons_hair.png" alt="icon of hair" class="w-50">
+                        <img src="mediaAvatar/buttons/icons_hair.png" alt="icon of hair" class="tab-thumb">
                     </div>
                 </div>
 
-                <div class="col-3 hidden-tab hairParent-hidden-tab" data-menuOption="hair" data-menuCategory="hair"
+                <div class="col-3 col-md-2 col-lg-2 hidden-tab hairParent-hidden-tab" data-menuOption="hair" data-menuCategory="hair"
                     data-jsonFile="color" style="display: block;">
                     <div class="border rectangle rounded-top d-flex justify-content-center ">
-                        <img src="mediaAvatar/buttons/icons_hair_recolor.png" alt="icon of hair" class="w-50">
+                        <img src="mediaAvatar/buttons/icons_hair_recolor.png" alt="icon of hair" class="tab-thumb">
                     </div>
                 </div>
 
-                <div id="eyeParent" class="col-3 tab" data-menuOption="eye" data-menuCategory="eye" data-jsonFile="color"
+                <div id="eyeParent" class="col-3 col-md-2 col-lg-2 tab" data-menuOption="eye" data-menuCategory="eye" data-jsonFile="color"
                     parent="true">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
-                        <img src="mediaAvatar/buttons/icons_eye_recolor.png" alt="icon of hair" class="w-50">
+                        <img src="mediaAvatar/buttons/icons_eye_recolor.png" alt="icon of hair" class="tab-thumb">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab eyeParent-hidden-tab" data-menuOption="eyebrow" data-menuCategory="hair"
+                <div class="col-3 col-md-2 col-lg-2 hidden-tab eyeParent-hidden-tab" data-menuOption="eyebrow" data-menuCategory="hair"
                     data-jsonFile="meshCategories">
                     <div class="border rectangle rounded-top d-flex justify-content-center align-items-center">
-                        <img src="mediaAvatar/buttons/icons_eyebrow.png" alt="icon of eyebrow" class="w-50">
+                        <img src="mediaAvatar/buttons/icons_eyebrow.png" alt="icon of eyebrow" class="tab-thumb">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab eyeParent-hidden-tab" data-menuOption="eyebrow" data-menuCategory="hair"
+                <div class="col-3 col-md-2 col-lg-2 hidden-tab eyeParent-hidden-tab" data-menuOption="eyebrow" data-menuCategory="hair"
                     data-jsonFile="color">
                     <div class="border rectangle rounded-top d-flex justify-content-center align-items-center">
-                        <img src="mediaAvatar/buttons/icons_eyebrow_recolor.png" alt="icon of eyebrow" class="w-50">
+                        <img src="mediaAvatar/buttons/icons_eyebrow_recolor.png" alt="icon of eyebrow" class="tab-thumb">
                     </div>
                 </div>
 
-                <div class="col-3 tab" id="skinParent" data-menuOption="skin" data-menuCategory="skin" data-jsonFile="color">
+                <div class="col-3 col-md-2 col-lg-2 tab" id="skinParent" data-menuOption="skin" data-menuCategory="skin" data-jsonFile="color">
                     <div class="border rectangle rounded-top d-flex justify-content-center ">
-                        <img src="mediaAvatar/buttons/icons_skin_recolor.png" alt="icon of hair" class="w-50">
+                        <img src="mediaAvatar/buttons/icons_skin_recolor.png" alt="icon of hair" class="tab-thumb">
                     </div>
                 </div>
-                <div id="clothesParent" class="col-3 tab" data-menuOption="shirt" data-jsonFile="meshCategories" parent="true">
+                <div id="clothesParent" class="col-3 col-md-2 col-lg-2 tab" data-menuOption="shirt" data-jsonFile="meshCategories" parent="true">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
-                        <img src="mediaAvatar/buttons/icons_top.png" alt="icon of hair" class="w-50">
+                        <img src="mediaAvatar/buttons/icons_top.png" alt="icon of hair" class="tab-thumb">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab clothesParent-hidden-tab" data-menuOption="shirt" data-menuCategory="clothes"
+                <div class="col-3 col-md-2 col-lg-2 hidden-tab clothesParent-hidden-tab" data-menuOption="shirt" data-menuCategory="clothes"
                     data-jsonFile="color">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
                         <img src="mediaAvatar/buttons/icons_shirtRecolor.png" alt="icon of sweater recolor"
-                            class="w-50">
+                            class="tab-thumb">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab clothesParent-hidden-tab" data-menuOption="pants" data-jsonFile="meshCategories">
+                <div class="col-3 col-md-2 col-lg-2 hidden-tab clothesParent-hidden-tab" data-menuOption="pants" data-jsonFile="meshCategories">
                     <div class="border rectangle rounded-top d-flex justify-content-center ">
-                        <img src="mediaAvatar/buttons/icons_pants.png" alt="icon of pants" class="w-50">
+                        <img src="mediaAvatar/buttons/icons_pants.png" alt="icon of pants" class="tab-thumb">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab clothesParent-hidden-tab" data-menuOption="pants" data-menuCategory="clothes"
+                <div class="col-3 col-md-2 col-lg-2 hidden-tab clothesParent-hidden-tab" data-menuOption="pants" data-menuCategory="clothes"
                     data-jsonFile="color">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
-                        <img src="mediaAvatar/buttons/icons_pantsRecolor.png" alt="icon of pants recolor" class="w-50">
+                        <img src="mediaAvatar/buttons/icons_pantsRecolor.png" alt="icon of pants recolor" class="tab-thumb">
                     </div>
                 </div>
-                <div id="accessoriesParent" class="col-3 tab" data-menuOption="accessories" data-jsonFile="meshCategories"
+                <div id="accessoriesParent" class="col-3 col-md-2 col-lg-2 tab" data-menuOption="accessories" data-jsonFile="meshCategories"
                     parent="true">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
-                        <img src="mediaAvatar/buttons/icons_pluss.png" alt="icon of accessories" class="w-50">
+                        <img src="mediaAvatar/buttons/icons_pluss.png" alt="icon of accessories" class="tab-thumb">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" data-menuOption="glasses"
+                <div class="col-3 col-md-2 col-lg-2 hidden-tab accessoriesParent-hidden-tab" data-menuOption="glasses"
                     data-jsonFile="meshCategories">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
-                        <img src="mediaAvatar/buttons/icons_glasses.png" alt="icon of sunglasses" class="w-50">
+                        <img src="mediaAvatar/buttons/icons_glasses.png" alt="icon of sunglasses" class="tab-thumb">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" data-menuOption="necklace"
+                <div class="col-3 col-md-4 col-lg-2 hidden-tab accessoriesParent-hidden-tab" data-menuOption="necklace"
                     data-jsonFile="meshCategories">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
-                        <img src="mediaAvatar/buttons/icons_necklace.png" alt="icon of necklace" class="w-50">
+                        <img src="mediaAvatar/buttons/icons_necklace.png" alt="icon of necklace" class="tab-thumb">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" data-menuOption="earring"
+                <div class="col-3 col-md-2 col-lg-2 hidden-tab accessoriesParent-hidden-tab" data-menuOption="earring"
                     data-jsonFile="meshCategories">
                     <div class="border rectangle rounded-top d-flex justify-content-center ">
-                        <img src="mediaAvatar/buttons/icons_earring.png" alt="icon of earrings" class="w-50">
+                        <img src="mediaAvatar/buttons/icons_earring.png" alt="icon of earrings" class="tab-thumb">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" data-menuOption="beard" data-jsonFile="meshCategories">
+                <div class="col-3 col-md-2 col-lg-2 hidden-tab accessoriesParent-hidden-tab" data-menuOption="beard" data-jsonFile="meshCategories">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
-                        <img src="mediaAvatar/buttons/icons_beard.png" alt="icon of a beard" class="w-50">
+                        <img src="mediaAvatar/buttons/icons_beard.png" alt="icon of a beard" class="tab-thumb">
                     </div>
                 </div>
-                <div class="col-3 hidden-tab accessoriesParent-hidden-tab" data-menuOption="beard" data-menuCategory="hair"
+                <div class="col-3 col-md-2 col-lg-2 hidden-tab accessoriesParent-hidden-tab" data-menuOption="beard" data-menuCategory="hair"
                     data-jsonFile="color">
                     <div class="border rectangle rounded-top d-flex justify-content-center">
-                        <img src="mediaAvatar/buttons/icons_beard_color.png" alt="icon of a beard" class="w-50">
+                        <img src="mediaAvatar/buttons/icons_beard_color.png" alt="icon of a beard" class="tab-thumb">
                     </div>
                 </div>
             </div>
-            <div id="colors" class="p-3">
+            <div id="colors" class="p-3 ">
                 <div class="row justify-content-center" id="colorSelector">
                     <!-- added in main.js-->
                 </div>
