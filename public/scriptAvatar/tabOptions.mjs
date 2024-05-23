@@ -2,7 +2,7 @@ import { character } from "./scene.mjs";
 
 const tabMenuOption = document.getElementById("colorSelector");
 
-export async function showColors(aMenuObject, aMenuCategory, aColorType) {
+async function showColors(aMenuObject, aMenuCategory, aColorType) {
     while (tabMenuOption.firstChild) {
         tabMenuOption.removeChild(tabMenuOption.firstChild);
     }
@@ -60,7 +60,7 @@ export async function showColors(aMenuObject, aMenuCategory, aColorType) {
     }
 }
 
-export async function showMeshes(jsonFile, category) {
+async function showMeshes(jsonFile, category) {
     try {
         const response = await fetch(`./json/${jsonFile}.json`);
         const data = await response.json();
@@ -90,3 +90,21 @@ export async function showMeshes(jsonFile, category) {
         console.error('Error initializing mesh categories:', error);
     }
 }
+
+
+export function setupOptionsMenu(menuOption) {
+    const menuOptionValue = menuOption.getAttribute("data-menuOption");
+    const jsonFile = menuOption.getAttribute("data-jsonFile");
+    const menuCategory = menuOption.getAttribute("data-menuCategory");
+  
+    while (colorSelector.firstChild) {
+      colorSelector.removeChild(colorSelector.firstChild);
+    }
+    if (jsonFile != null && jsonFile != 'meshCategories') {
+      showColors(menuOptionValue, menuCategory, jsonFile);
+    } else if (jsonFile == "meshCategories") {
+      showMeshes(jsonFile, menuOptionValue);
+    } else {
+      console.log("anError when setting up the menu");
+    }
+  }
