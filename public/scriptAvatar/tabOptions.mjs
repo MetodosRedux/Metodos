@@ -74,6 +74,7 @@ async function showMeshes(jsonFile, category) {
             meshSelected.style.backgroundImage = `url('./mediaAvatar/thumbnails/${options[option]}.png')`;
             meshSelected.style.backgroundSize = 'cover';
             meshSelected.style.backgroundPosition = 'center';
+            meshSelected.title = `${options[option]}`
 
             tabMenuOption.appendChild(meshSelected);
 
