@@ -143,6 +143,12 @@ p {
   margin-right: auto;
 }
 
+#logo {
+  max-height: 20vh;
+  max-width: 20vh;
+}
+
+
 footer {
   position: fixed;
   left: 0;
@@ -413,6 +419,12 @@ body {
 
 #flexSwitchCheckDefault {
   color: white;
+}
+
+@media (max-width: 1200px) {
+  #flexSwitchCheckDefault {
+    margin-top: 100% !important;
+  }
 }
 #msgContainer{
   background-color: var(--backgroundcolor);

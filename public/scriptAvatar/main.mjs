@@ -1,6 +1,6 @@
 "use strict";
 import { TinitialiseScene, character } from "./scene.mjs";
-import { showColors, showMeshes } from "./tabOptions.mjs";
+import {setupOptionsMenu} from "./tabOptions.mjs";
 import * as functions from "./functions.mjs";
 
 export const scene = new TinitialiseScene();
@@ -121,22 +121,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 /*-------------- functions ----------------- */ 
 
-function setupOptionsMenu(menuOption) {
-  const menuOptionValue = menuOption.getAttribute("data-menuOption");
-  const jsonFile = menuOption.getAttribute("data-jsonFile");
-  const menuCategory = menuOption.getAttribute("data-menuCategory");
-
-  while (colorSelector.firstChild) {
-    colorSelector.removeChild(colorSelector.firstChild);
-  }
-  if (jsonFile != null && jsonFile != 'meshCategories') {
-    showColors(menuOptionValue, menuCategory, jsonFile);
-  } else if (jsonFile == "meshCategories") {
-    showMeshes(jsonFile, menuOptionValue);
-  } else {
-    console.log("anError when setting up the menu");
-  }
-}
 
 
 

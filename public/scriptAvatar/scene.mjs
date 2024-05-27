@@ -1,4 +1,3 @@
-'use strict';
 import * as THREE from '../dist/mjs/three.module.js';
 import { OrbitControls } from '../dist/mjs/OrbitControls.js';
 import { TCharacter } from "./characterClass.mjs";
@@ -13,14 +12,17 @@ export const scenePositions = {
 
 export const character = new TCharacter();
 
-export function TinitialiseScene() {
+export class TinitialiseScene {
 
-    let renderer;
-    const scene = new THREE.Scene();
-    const white = 0xffffff;
-    const camera = new THREE.PerspectiveCamera(80, 1, 0.1, 100);
+    #renderer;
+    #scene = new THREE.Scene();
+    #white = 0xffffff;
+    #camera = new THREE.PerspectiveCamera(80, 1, 0.1, 100);
+    #darkModeToggle;
+    #canvas;
+    #controls;
 
-    const scenePositionsTab = {
+    #scenePositionsTab = {
         "clothesParent": { characterY: 2.2, cameraZ: 8 },
         "hairParent": { characterY: 0, cameraZ: 6 },
         "eyeParent": { characterY: 0, cameraZ: 5 },
@@ -28,52 +30,53 @@ export function TinitialiseScene() {
         "accessoriesParent": { characterY: 0, cameraZ: 7 }
     };
 
-    //----------------scene objects----------------------
-    camera.position.z = 5;
-    //-----------------lights------------------
-    addLights();
-    //--------------- renderer --------------------------
-
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-    renderer.domElement.id = 'sceneCanvas';
-    renderer.domElement.setAttribute('alt', 'sceneCanvas');
-    document.body.appendChild(renderer.domElement);
-    setConstantAspectRatio();
-
-    //---------------gradient Background & color -----------------------
-    const canvas = renderer.domElement;
-    const darkModeToggle = document.getElementById("flexSwitchCheckDefault");
-
-    function updateSceneBackground() {
-        const canvasStyle = window.getComputedStyle(canvas);
-        const canvasBackgroundColor = canvasStyle.backgroundColor;
-        const newSceneBackgroundColor = new THREE.Color(canvasBackgroundColor);
-        scene.background = newSceneBackgroundColor;
+    constructor() {
+        this.#initializeElements();
     }
 
-    updateSceneBackground();
-    darkModeToggle.addEventListener("change", updateSceneBackground);
+    #initializeElements() {
+        this.#camera.position.z = 5;
+        this.#addLights();
 
-    // ------------------ move character -------------------------
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.minAzimuthAngle = degreesToRadians(-45)
-    controls.maxAzimuthAngle = degreesToRadians(45)
-    controls.minPolarAngle = degreesToRadians(90);
-    controls.maxPolarAngle = degreesToRadians(90);
+        this.#renderer = new THREE.WebGLRenderer({ antialias: true });
+        this.#renderer.shadowMap.enabled = true;
+        this.#renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        this.#renderer.domElement.id = 'sceneCanvas';
+        this.#renderer.domElement.setAttribute('alt', 'sceneCanvas');
+        document.body.appendChild(this.#renderer.domElement);
 
-    //-----------------character-------------------------
-    character.rotateY(degreesToRadians(-90));
-    scene.add(character);
+        this.#canvas = this.#renderer.domElement;
+        this.#setConstantAspectRatio();
+        this.#updateSceneBackground();
 
-    //----------------localStorage--------------------------------------
+        this.#darkModeToggle = document.getElementById("flexSwitchCheckDefault");
+        this.#darkModeToggle.addEventListener("change", this.#updateSceneBackground.bind(this));
 
-    this.updatePositions = function (parentId) {
-        const config = scenePositionsTab[parentId];
+        character.rotateY(this.#degreesToRadians(-90));
+        this.#scene.add(character);
+
+        this.#controls = new OrbitControls(this.#camera, this.#renderer.domElement);
+        this.#controls.minAzimuthAngle = this.#degreesToRadians(-45);
+        this.#controls.maxAzimuthAngle = this.#degreesToRadians(45);
+        this.#controls.minPolarAngle = this.#degreesToRadians(90);
+        this.#controls.maxPolarAngle = this.#degreesToRadians(90);
+    }
+
+    #updateSceneBackground() {
+        if (!(this.#canvas instanceof Element)) {
+            throw new Error("#canvas is not a valid DOM element");
+        }
+        const canvasStyle = window.getComputedStyle(this.#canvas);
+        const canvasBackgroundColor = canvasStyle.backgroundColor;
+        const newSceneBackgroundColor = new THREE.Color(canvasBackgroundColor);
+        this.#scene.background = newSceneBackgroundColor;
+    }
+
+    updatePositions(parentId) {
+        const config = this.#scenePositionsTab[parentId];
         if (config) {
             character.position.y = config.characterY;
-            camera.position.z = config.cameraZ;
+            this.#camera.position.z = config.cameraZ;
         } else {
             console.error("Unknown parentId:", parentId);
         }
@@ -81,12 +84,12 @@ export function TinitialiseScene() {
 
     //-------------functions-------------------------------
 
-    this.saveImg = function (cvsId) {
+    saveImg(cvsId) {
         const initialCharacterPos = character.position.y;
-        const previousBackground = scene.background;
+        const previousBackground = this.#scene.background;
 
         character.position.y = 0;
-        scene.background = null;
+        this.#scene.background = null;
 
         const canvas = document.getElementById(cvsId);
 
@@ -107,18 +110,17 @@ export function TinitialiseScene() {
         const tempCamera = new THREE.PerspectiveCamera(60, 1, 0.1, 100);
         tempCamera.position.z = 5;
         tempCamera.position.y = -0.5;
-        imgRenderer.render(scene, tempCamera);
+        imgRenderer.render(this.#scene, tempCamera);
 
         const imageDataUrl = canvas.toDataURL('image/png');
         character.position.y = initialCharacterPos;
-        scene.background = previousBackground;
+        this.#scene.background = previousBackground;
         return imageDataUrl;
     };
 
-    this.load = function () {
-
-        controls.update();
-        renderer.render(scene, camera);
+    load() {
+        this.#controls.update();
+        this.#renderer.render(this.#scene, this.#camera);
         requestAnimationFrame(this.load.bind(this));
 
         if (character.isLoaded() === true) {
@@ -127,22 +129,22 @@ export function TinitialiseScene() {
             loadingPage.style.display = "none";
             tabs.style.display = "block";
         }
-    };
+    }
 
-    function setConstantAspectRatio() {
+    #setConstantAspectRatio() {
         const canvasWidth = scenePositions.cvsWidth;
         const canvasHeight = scenePositions.cvsHeight;
 
-        renderer.setSize(canvasWidth, canvasHeight);
-        camera.aspect = canvasWidth / canvasHeight;
-        camera.updateProjectionMatrix();
+        this.#renderer.setSize(canvasWidth, canvasHeight);
+        this.#camera.aspect = canvasWidth / canvasHeight;
+        this.#camera.updateProjectionMatrix();
     }
 
-    function addLights() {
-        const directionalLight = new THREE.DirectionalLight(white, 1);
+    #addLights() {
+        const directionalLight = new THREE.DirectionalLight(this.#white, 1);
         directionalLight.position.set(10, 10, 10);
         directionalLight.castShadow = true;
-        scene.add(directionalLight);
+        this.#scene.add(directionalLight);
 
         directionalLight.shadow.mapSize.width = 1024;
         directionalLight.shadow.mapSize.height = 1024;
@@ -150,7 +152,7 @@ export function TinitialiseScene() {
         directionalLight.shadow.camera.far = 50;
     }
 
-    function degreesToRadians(degrees) {
+    #degreesToRadians(degrees) {
         const mathToMultiply = Math.PI / 180;
         const radians = degrees * mathToMultiply;
         return radians;
