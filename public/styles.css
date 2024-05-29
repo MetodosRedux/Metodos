@@ -418,11 +418,7 @@ body {
   color: white;
 }
 
-@media (max-width: 1200px) {
-  #flexSwitchCheckDefault {
-    margin-top: 100% !important;
-  }
-}
+
 #msgContainer{
   background-color: var(--backgroundcolor);
   box-shadow: 0 4px 8px 0 var(--lightgrey), 0 6px 20px 0 var(--lightgrey);
