@@ -23,10 +23,10 @@ export class TinitialiseScene {
     #controls;
 
     #scenePositionsTab = {
-        "clothesParent": { characterY: 2.2, cameraZ: 8 },
+        "clothesParent": { characterY: 1.2, cameraZ: 8 },
         "hairParent": { characterY: 0, cameraZ: 6 },
         "eyeParent": { characterY: 0, cameraZ: 5 },
-        "skinParent": { characterY: 2.2, cameraZ: 8 },
+        "skinParent": { characterY: 1.2, cameraZ: 8 },
         "accessoriesParent": { characterY: 0, cameraZ: 7 }
     };
 
