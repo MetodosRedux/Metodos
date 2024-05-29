@@ -25,12 +25,7 @@
   --activeExtraTab:#b4a5bf;
 }
 
-
-
-/* loadingscreen */
-
-
-
+/*--------start code GPT----------   */
 
 @keyframes changeColors {
   0% {
@@ -58,6 +53,8 @@
   animation: changeColors 3s linear infinite;
   max-width: 70%;
 }
+
+/*-----------end code GPT------------  */
 
 #loadingPage {
   background-color: white;
