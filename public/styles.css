@@ -141,8 +141,8 @@ p {
 }
 
 #logo {
-  max-height: 20vh;
-  max-width: 20vh;
+  margin-bottom: 3%;
+  margin-top: 3%;
 }
 
 
